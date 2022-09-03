@@ -1,9 +1,8 @@
-<title>Nouveau Projet</title>
+<title>Nicolas GOUJON</title>
 
 <!-- CSS  -->
-<link rel="stylesheet" href="css/styles.css" />
-<link rel="stylesheet" href="css/fonts.css" />
 <link rel="stylesheet" href="data/css/styles.css" />
+<link rel="stylesheet" href="data/css/responsive.css" />
 <link rel="stylesheet" href="data/css/fonts.css" />
 
 <!-- CDN  -->
