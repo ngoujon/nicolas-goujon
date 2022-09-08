@@ -1,5 +1,4 @@
 /* BALISE */
-
 html,
 body {
   margin: 0px;
@@ -9,82 +8,444 @@ body {
   background-color: #172845 !important;
   color:white !important ;
 }
-
 a {
-    text-decoration: none !important;
-  }
-
-  input {
-    outline: none;
-  }
-
+  text-decoration: none !important;
+}
+input {
+  outline: none;
+}
+h1 {
+  font-family: comforta;
+}
+h2 {
+  font-family: garet;
+}
 /* CLASS */
-
+.name {
+  top:20px;
+  position: relative;
+  font-size:50px;
+  font-weight: bold;
+}
+.title {
+  top:20px;
+  position: relative;
+  font-size:30px;
+}
 .logo {
-    background-image: url('../images/logo/logo_light.png');
-    height:100px;
-    width:100px;
-    background-repeat: no-repeat;
-    background-size: cover;
-    float:left;
-    margin:25px;
+  background-image: url('../images/logo/logo_light.png');
+  height:75px;
+  width:75px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin:10px 0px 15px 20px
 }
 .nav {
-    margin-top:40px;
-    margin-right:50px;
-    float:right;
-    height:100px;
-    padding:0px 20px;
+  margin-top:30px;
+  height:30px;
+  padding:0px 20px;
+  position:absolute;
+  top:0px;
+  right:200px;
 }
-
 .navLink {
-    color:white;
-    height:50px;
-    font-family: comforta;
-    font-size:28px;
-    float:left;
-    margin-left:50px;
-    padding:10px 0px;
-    text-transform: uppercase;
-    font-weight:bold;
-    background-image: linear-gradient(
-    to right,
-    #FFFFFF,
-    #FFFFFF 50%,
-    #FFFFFF 50%
-    );
-    background-size: 100% 100%;
-    background-position: -100%;
-    position: relative;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    transition: all 0.3s ease-in-out;
-  }
-  .navLink:before {
-    content: '';
-    background: #FFFFFF;
-    display: block;
-    position: absolute;
-    bottom: -3px;
-    left: 0;
-    width: 0;
-    height: 1px;
-    transition: all 0.3s ease-in-out;
-  }
+  color:white;
+  height:40px;
+  font-family: comforta;
+  font-size:20px;
+  margin-left:15px;
+  padding:5px 0px;
+  text-transform: uppercase;
+  font-weight:bold;
+  background-image: linear-gradient(
+  to right,
+  #FFFFFF,
+  #FFFFFF 50%,
+  #FFFFFF 50%
+  );
+  background-size: 100% 100%;
+  background-position: -100%;
+  position: relative;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+.navIco {
+  font-size:32px;
+  padding:0px;
+  margin-left:25px;
+}
+.navLink:before {
+  content: '';
+  background: #FFFFFF;
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  transition: all 0.3s ease-in-out;
+}
   a.navLink:hover {
-     background-position: 0;
-  }
+  background-position: 0;
+}
   a.navLink:hover::before {
-    width:100%;
-  }
-  .cv {
-    font-family: stop;
-    font-size:20px;
-    border-radius: 10px;
-    border:1px solid white;
-    
-  }
-
-  .home {
-    float:left;
-  }
+  width:100%;
+}
+.cv {
+  font-family: stop;
+  font-size:20px;
+  border-radius: 10px;
+  border:3px solid white;
+  color:white;
+  padding:10px 20px;
+  background-color: #172845;
+  position: relative;
+  top:50px;
+}
+.cv:hover {
+  color:white;
+  transition: all 0.2s ease-in-out;
+  padding-left:30px;
+  padding-right:30px;
+}
+.home {
+  background-image: url('../images/background/background.jpg');
+  height:90%;
+  width:100%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  position:relative;
+}
+.profile {
+  text-align:center;
+  width:100%;
+  float:left;
+  padding-top:10%;
+}
+.profilePicto {
+  font-size:200px;
+}
+.profilePictoMin {
+  font-size:150px;
+  padding-top:30%;
+}
+.labelContact {
+  position:relative;
+  margin-top:5%;
+  margin-bottom:5%;
+}
+.labelStack {
+  position:relative;
+  margin-top:0;
+  margin-bottom:2%;
+}
+.labelProjets {
+  position:relative;</a>
+  margin-top:20px;
+  margin-bottom:2%;
+  color:#252525
+}
+.labelHireme {
+  position:relative;
+  margin-top:5%;
+  margin-bottom:2%;
+}
+.btnContact {
+  font-size:25px;
+  border-radius: 50px;
+  padding:15px 15px 12px 12px;
+  color:white;
+  border:2px solid white;
+  position:relative;
+  margin-top:10px;
+  margin-bottom:20px;
+  background-color:#172845;
+}
+.btnContact:hover {
+  transform: scale(1.2);
+  color:white;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 0px 15px white;
+}
+.bio {
+  width:100%;
+  padding:5% 0px;
+  background-image: url('../images/background/background_nb.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.school {
+  width:100%;
+  padding:5% 0px;
+  background-image: url('../images/background/school.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.workspace {
+  width:100%;
+  padding-top:20px;
+  padding-bottom: 50px;
+  background-image: url('../images/background/workspace.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.aboutme {
+  font-size:32px;
+  text-align: justify;
+  text-shadow: black 1px 0 10px;
+  font-family: garet;
+  line-height: 60px;
+}
+.pictureProfile {
+  border:3px solid white;
+  border-radius: 10px;
+  height:150px;
+  width:150px;
+  background-image: url('../images/profil.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+.imgSite {
+  border:3px solid white;
+  border-radius: 10px;
+  height:400px;
+  width:100%;
+  background-image: url('../images/professionnel/site.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.imgSoft {
+  border:3px solid white;
+  border-radius: 10px;
+  height:400px;
+  width:100%;
+  background-image: url('../images/professionnel/engine.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+}
+.experience {
+  margin-top:5%;
+  margin-bottom: 5%;
+}
+.expDescribe {
+  line-height: 19px;
+  font-family: garet;
+  font-size:18px;
+  color:white;
+  text-align: justify;
+  position:relative;
+}
+.expBar {
+  position:absolute;
+  bottom:0px;
+  width:100%;
+  background-color: transparent;
+  left:0px;
+}
+.techLeft {
+  float:left;
+  margin:0px 5px;
+  background-color:white;
+  color:#172845;
+  border-radius: 10px;
+  padding:5px 20px;
+  font-family: stop;
+  font-size: 14px;
+}
+.techRight {
+  float:right;
+  margin:0px 5px;
+  background-color:white;
+  color:#172845;
+  border-radius: 10px;
+  padding:5px 20px;
+  font-family: stop;
+  font-size: 14px;
+}
+.stackIco {
+  font-size: 75px;
+  position:relative;
+}
+.stackCell {
+  background-color: trasparent;
+  padding-top:5%;
+}
+.stackName {
+  margin-top:10px;
+  margin-bottom:0px;
+  font-family: stop;
+  font-size:28px;
+}
+.stackLine {
+  margin:5px;
+  font-family:garet;
+  font-size: 24px;
+}
+.schoolIco {
+  font-size:150px;
+  text-shadow: black 1px 0 5px;
+}
+.schoolName {
+  margin-top:0px;
+  margin-bottom: 0px;
+  font-size:60px;
+  text-shadow: black 1px 0 5px;
+  font-family:garet;
+}
+.schoolSub {
+  font-size:26px;
+  font-family:garet;
+  margin:0px;
+  text-shadow: black 1px 0 5px;
+}
+.schoolText {
+  margin-bottom: 5%;
+}
+.projetLogo {
+  background-color: #172845;
+  border:3px solid white;
+  box-shadow: 0px 0px 15px #252525;
+  border-radius:10px;
+  height:150px;
+  width:150px;
+  background-image: url('../images/projets/logo_hydroseed.png');
+  background-repeat: no-repeat;
+  background-size:contain;
+  margin:5% auto;
+}
+.projetLogoHydroseed {
+  background-color: #172845;
+  border:3px solid white;
+  box-shadow: 0px 0px 15px #252525;
+  border-radius:10px;
+  height:150px;
+  width:150px;
+  background-image: url('../images/projets/logo_hydroseed.png');
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position: center;
+  margin:5% auto 10px auto;
+}
+.projetLogoGabions {
+  background-color: #172845;
+  border:3px solid white;
+  box-shadow: 0px 0px 15px #252525;
+  border-radius:10px;
+  height:150px;
+  width:150px;
+  background-image: url('../images/projets/logo_gabions.png');
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position: center;
+  margin:5% auto 10px auto;
+}
+.projetLogoSkeye {
+  background-color: #172845;
+  border:3px solid white;
+  box-shadow: 0px 0px 15px #252525;
+  border-radius:10px;
+  height:150px;
+  width:150px;
+  background-image: url('../images/projets/logo_skeye.png');
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position: center;
+  margin:5% auto 10px auto;
+}
+.projetName {
+  color:#252525;
+  font-size: 42px;
+  font-family: garet;
+  margin:0px;
+}
+.projetText {
+  color:#252525;
+  text-align: center;
+  margin:0px  auto;
+  font-family: comforta;
+  font-size:22px;
+  text-shadow: white 1px 0 10px;
+}
+.hydroseed {
+  background-image: url(./images/projets/logo_hydroseed.png);
+}
+.projectLink {
+  color:#172845;
+  font-size:24px;
+  margin-top:0px;
+  font-family: garet;
+}
+.hiremeLine {
+  width:100%;
+  float:left;
+  padding-left:10%;
+  margin-top:10px;
+}
+.hiremeLabel {
+  float:left;
+  font-size:36px;
+  padding-left:28px;
+  font-family: garet;
+}
+.hiremeIco {
+  float:left;
+  font-size:38px;
+  padding-top:10px;
+}
+.hireme {
+  height:auto;
+  padding-bottom: 5%;
+}
+.footer {
+  height:auto;
+  width:100%;
+  background-color: #252525;
+  padding-top:10px;
+  padding-bottom: 50px;
+}
+.signature {
+  width:100%;
+  text-align: center;
+  font-size:18px;
+  color:white;
+  background-color: #252525;
+  font-family: comforta;
+  float:left;
+  padding:10px 0px;
+  border-top:1px solid white;
+}
+.contact {
+  padding-bottom:5%;
+}
+.footerLink {
+  color:white;
+  font-size:24px;
+  color:white;
+  margin-top:20px;
+  font-family: garet;
+  float:left;
+  width:100%;
+  text-align:center;
+  text-transform: uppercase;
+}
+.footerLink:hover {
+  color:#909090;
+  transition: all 0.2s ease-in-out;
+}
+.white {
+  color:white;
+}
+.white:hover  {
+  color:#909090;
+  transition: all 0.2s ease-in-out;
+}
+.bigLetter {
+  font-size:40px;
+}
