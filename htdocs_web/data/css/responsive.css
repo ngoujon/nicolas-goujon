@@ -1,0 +1,49 @@
+@media only screen and (max-width: 997px) {
+
+  .logo {
+    float:none;
+    margin:10px auto;
+    display: block;
+  }
+  .nav {
+    height:auto;
+    float:none;
+    margin:10px auto;
+    text-align:center;
+    position:initial;
+    width:100%;
+    display: block;
+  }
+  .navLink {
+    width:100%;
+    margin:10px auto;
+  }
+  .profile {
+    padding-top:10px;
+  }
+  .home {
+    padding-bottom:50px;
+    height:90%;
+  }
+  .expDescribe {
+    height:550px;
+    padding-top:10px;
+  }
+  .techLeft, .techRight{
+    float:left;
+    width:98%;
+    text-align: center;
+    margin-top:10px;
+  }
+  .experience {
+    margin-top:75px;
+  }
+  .imgSite, .imgSoft {
+    margin-top:50px;
+  }
+  .pictureProfile {
+    margin:0px auto;
+    height:200px;
+    width:200px;
+  }
+}
