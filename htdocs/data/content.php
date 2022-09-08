@@ -73,8 +73,7 @@ require_once('nav.php');
         <br>
         Aujourd’hui, je souhaite mettre mes compétences au service d’une entreprise dynamique, en quête de nouvelles technologies pour améliorer ses processus. J’ai envie de m’investir dans un projet à long terme et de pouvoir apporter ma contribution à la croissance d’une entreprise.
         <div class="expBar">
-
-        <p class="techRight"># Gestion de projet</p>
+          <p class="techRight"># Gestion de projet</p>
           <p class="techRight"># Definition des besoins</p>
           <p class="techRight"># Web Design</p>
         </div>
