@@ -48,15 +48,18 @@ require_once('nav.php');
         </div>
       </div>
       <div class="col-lg-6 expDescribe">
-        Mon expérience dans une entreprise de logiciels SaaS m’a fait développer mes compétences sur ce type de logiciel, sur la qualité logicielle, et sur les échanges avec le client en phase de conception et de maintenance.<br>
+        Mon expérience au sein d'une entreprise conception de logiciels SaaS a fait développer mes compétences sur ce type de logiciel, sur la qualité logicielle, et sur les échanges avec le client en phase de conception et de maintenance.<br>
         <br>
         J’ai également acquis une bonne connaissance de la gestion de projet et de l’organisation d’une équipe de développement. En effet, j’ai eu l’occasion de gérer plusieurs projets de développement de logiciels SaaS, en particulier sur la phase de conception et de développement. J’ai ainsi pu mettre en place plusieurs processus et outils de qualité logicielle.<br>
         <br>
         En outre, j’ai également travaillé en étroite collaboration avec les clients, afin de comprendre leurs besoins et de leur fournir un logiciel SaaS adapté à leurs attentes. J’ai ainsi pu développer une bonne compréhension des enjeux et des contraintes liés à ce type de projet.
         <div class="expBar">
-          <p class="techLeft">Web Design</p>
-          <p class="techLeft">Gestion de projet</p>
-          <p class="techLeft">Definition des besoins</p>
+
+          <p class="techLeft"># Engineering</p>
+          <p class="techLeft"># SaaS</p>
+          <p class="techLeft"># Relation client</p>
+          <p class="techLeft"># ERP</p>
+          <p class="techLeft"># CRM</p>
         </div>
       </div>
     </div>
@@ -70,9 +73,10 @@ require_once('nav.php');
         <br>
         Aujourd’hui, je souhaite mettre mes compétences au service d’une entreprise dynamique, en quête de nouvelles technologies pour améliorer ses processus. J’ai envie de m’investir dans un projet à long terme et de pouvoir apporter ma contribution à la croissance d’une entreprise.
         <div class="expBar">
-          <p class="techRight">Engineering</p>
-          <p class="techRight">SaaS</p>
-          <p class="techRight">Relation client</p>
+
+        <p class="techRight"># Gestion de projet</p>
+          <p class="techRight"># Definition des besoins</p>
+          <p class="techRight"># Web Design</p>
         </div>
       </div>
       <div class="col-lg-5">

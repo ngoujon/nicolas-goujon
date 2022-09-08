@@ -72,8 +72,10 @@ h2 {
 }
 .navIco {
   font-size:32px;
-  padding:0px;
+  height:50px;
   margin-left:25px;
+  position:relative;
+  top:-10px;
 }
 .navLink:before {
   content: '';
@@ -111,7 +113,7 @@ h2 {
 }
 .home {
   background-image: url('../images/background/background.jpg');
-  height:90%;
+  height:100%;
   width:100%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -142,10 +144,10 @@ h2 {
   margin-bottom:2%;
 }
 .labelProjets {
-  position:relative;</a>
+  position:relative;
   margin-top:20px;
   margin-bottom:2%;
-  color:#252525
+  color:#252525;
 }
 .labelHireme {
   position:relative;
@@ -155,7 +157,7 @@ h2 {
 .btnContact {
   font-size:25px;
   border-radius: 50px;
-  padding:15px 15px 12px 12px;
+  padding:8px 15px 8px 12px;
   color:white;
   border:2px solid white;
   position:relative;
@@ -213,7 +215,7 @@ h2 {
 .imgSite {
   border:3px solid white;
   border-radius: 10px;
-  height:400px;
+  height:500px;
   width:100%;
   background-image: url('../images/professionnel/site.jpg');
   background-repeat: no-repeat;
@@ -223,7 +225,7 @@ h2 {
 .imgSoft {
   border:3px solid white;
   border-radius: 10px;
-  height:400px;
+  height:500px;
   width:100%;
   background-image: url('../images/professionnel/engine.jpg');
   background-repeat: no-repeat;
@@ -235,9 +237,9 @@ h2 {
   margin-bottom: 5%;
 }
 .expDescribe {
-  line-height: 19px;
+  line-height: 20px;
   font-family: garet;
-  font-size:18px;
+  font-size:20px;
   color:white;
   text-align: justify;
   position:relative;
@@ -251,11 +253,11 @@ h2 {
 }
 .techLeft {
   float:left;
-  margin:0px 5px;
+  margin:5px 5px;
   background-color:white;
   color:#172845;
   border-radius: 10px;
-  padding:5px 20px;
+  padding:5px 10px;
   font-family: stop;
   font-size: 14px;
 }
@@ -265,7 +267,7 @@ h2 {
   background-color:white;
   color:#172845;
   border-radius: 10px;
-  padding:5px 20px;
+  padding:5px 10px;
   font-family: stop;
   font-size: 14px;
 }
@@ -397,7 +399,7 @@ h2 {
 .hiremeIco {
   float:left;
   font-size:38px;
-  padding-top:10px;
+  padding-top:0px;
 }
 .hireme {
   height:auto;
@@ -448,4 +450,7 @@ h2 {
 }
 .bigLetter {
   font-size:40px;
+}
+.rotatePin {
+  transform: rotateY(45deg)
 }
