@@ -18,5 +18,4 @@
 
 
 <!-- FAVICON -->
-<link rel="icon" type="image/png" href="images/favicon/favicon.png" />
-<link rel="icon" type="image/ico" href="images/favicon/favicon.ico" />
+<link rel="icon" type="image/png" href="data/images/favicon/favicon.png" />
