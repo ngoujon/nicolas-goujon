@@ -19,3 +19,13 @@
 
 <!-- FAVICON -->
 <link rel="icon" type="image/png" href="data/images/favicon/favicon.png" />
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-75123468-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-75123468-1');
+</script>
