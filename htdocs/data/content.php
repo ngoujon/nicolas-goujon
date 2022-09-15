@@ -37,7 +37,7 @@ require_once('nav.php');
     <p>
       <h2 class="title" >Développeur Web et Web mobile</h2>
     </p>
-    <a href="data/doc/CV_Nicolas-GOUJON.pdf" class="cv" target="_blank">Consulter mon CV</a>
+    <a href="data/docs/CV_Nicolas-GOUJON.pdf" class="cv" target="_blank">Consulter mon CV</a>
   </div>
 </div>
 <div class="professionnal" id="bio">
