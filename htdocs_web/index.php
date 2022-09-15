@@ -7,8 +7,13 @@
         ?>
     </head>
     <body>
-        <?php
+    <?php
+        if ($maintenance =="yes") {
+            require_once('data/maintenance.php');
+        }
+         else {
             require_once('data/content.php');
+         }  
         ?>
     </body>
 </html>
