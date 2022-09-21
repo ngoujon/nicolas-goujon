@@ -29,9 +29,6 @@ require_once('nav.php');
       </div>
     </div>
     <p>
-      <i class="bi bi-person-workspace profilePicto"></i>
-    </p>
-    <p>
       <h1 class="name">Nicolas GOUJON</h1>
     </p>
     <p>
@@ -57,9 +54,9 @@ require_once('nav.php');
 
           <p class="techLeft"># Engineering</p>
           <p class="techLeft"># SaaS</p>
-          <p class="techLeft"># Relation client</p>
           <p class="techLeft"># ERP</p>
           <p class="techLeft"># CRM</p>
+          <p class="techLeft"># Relation client</p>
         </div>
       </div>
     </div>
@@ -230,20 +227,20 @@ require_once('nav.php');
       <div class="col-lg-12">
         <div class="projetLogoHydroseed"></div>
         <p class="projetName">HYDROSEED</p>
-        <a href="http://www.hydroseed.nc" target="_blank"><p class="projectLink">www.hydroseed.nc <i class="bi bi-box-arrow-up-right externalLink"></i></p></a>
+        <a href="http://www.hydroseed.nc" target="_blank"><p class="projetLink">www.hydroseed.nc <i class="bi bi-box-arrow-up-right externalLink"></i></p></a>
         <p class="projetText">La société HYDROSEED s’intéresse au génie végétal dans le secteur du génie civil.</p>
         <p class="projetText"> Nous étudions toutes les solutions techniques pour la protection de l’environnement, notamment pour le confortement des talus et la stabilisation de la surface des pentes.</p>
       </div>
       <div class="col-lg-12">
         <div class="projetLogoGabions"></div>
         <p class="projetName">GABIONS</p>
-        <a href="http://www.gabions.nc" target="_blank"><p class="projectLink">www.gabions.nc <i class="bi bi-box-arrow-up-right externalLink"></i></p></a>
+        <a href="http://www.gabions.nc" target="_blank"><p class="projetLink">www.gabions.nc <i class="bi bi-box-arrow-up-right externalLink"></i></p></a>
         <p class="projetText">Nous réalisons des murs de soutènement en gabions. Ce mur « poids » permet généralement de gagner de la surface utilisable autour de votre maison d’habitation. Ces travaux réalisés dans les règles de l’art sont déductibles des impôts comme une amélioration durable du patrimoine immobilier.</p>
       </div>
       <div class="col-lg-12">
         <div class="projetLogoSkeye"></div>
         <p class="projetName">SKEYE</p>
-        <a href="http://www.skeye.nc" target="_blank"><p class="projectLink">www.skeye.nc <i class="bi bi-box-arrow-up-right externalLink"></i></p></a>
+        <a href="http://www.skeye.nc" target="_blank"><p class="projetLink">www.skeye.nc <i class="bi bi-box-arrow-up-right externalLink"></i></p></a>
         <p class="projetText">Plus pratique, plus économique et plus écologique que l’hélicoptère, l’avion ou l’ULM, le drone permet de réaliser des photos ou des vidéos aériennes dans des endroits inaccessibles à toute autre machine, avec une mise en œuvre extrêmement simple et rapide, tout en limitant les risques aux personnes et les nuisances sonores.
           Durant sa période de vol, la caméra embarquée autorise la capture d’images ou de vidéos aériennes en temps réel, dans des zones sensibles ou difficiles d’accès.</p>
         </div>
