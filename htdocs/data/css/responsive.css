@@ -1,49 +1,161 @@
 @media only screen and (max-width: 997px) {
-
   .logo {
     float:none;
-    margin:10px auto;
     display: block;
+    position:relative;
+    top:5px;
   }
   .nav {
     height:auto;
     float:none;
-    margin:10px auto;
+    margin:5% auto 0px auto;
     text-align:center;
     position:initial;
     width:100%;
     display: block;
+    padding-bottom: 10%;
+    display: hide;
+  }
+  .responsiveDisplay {
+    display:block;
+  }
+  .navDisplay {
+    position:relative;
+    height:170px;
+    visibility:visible;
+  }
+  .navPlus {
+    color:white;
+    font-size:70px;
+    outline: none;
+    background-color:#172845;
+    border:0px;
+    margin-right:5px;
+    margin-top:30px;
   }
   .navLink {
     width:100%;
     margin:10px auto;
+    font-size:40px;
+    height:70px;
+    padding:10px;
+  }
+  .logo {
+    background-image: url('../images/logo/logo_light.png');
+    height:150px;
+    width:150px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position:absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+  }
+  .groupIco {
+    width:100%;
+    float:left;
+    margin-top: 5%;
+    visibility: hidden;
+    display:none;
+  }
+  .navIco {
+    font-size:75px;
+    margin-left:10%;
+    float:left;
+    height: 100px;
+    width:35%;
+    text-align:center;
   }
   .profile {
     padding-top:10px;
   }
+  .imgSite, .imgSoft {
+    background-size: 100% 100%;
+    background-attachment:scroll;
+  }
+  .imgSoft {
+  }
   .home {
-    padding-bottom:50px;
-    height:90%;
+    padding-top:200px;
+    height:30%;
+    background-size: 100% 100%;
+    background-attachment:scroll;
   }
   .expDescribe {
-    height:550px;
-    padding-top:10px;
+    padding-top:20px;
+    font-size:28px;
+    line-height: 30px;
+    height:870px;
+
   }
   .techLeft, .techRight{
     float:left;
-    width:98%;
     text-align: center;
     margin-top:10px;
+    font-size:26px;
   }
   .experience {
     margin-top:75px;
   }
-  .imgSite, .imgSoft {
+  .imgSite, .imgSoft, .workspace {
     margin-top:50px;
   }
   .pictureProfile {
     margin:0px auto;
     height:200px;
     width:200px;
+  }
+  .pictureProfile {
+    height:300px;
+    width:300px;
+    margin-bottom: 50px;
+  }
+  .labelStack, .labelProjets, .labelContact, .labelHireme {
+    font-size:70px;
+  }
+  .stackIco {
+    font-size:150px;
+    
+  }
+  .stackName {
+    font-size:50px;
+    
+  }
+  .stackLine {
+    font-size:40px;
+  }
+  .schoolIco {
+    font-size:170px;
+    
+  }
+  .schoolName {
+    font-size:50px;
+    
+  }
+  .schoolSub {
+    font-size:30px; 
+  }
+  .projetText {
+    font-size:28px;
+  }
+  .projetLogoHydroseed, .projetLogoGabions, .projetLogoSkeye {
+    height:250px;
+    width:250px;
+    margin-top:100px;
+  }
+  .projetName {
+    font-size:70px;
+  }
+  .projetLink {
+    font-size:40px;
+  }
+  .footerLink {
+    font-size:40px;
+  }
+  .signature {
+
+    font-size:20px;
   }
 }

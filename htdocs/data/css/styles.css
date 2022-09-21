@@ -21,6 +21,9 @@ h2 {
   font-family: garet;
 }
 /* CLASS */
+.navDisplay {
+  visibility: hidden;
+}
 .name {
   top:20px;
   position: relative;
@@ -38,7 +41,7 @@ h2 {
   width:75px;
   background-repeat: no-repeat;
   background-size: cover;
-  margin:10px 0px 15px 20px
+  margin:10px 0px 15px 20px;
 }
 .nav {
   margin-top:30px;
@@ -58,399 +61,412 @@ h2 {
   text-transform: uppercase;
   font-weight:bold;
   background-image: linear-gradient(
-  to right,
-  #FFFFFF,
-  #FFFFFF 50%,
-  #FFFFFF 50%
-  );
-  background-size: 100% 100%;
-  background-position: -100%;
-  position: relative;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  transition: all 0.3s ease-in-out;
-}
-.navIco {
-  font-size:32px;
-  height:50px;
-  margin-left:25px;
-  position:relative;
-  top:-10px;
-}
-.navLink:before {
-  content: '';
-  background: #FFFFFF;
-  display: block;
-  position: absolute;
-  bottom: -3px;
-  left: 0;
-  width: 0;
-  height: 1px;
-  transition: all 0.3s ease-in-out;
-}
+    to right,
+    #FFFFFF,
+    #FFFFFF 50%,
+    #FFFFFF 50%
+    );
+    background-size: 100% 100%;
+    background-position: -100%;
+    position: relative;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    transition: all 0.3s ease-in-out;
+  }
+  .navIco {
+    font-size:32px;
+    height:50px;
+    margin-left:25px;
+    position:relative;
+    top:-10px;
+  }
+  .groupIco {
+    font-size:32px;
+    height:50px;
+    margin-left:25px;
+    margin-top:5px;
+
+  }
+  .navLink:before {
+    content: '';
+    background: #FFFFFF;
+    display: block;
+    position: absolute;
+    bottom: -3px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    transition: all 0.3s ease-in-out;
+  }
   a.navLink:hover {
-  background-position: 0;
-}
+    background-position: 0;
+  }
   a.navLink:hover::before {
-  width:100%;
-}
-.cv {
-  font-family: stop;
-  font-size:20px;
-  border-radius: 10px;
-  border:3px solid white;
-  color:white;
-  padding:10px 20px;
-  background-color: #172845;
-  position: relative;
-  top:50px;
-}
-.cv:hover {
-  color:white;
-  transition: all 0.2s ease-in-out;
-  padding-left:30px;
-  padding-right:30px;
-}
-.home {
-  background-image: url('../images/background/background.jpg');
-  height:100%;
-  width:100%;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-  position:relative;
-}
-.profile {
-  text-align:center;
-  width:100%;
-  float:left;
-  padding-top:10%;
-}
-.profilePicto {
-  font-size:200px;
-}
-.profilePictoMin {
-  font-size:150px;
-  padding-top:30%;
-}
-.labelContact {
-  position:relative;
-  margin-top:5%;
-  margin-bottom:5%;
-}
-.labelStack {
-  position:relative;
-  margin-top:0;
-  margin-bottom:2%;
-}
-.labelProjets {
-  position:relative;
-  margin-top:20px;
-  margin-bottom:2%;
-  color:#252525;
-}
-.labelHireme {
-  position:relative;
-  margin-top:5%;
-  margin-bottom:2%;
-}
-.btnContact {
-  font-size:25px;
-  border-radius: 50px;
-  padding:8px 15px 8px 12px;
-  color:white;
-  border:2px solid white;
-  position:relative;
-  margin-top:10px;
-  margin-bottom:20px;
-  background-color:#172845;
-}
-.btnContact:hover {
-  transform: scale(1.2);
-  color:white;
-  transition: all 0.3s ease-in-out;
-  box-shadow: 0px 0px 15px white;
-}
-.bio {
-  width:100%;
-  padding:5% 0px;
-  background-image: url('../images/background/background_nb.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-.school {
-  width:100%;
-  padding:5% 0px;
-  background-image: url('../images/background/school.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-.workspace {
-  width:100%;
-  padding-top:20px;
-  padding-bottom: 50px;
-  background-image: url('../images/background/workspace.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-.aboutme {
-  font-size:32px;
-  text-align: justify;
-  text-shadow: black 1px 0 10px;
-  font-family: garet;
-  line-height: 60px;
-}
-.pictureProfile {
-  border:3px solid white;
-  border-radius: 10px;
-  height:150px;
-  width:150px;
-  background-image: url('../images/profil.jpg');
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-.imgSite {
-  border:3px solid white;
-  border-radius: 10px;
-  height:500px;
-  width:100%;
-  background-image: url('../images/professionnel/site.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-.imgSoft {
-  border:3px solid white;
-  border-radius: 10px;
-  height:500px;
-  width:100%;
-  background-image: url('../images/professionnel/engine.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
-}
-.experience {
-  margin-top:5%;
-  margin-bottom: 5%;
-}
-.expDescribe {
-  line-height: 20px;
-  font-family: garet;
-  font-size:20px;
-  color:white;
-  text-align: justify;
-  position:relative;
-}
-.expBar {
-  position:absolute;
-  bottom:0px;
-  width:100%;
-  background-color: transparent;
-  left:0px;
-}
-.techLeft {
-  float:left;
-  margin:5px 5px;
-  background-color:white;
-  color:#172845;
-  border-radius: 10px;
-  padding:5px 10px;
-  font-family: stop;
-  font-size: 14px;
-}
-.techRight {
-  float:right;
-  margin:0px 5px;
-  background-color:white;
-  color:#172845;
-  border-radius: 10px;
-  padding:5px 10px;
-  font-family: stop;
-  font-size: 14px;
-}
-.stackIco {
-  font-size: 75px;
-  position:relative;
-}
-.stackCell {
-  background-color: trasparent;
-  padding-top:5%;
-}
-.stackName {
-  margin-top:10px;
-  margin-bottom:0px;
-  font-family: stop;
-  font-size:28px;
-}
-.stackLine {
-  margin:5px;
-  font-family:garet;
-  font-size: 24px;
-}
-.schoolIco {
-  font-size:150px;
-  text-shadow: black 1px 0 5px;
-}
-.schoolName {
-  margin-top:0px;
-  margin-bottom: 0px;
-  font-size:60px;
-  text-shadow: black 1px 0 5px;
-  font-family:garet;
-}
-.schoolSub {
-  font-size:26px;
-  font-family:garet;
-  margin:0px;
-  text-shadow: black 1px 0 5px;
-}
-.schoolText {
-  margin-bottom: 5%;
-}
-.projetLogo {
-  background-color: #172845;
-  border:3px solid white;
-  box-shadow: 0px 0px 15px #252525;
-  border-radius:10px;
-  height:150px;
-  width:150px;
-  background-image: url('../images/projets/logo_hydroseed.png');
-  background-repeat: no-repeat;
-  background-size:contain;
-  margin:5% auto;
-}
-.projetLogoHydroseed {
-  background-color: #172845;
-  border:3px solid white;
-  box-shadow: 0px 0px 15px #252525;
-  border-radius:10px;
-  height:150px;
-  width:150px;
-  background-image: url('../images/projets/logo_hydroseed.png');
-  background-repeat: no-repeat;
-  background-size:contain;
-  background-position: center;
-  margin:5% auto 10px auto;
-}
-.projetLogoGabions {
-  background-color: #172845;
-  border:3px solid white;
-  box-shadow: 0px 0px 15px #252525;
-  border-radius:10px;
-  height:150px;
-  width:150px;
-  background-image: url('../images/projets/logo_gabions.png');
-  background-repeat: no-repeat;
-  background-size:contain;
-  background-position: center;
-  margin:5% auto 10px auto;
-}
-.projetLogoSkeye {
-  background-color: #172845;
-  border:3px solid white;
-  box-shadow: 0px 0px 15px #252525;
-  border-radius:10px;
-  height:150px;
-  width:150px;
-  background-image: url('../images/projets/logo_skeye.png');
-  background-repeat: no-repeat;
-  background-size:contain;
-  background-position: center;
-  margin:5% auto 10px auto;
-}
-.projetName {
-  color:#252525;
-  font-size: 42px;
-  font-family: garet;
-  margin:0px;
-}
-.projetText {
-  color:#252525;
-  text-align: center;
-  margin:0px  auto;
-  font-family: comforta;
-  font-size:22px;
-  text-shadow: white 1px 0 10px;
-}
-.hydroseed {
-  background-image: url(./images/projets/logo_hydroseed.png);
-}
-.projectLink {
-  color:#172845;
-  font-size:24px;
-  margin-top:0px;
-  font-family: garet;
-}
-.hiremeLine {
-  width:100%;
-  float:left;
-  padding-left:10%;
-  margin-top:10px;
-}
-.hiremeLabel {
-  float:left;
-  font-size:36px;
-  padding-left:28px;
-  font-family: garet;
-}
-.hiremeIco {
-  float:left;
-  font-size:38px;
-  padding-top:0px;
-}
-.hireme {
-  height:auto;
-  padding-bottom: 5%;
-}
-.footer {
-  height:auto;
-  width:100%;
-  background-color: #252525;
-  padding-top:10px;
-  padding-bottom: 50px;
-}
-.signature {
-  width:100%;
-  text-align: center;
-  font-size:18px;
-  color:white;
-  background-color: #252525;
-  font-family: comforta;
-  float:left;
-  padding:10px 0px;
-  border-top:1px solid white;
-}
-.contact {
-  padding-bottom:5%;
-}
-.footerLink {
-  color:white;
-  font-size:24px;
-  color:white;
-  margin-top:20px;
-  font-family: garet;
-  float:left;
-  width:100%;
-  text-align:center;
-  text-transform: uppercase;
-}
-.footerLink:hover {
-  color:#909090;
-  transition: all 0.2s ease-in-out;
-}
-.white {
-  color:white;
-}
-.white:hover  {
-  color:#909090;
-  transition: all 0.2s ease-in-out;
-}
-.bigLetter {
-  font-size:40px;
-}
-.rotatePin {
-  transform: rotateY(45deg)
-}
+    width:100%;
+  }
+  .cv {
+    font-family: stop;
+    font-size:20px;
+    border-radius: 10px;
+    border:3px solid white;
+    color:white;
+    padding:10px 20px;
+    background-color: #172845;
+    position: relative;
+    top:50px;
+  }
+  .cv:hover {
+    color:white;
+    transition: all 0.2s ease-in-out;
+    padding-left:30px;
+    padding-right:30px;
+  }
+  .responsiveDisplay {
+    display:none;
+  }
+  .home {
+    background-image: url('../images/background/background.jpg');
+    height:100%;
+    width:100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    position:relative;
+  }
+  .profile {
+    text-align:center;
+    width:100%;
+    float:left;
+    padding-top:15%;
+  }
+  .profilePictoMin {
+    font-size:150px;
+    padding-top:30%;
+  }
+  .labelContact {
+    position:relative;
+    margin-top:5%;
+    margin-bottom:5%;
+  }
+  .labelStack {
+    position:relative;
+    margin-top:0;
+    margin-bottom:2%;
+  }
+  .labelProjets {
+    position:relative;
+    margin-top:20px;
+    margin-bottom:2%;
+    color:#252525;
+  }
+  .labelHireme {
+    position:relative;
+    margin-top:5%;
+    margin-bottom:2%;
+  }
+  .btnContact {
+    font-size:25px;
+    border-radius: 50px;
+    padding:8px 15px 8px 12px;
+    color:white;
+    border:2px solid white;
+    position:relative;
+    margin-top:10px;
+    margin-bottom:20px;
+    background-color:#172845;
+  }
+  .btnContact:hover {
+    transform: scale(1.2);
+    color:white;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 0px 15px white;
+  }
+  .bio {
+    width:100%;
+    padding:5% 0px;
+    /* background-image: url('../images/background/background_nb.jpg'); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color:white;
+  }
+  .school {
+    width:100%;
+    padding:5% 0px;
+    /* background-image: url('../images/background/school.jpg'); */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: #FFFFFF;
+  }
+  .workspace {
+    width:100%;
+    padding-top:20px;
+    padding-bottom: 50px;
+    /*background-image: url('../images/background/workspace.jpg');*/
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color:white;
+  }
+  .aboutme {
+    font-size:32px;
+    text-align: justify;
+    /* text-shadow: black 1px 0 10px; */
+    color:#172845;
+    font-family: garet;
+    line-height: 60px;
+  }
+  .pictureProfile {
+    border:3px solid white;
+    border-radius: 10px;
+    height:150px;
+    width:150px;
+    background-image: url('../images/profil.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    box-shadow: 0px 0px 5px #252525;
+  }
+  .imgSite {
+    border:3px solid white;
+    border-radius: 10px;
+    height:500px;
+    width:100%;
+    background-image: url('../images/professionnel/site.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  .imgSoft {
+    border:3px solid white;
+    border-radius: 10px;
+    height:500px;
+    width:100%;
+    background-image: url('../images/professionnel/engine.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+  }
+  .experience {
+    margin-top:5%;
+    margin-bottom: 5%;
+  }
+  .expDescribe {
+    line-height: 20px;
+    font-family: garet;
+    font-size:20px;
+    color:white;
+    text-align: justify;
+    position:relative;
+  }
+  .expBar {
+    position:absolute;
+    bottom:0px;
+    width:100%;
+    background-color: transparent;
+    left:0px;
+  }
+  .techLeft {
+    float:left;
+    margin:5px 5px;
+    background-color:white;
+    color:#172845;
+    border-radius: 10px;
+    padding:5px 10px;
+    font-family: stop;
+    font-size: 14px;
+  }
+  .techRight {
+    float:right;
+    margin:0px 5px;
+    background-color:white;
+    color:#172845;
+    border-radius: 10px;
+    padding:5px 10px;
+    font-family: stop;
+    font-size: 14px;
+  }
+  .stackIco {
+    font-size: 75px;
+    position:relative;
+  }
+  .stackCell {
+    background-color: trasparent;
+    padding-top:5%;
+  }
+  .stackName {
+    margin-top:10px;
+    margin-bottom:0px;
+    font-family: stop;
+    font-size:28px;
+  }
+  .stackLine {
+    margin:5px;
+    font-family:garet;
+    font-size: 24px;
+  }
+  .schoolIco {
+    font-size:150px;
+    color:#172845;
+    margin-bottom: -40px;
+    margin-top: -30px;
+  }
+  .schoolName {
+    margin-top:px;
+    margin-bottom: 0px;
+    font-size:60px;
+    font-family:garet;
+    color:#172845;
+  }
+  .schoolSub {
+    font-size:26px;
+    font-family:garet;
+    margin-top:-5px;
+    margin-bottom:-5px;
+    color:#172845;
+  }
+  .schoolText {
+    margin-bottom: 5%;
+    color:#172845;
+  }
+  .projetLogo {
+    background-color: #172845;
+    border:3px solid white;
+    box-shadow: 0px 0px 15px #252525;
+    border-radius:10px;
+    height:150px;
+    width:150px;
+    background-image: url('../images/projets/logo_hydroseed.png');
+    background-repeat: no-repeat;
+    background-size:contain;
+    margin:5% auto;
+  }
+  .projetLogoHydroseed {
+    background-color: #172845;
+    border:3px solid white;
+    box-shadow: 0px 0px 15px #252525;
+    border-radius:10px;
+    height:150px;
+    width:150px;
+    background-image: url('../images/projets/logo_hydroseed.png');
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center;
+    margin:5% auto 10px auto;
+  }
+  .projetLogoGabions {
+    background-color: #172845;
+    border:3px solid white;
+    box-shadow: 0px 0px 15px #252525;
+    border-radius:10px;
+    height:150px;
+    width:150px;
+    background-image: url('../images/projets/logo_gabions.png');
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center;
+    margin:5% auto 10px auto;
+  }
+  .projetLogoSkeye {
+    background-color: #172845;
+    border:3px solid white;
+    box-shadow: 0px 0px 15px #252525;
+    border-radius:10px;
+    height:150px;
+    width:150px;
+    background-image: url('../images/projets/logo_skeye.png');
+    background-repeat: no-repeat;
+    background-size:contain;
+    background-position: center;
+    margin:5% auto 10px auto;
+  }
+  .projetName {
+    color:#252525;
+    font-size: 42px;
+    font-family: garet;
+    margin:0px;
+  }
+  .projetText {
+    color:#252525;
+    text-align: justify;
+    margin:0px  auto;
+    font-family: comforta;
+    font-size:22px;
+    text-shadow: white 1px 0 10px;
+  }
+  .projetLink {
+    color:#172845;
+    font-size:24px;
+    margin-top:0px;
+    font-family: garet;
+  }
+  .hiremeLine {
+    width:100%;
+    float:left;
+    padding-left:10%;
+    margin-top:10px;
+  }
+  .hiremeLabel {
+    float:left;
+    font-size:36px;
+    padding-left:28px;
+    font-family: garet;
+  }
+  .hiremeIco {
+    float:left;
+    font-size:38px;
+    padding-top:0px;
+  }
+  .hireme {
+    height:auto;
+    padding-bottom: 5%;
+  }
+  .footer {
+    height:auto;
+    width:100%;
+    background-color: #252525;
+    padding-top:10px;
+    padding-bottom: 50px;
+  }
+  .signature {
+    width:100%;
+    text-align: center;
+    font-size:18px;
+    color:white;
+    background-color: #252525;
+    font-family: comforta;
+    float:left;
+    padding:10px 0px;
+    border-top:1px solid white;
+  }
+  .contact {
+    padding-bottom:5%;
+  }
+  .footerLink {
+    color:white;
+    font-size:24px;
+    color:white;
+    margin-top:20px;
+    font-family: garet;
+    float:left;
+    width:100%;
+    text-align:center;
+    text-transform: uppercase;
+  }
+  .footerLink:hover {
+    color:#909090;
+    transition: all 0.2s ease-in-out;
+  }
+  .white {
+    color:white;
+  }
+  .white:hover  {
+    color:#909090;
+    transition: all 0.2s ease-in-out;
+  }
+  .bigLetter {
+    font-size:40px;
+  }
+  .rotatePin {
+    transform: rotateY(45deg)
+  }
