@@ -31,3 +31,21 @@
 
   gtag('config', 'UA-75123468-1');
 </script>
+
+<!-- META  -->
+<meta name="identifier-url" content="http://www.nicolas-goujon.fr" />
+<meta name="title" content="Nicolas GOUJON" />
+<meta name="description" content="Développeur web et web mobile" />
+<meta name="abstract" content="Développeur web et web mobile" />
+<meta name="keywords" content="développeur, web, saas, internet, conception" />
+<meta name="author" content="Nicolas GOUJON" />
+<meta name="Publisher" content="Nicolas GOUJON">
+<meta name="revisit-after" content="1" />
+<meta name="language" content="FR" />
+<meta name="Distribution" content="global">
+<meta name="Category" content="web">
+<meta name="robots" content="All" />
+<meta name="Reply-To" content="pro@ngoujon.net">
+<meta name="Robots" content="index">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
