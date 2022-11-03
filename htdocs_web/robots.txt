@@ -2,4 +2,4 @@ User-Agent: *
 
 Allow: §
 
-Sitemap: https://nicolas-goujon.fr/sitemap.xml
+Sitemap: http://nicolas-goujon.fr/sitemap.xml

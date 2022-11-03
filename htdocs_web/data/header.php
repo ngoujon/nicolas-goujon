@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="data/css/responsive.css" />
 <link rel="stylesheet" href="data/css/fonts.css" />
 <link rel="stylesheet" href="data/css/maintenance.css" />
+<link rel="stylesheet" href="data/css/animation.css" />
 
 <!-- CDN  -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.3/font/bootstrap-icons.css">
