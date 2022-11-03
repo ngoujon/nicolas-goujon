@@ -2,14 +2,9 @@ RewriteEngine On
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(([A-Za-z0-9\-]+/)*[A-Za-z0-9\-]+)?$ $1.php
-
-AddHandler application/x-httpd-php81 .php .php5 .php4 .php3
 
 Options -Indexes
 
-# Check to see if referer is blank
-RewriteCond %{HTTP_REFERER} ^$
-
-# Block ext
-RewriteRule \.(jpg|jpeg|png|gif|css|htaccess)$ - [NC,F,L]
+<IfModule mod_headers.c>
+Header set Cache-Control "private"
+</IfModule>
