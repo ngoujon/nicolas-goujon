@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Typography, Box, Grid, Paper, Button, TextField, TextareaAutosize, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
@@ -158,17 +158,29 @@ const ContactLabel = styled(Typography)(({ theme }) => ({
 const HeroSection = styled(Box)(({ theme }) => ({
   position: 'relative',
   width: '100%',
-  height: '60vh',
-  minHeight: '420px',
+  height: '100vh',
+  minHeight: '600px',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   backgroundImage: 'url(/images/background/background.jpg)',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
+  backgroundAttachment: 'fixed',
+  overflow: 'hidden',
+  '&::before': {
+    content: '""',
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    background: 'rgba(23, 40, 69, 0.4)',
+    zIndex: 1,
+  },
   [theme.breakpoints.down('sm')]: {
-    height: '40vh',
-    minHeight: '250px',
+    height: '80vh',
+    minHeight: '400px',
   },
 }));
 
@@ -178,7 +190,7 @@ const HeroOverlay = styled(Box)(({ theme }) => ({
   left: 0,
   width: '100%',
   height: '100%',
-  background: 'rgba(23, 40, 69, 0.65)',
+  background: 'linear-gradient(to bottom, rgba(23, 40, 69, 0.7), rgba(23, 40, 69, 0.4))',
   zIndex: 1,
 }));
 
@@ -192,6 +204,12 @@ const HeroContent = styled(Box)(({ theme }) => ({
   color: 'white',
   textAlign: 'center',
   textShadow: '0 2px 8px rgba(0,0,0,0.45)',
+  padding: theme.spacing(4),
+  transform: 'translateY(0)',
+  transition: 'transform 0.3s ease-out',
+  '&:hover': {
+    transform: 'translateY(-10px)',
+  },
 }));
 
 const HeroName = styled(Typography)(({ theme }) => ({
@@ -409,6 +427,16 @@ const Home = () => {
     message: ''
   });
   const theme = useTheme();
+
+  useEffect(() => {
+    const path = window.location.pathname.substring(1); // Retire le slash initial
+    if (path && path !== '') {
+      const element = document.getElementById(path);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -827,7 +855,7 @@ const Home = () => {
       </Box>
 
       {/* Section Formation */}
-      <Box sx={{ py: 8, background: 'white' }}>
+      <Box id="formation" sx={{ py: 8, background: 'white' }}>
         <Container>
           <SectionTitle sx={{ color: '#172845', mb: 6 }}>FORMATION</SectionTitle>
           <Grid container spacing={4} justifyContent="center">

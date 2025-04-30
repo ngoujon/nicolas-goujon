@@ -50,6 +50,11 @@ function App() {
           <main>
             <Routes>
               <Route path="/" element={isMaintenance ? <Maintenance /> : <Home />} />
+              <Route path="/bio" element={isMaintenance ? <Maintenance /> : <Home />} />
+              <Route path="/stack" element={isMaintenance ? <Maintenance /> : <Home />} />
+              <Route path="/formation" element={isMaintenance ? <Maintenance /> : <Home />} />
+              <Route path="/projets" element={isMaintenance ? <Maintenance /> : <Home />} />
+              <Route path="/contact" element={isMaintenance ? <Maintenance /> : <Home />} />
             </Routes>
           </main>
           <Footer />
