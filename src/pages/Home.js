@@ -2,19 +2,11 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, Box, Grid, Paper, Button, TextField, TextareaAutosize, useTheme } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
-import EngineeringIcon from '@mui/icons-material/Engineering';
-import WebIcon from '@mui/icons-material/Web';
 import PhoneIcon from '@mui/icons-material/Phone';
-import WhatsAppIcon from '@mui/icons-material/WhatsApp';
-import ChatIcon from '@mui/icons-material/Chat';
 import EmailIcon from '@mui/icons-material/Email';
-import AwardIcon from '@mui/icons-material/EmojiEvents';
-import SchoolIcon from '@mui/icons-material/School';
-import GraduationCapIcon from '@mui/icons-material/School';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
-import VerifiedIcon from '@mui/icons-material/Verified';
 import SvgIcon from '@mui/material/SvgIcon';
-import { BsAward, BsBookmarkCheck, BsMortarboard, BsPatchCheck, BsWindow, BsServer, BsGrid, BsList, BsPhone, BsKanban, BsTerminal, BsCpu } from "react-icons/bs";
+import { BsAward, BsBookmarkCheck, BsMortarboard, BsPatchCheck } from "react-icons/bs";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import emailjs from '@emailjs/browser';
 
@@ -67,11 +59,18 @@ const SkillCard = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   padding: theme.spacing(2),
   marginBottom: theme.spacing(3),
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(1),
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 const SkillIcon = styled(Box)(({ theme }) => ({
   fontSize: '2.5rem',
   marginBottom: theme.spacing(1),
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '2rem',
+  },
 }));
 
 const SkillName = styled(Typography)(({ theme }) => ({
@@ -110,6 +109,10 @@ const ProjectCard = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   padding: theme.spacing(3),
   marginBottom: theme.spacing(4),
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2),
+    marginBottom: theme.spacing(2),
+  },
 }));
 
 const ProjectLogo = styled(Box)(({ theme }) => ({
@@ -118,6 +121,9 @@ const ProjectLogo = styled(Box)(({ theme }) => ({
   backgroundRepeat: 'no-repeat',
   backgroundPosition: 'center',
   marginBottom: theme.spacing(2),
+  [theme.breakpoints.down('sm')]: {
+    height: '80px',
+  },
 }));
 
 const ProjectName = styled(Typography)(({ theme }) => ({
@@ -168,19 +174,14 @@ const HeroSection = styled(Box)(({ theme }) => ({
   backgroundPosition: 'center',
   backgroundAttachment: 'fixed',
   overflow: 'hidden',
-  '&::before': {
-    content: '""',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    background: 'rgba(23, 40, 69, 0.4)',
-    zIndex: 1,
-  },
   [theme.breakpoints.down('sm')]: {
     height: '80vh',
     minHeight: '400px',
+    backgroundAttachment: 'scroll',
+  },
+  [theme.breakpoints.between('sm', 'md')]: {
+    height: '90vh',
+    minHeight: '500px',
   },
 }));
 
@@ -205,10 +206,8 @@ const HeroContent = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   textShadow: '0 2px 8px rgba(0,0,0,0.45)',
   padding: theme.spacing(4),
-  transform: 'translateY(0)',
-  transition: 'transform 0.3s ease-out',
-  '&:hover': {
-    transform: 'translateY(-10px)',
+  [theme.breakpoints.down('sm')]: {
+    padding: theme.spacing(2),
   },
 }));
 
@@ -218,8 +217,11 @@ const HeroName = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
   letterSpacing: '1px',
   textShadow: '0 2px 8px rgba(0,0,0,0.45)',
-  [theme.breakpoints.up('md')]: {
-    fontSize: '3.5rem',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '2rem',
+  },
+  [theme.breakpoints.between('sm', 'md')]: {
+    fontSize: '2.4rem',
   },
 }));
 
@@ -228,8 +230,12 @@ const HeroTitle = styled(Typography)(({ theme }) => ({
   fontWeight: 400,
   marginBottom: theme.spacing(4),
   textShadow: '0 2px 8px rgba(0,0,0,0.45)',
-  [theme.breakpoints.up('md')]: {
-    fontSize: '1.7rem',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1rem',
+    marginBottom: theme.spacing(2),
+  },
+  [theme.breakpoints.between('sm', 'md')]: {
+    fontSize: '1.2rem',
   },
 }));
 
@@ -262,6 +268,10 @@ const BioCard = styled(Box)(({ theme }) => ({
   height: '220px',
   [theme.breakpoints.down('sm')]: {
     height: '160px',
+    marginBottom: theme.spacing(2),
+  },
+  [theme.breakpoints.between('sm', 'md')]: {
+    height: '180px',
   },
 }));
 
@@ -387,6 +397,9 @@ const ContactCard = styled(Box)(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(2, 1),
   },
+  [theme.breakpoints.between('sm', 'md')]: {
+    padding: theme.spacing(3, 2),
+  },
 }));
 
 const ContactButton = styled(Button)(({ theme }) => ({
@@ -401,6 +414,10 @@ const ContactButton = styled(Button)(({ theme }) => ({
   boxShadow: '0 2px 8px 0 rgba(23,40,69,0.10)',
   textTransform: 'none',
   transition: 'all 0.2s',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '1rem',
+    padding: '10px 0',
+  },
   '&:hover': {
     background: '#172845',
     color: 'white',
@@ -506,10 +523,10 @@ const Home = () => {
       </HeroSection>
 
       {/* Section Bio améliorée */}
-      <Box id="bio" sx={{ py: 8, backgroundColor: '#172845' }}>
+      <Box id="bio" sx={{ py: { xs: 4, sm: 6, md: 8 }, backgroundColor: '#172845' }}>
         <Container>
           {/* Bloc 1 : Image gauche, texte droite */}
-          <Grid container spacing={6} alignItems="center">
+          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} alignItems="center">
             <Grid item xs={12} md={5}>
               <BioCard>
                 <BioImg style={{ backgroundImage: 'url(/images/background/workspace.jpg)' }} />
@@ -532,7 +549,7 @@ const Home = () => {
           </Grid>
 
           {/* Bloc 2 : Texte gauche, image droite */}
-          <Grid container spacing={6} alignItems="center" sx={{ mt: 4 }}>
+          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} alignItems="center" sx={{ mt: 4 }}>
             <Grid item xs={12} md={7}>
               <Typography variant="body1" paragraph sx={{ color: 'white', fontSize: '1.1rem', mb: 2 }}>
                 Fort de plus de 5 années d'expérience dans la conception de site-web, j'ai participé à toutes les étapes de conception : de la définition du besoin jusqu'à la maintenance du site. Etant à mon compte, j'ai également eu à porter tous les aspects de la gestion d'une micro-entreprise, d'un point de vue financier, administratif et gestion des ressources.<br/>
@@ -574,7 +591,7 @@ const Home = () => {
 
       {/* Section Stack */}
       <Box id="stack" sx={{ 
-        py: 12, 
+        py: { xs: 4, sm: 6, md: 12 }, 
         backgroundColor: '#172845',
         display: 'flex',
         flexDirection: 'column',
@@ -931,10 +948,13 @@ const Home = () => {
       </Box>
 
       {/* Section Projets */}
-      <Box id="projets" sx={{ py: 8, backgroundColor: '#fff' }}>
+      <Box id="projets" sx={{ 
+        py: { xs: 4, sm: 6, md: 8 }, 
+        backgroundColor: '#fff' 
+      }}>
         <Container>
           <SectionTitle sx={{ color: '#172845', mb: 6 }}>Projets</SectionTitle>
-          <Grid container spacing={6} justifyContent="center">
+          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} justifyContent="center">
             <Grid item xs={12} md={4}>
               <ProjectCard>
                 <ProjectLogo sx={{ backgroundImage: 'url(/images/projets/logo_hydroseed.png)', height: '90px', mb: 2 }} />
@@ -984,9 +1004,12 @@ const Home = () => {
       </Box>
 
       {/* Section Contact ergonomique */}
-      <Box id="contact" sx={{ py: 8, backgroundColor: '#172845' }}>
+      <Box id="contact" sx={{ 
+        py: { xs: 4, sm: 6, md: 8 }, 
+        backgroundColor: '#172845' 
+      }}>
         <Container>
-          <Grid container spacing={4} justifyContent="center">
+          <Grid container spacing={{ xs: 2, sm: 4, md: 4 }} justifyContent="center">
             {/* Colonne de gauche - Informations de contact */}
             <Grid item xs={12} md={5}>
               <Box sx={{ 

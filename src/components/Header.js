@@ -1,26 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { AppBar, Toolbar, Button, Container, IconButton, Box, Collapse } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
+/**
+ * Header component that includes navigation and social media links
+ * @returns {JSX.Element} The header component
+ */
 const Header = () => {
+  // State for mobile menu toggle
   const [open, setOpen] = useState(false);
 
-  const handleToggle = () => {
-    setOpen(!open);
-  };
+  // Toggle mobile menu
+  const handleToggle = useCallback(() => {
+    setOpen(prev => !prev);
+  }, []);
 
-  const scrollToSection = (sectionId) => {
+  /**
+   * Scrolls to a specific section and updates URL
+   * @param {string} sectionId - The ID of the section to scroll to
+   */
+  const scrollToSection = useCallback((sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
       window.history.pushState({}, '', `/${sectionId}`);
     }
     setOpen(false);
-  };
+  }, []);
 
+  // Navigation items configuration
   const navItems = [
     { id: 'bio', label: 'bio' },
     { id: 'stack', label: 'Stack' },
@@ -29,7 +40,26 @@ const Header = () => {
     { id: 'contact', label: 'contact' },
   ];
 
-  const renderNavButton = (item) => (
+  // Social media links configuration
+  const socialLinks = [
+    {
+      icon: <LinkedInIcon fontSize="large" />,
+      href: 'https://www.linkedin.com/in/ngoujon/',
+      label: 'Linkedin'
+    },
+    {
+      icon: <GitHubIcon fontSize="large" />,
+      href: 'https://github.com/ngoujon',
+      label: 'github'
+    }
+  ];
+
+  /**
+   * Renders a navigation button with hover effect
+   * @param {Object} item - Navigation item configuration
+   * @returns {JSX.Element} Navigation button
+   */
+  const renderNavButton = useCallback((item) => (
     <Button
       key={item.id}
       color="inherit"
@@ -60,12 +90,28 @@ const Header = () => {
     >
       {item.label}
     </Button>
-  );
+  ), [scrollToSection]);
 
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: 'transparent', boxShadow: 'none' }}>
+    <AppBar 
+      position="fixed" 
+      sx={{ 
+        backgroundColor: 'rgba(23, 40, 69, 0.8)',
+        backdropFilter: 'blur(10px)',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+        transition: 'all 0.3s ease-in-out',
+        '&:hover': {
+          backgroundColor: 'rgba(23, 40, 69, 0.9)',
+        }
+      }}
+    >
       <Container>
-        <Toolbar sx={{ justifyContent: 'space-between', padding: '10px 0' }}>
+        <Toolbar sx={{ 
+          justifyContent: 'space-between', 
+          padding: '10px 0',
+          minHeight: '80px'
+        }}>
+          {/* Logo */}
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <RouterLink to="/">
               <Box
@@ -81,30 +127,39 @@ const Header = () => {
             </RouterLink>
           </Box>
 
-          {/* Navigation pour les écrans larges */}
+          {/* Desktop Navigation */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
             {navItems.map(renderNavButton)}
-            <Box sx={{ display: 'flex', marginLeft: '25px' }}>
-              <IconButton
-                color="inherit"
-                href="https://www.linkedin.com/in/ngoujon/"
-                target="_blank"
-                sx={{ color: 'white', fontSize: '32px' }}
-              >
-                <LinkedInIcon fontSize="large" />
-              </IconButton>
-              <IconButton
-                color="inherit"
-                href="https://github.com/ngoujon"
-                target="_blank"
-                sx={{ color: 'white', fontSize: '32px', marginLeft: '10px' }}
-              >
-                <GitHubIcon fontSize="large" />
-              </IconButton>
+            <Box sx={{ 
+              display: 'flex', 
+              marginLeft: '25px',
+              '& .MuiIconButton-root': {
+                transition: 'all 0.3s ease-in-out',
+                '&:hover': {
+                  transform: 'scale(1.1)',
+                  color: '#64B5F6'
+                }
+              }
+            }}>
+              {socialLinks.map((link, index) => (
+                <IconButton
+                  key={index}
+                  color="inherit"
+                  href={link.href}
+                  target="_blank"
+                  sx={{ 
+                    color: 'white', 
+                    fontSize: '32px',
+                    marginLeft: index > 0 ? '10px' : 0
+                  }}
+                >
+                  {link.icon}
+                </IconButton>
+              ))}
             </Box>
           </Box>
 
-          {/* Bouton menu pour les écrans mobiles */}
+          {/* Mobile Menu Button */}
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
               color="inherit"
@@ -118,36 +173,51 @@ const Header = () => {
           </Box>
         </Toolbar>
 
-        {/* Menu mobile */}
+        {/* Mobile Menu */}
         <Collapse in={open} timeout="auto" unmountOnExit>
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', py: 2 }}>
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            alignItems: 'center', 
+            py: 2,
+            backgroundColor: 'rgba(23, 40, 69, 0.95)',
+            backdropFilter: 'blur(10px)'
+          }}>
             {navItems.map((item) => (
               <Button
                 key={item.id}
                 color="inherit"
                 onClick={() => scrollToSection(item.id)}
-                sx={{ color: 'white', my: 1 }}
+                sx={{ 
+                  color: 'white', 
+                  my: 1,
+                  width: '100%',
+                  '&:hover': {
+                    backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                  }
+                }}
               >
                 {item.label}
               </Button>
             ))}
             <Box sx={{ display: 'flex', mt: 2 }}>
-              <Button
-                color="inherit"
-                href="https://www.linkedin.com/in/ngoujon/"
-                target="_blank"
-                sx={{ color: 'white', mx: 1 }}
-              >
-                Linkedin
-              </Button>
-              <Button
-                color="inherit"
-                href="https://github.com/ngoujon"
-                target="_blank"
-                sx={{ color: 'white', mx: 1 }}
-              >
-                github
-              </Button>
+              {socialLinks.map((link, index) => (
+                <Button
+                  key={index}
+                  color="inherit"
+                  href={link.href}
+                  target="_blank"
+                  sx={{ 
+                    color: 'white', 
+                    mx: 1,
+                    '&:hover': {
+                      color: '#64B5F6'
+                    }
+                  }}
+                >
+                  {link.label}
+                </Button>
+              ))}
             </Box>
           </Box>
         </Collapse>
