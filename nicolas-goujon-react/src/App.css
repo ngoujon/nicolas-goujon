@@ -1,0 +1,262 @@
+/* Déclaration des polices */
+@font-face {
+  font-family: 'Garet';
+  src: url('../public/fonts/garet.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Stop';
+  src: url('../public/fonts/stop.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Comforta';
+  src: url('../public/fonts/comforta.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Bernardo';
+  src: url('../public/fonts/bernardo.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Styles globaux basés sur le site original */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #172845 !important;
+  color: white !important;
+  font-family: 'Comforta';
+}
+
+a {
+  text-decoration: none !important;
+  font-family: 'Garet';
+}
+
+input {
+  outline: none;
+  font-family: 'Comforta';
+}
+
+.App {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* Styles pour les sections */
+.section {
+  padding: 60px 0;
+}
+
+/* Styles pour les titres */
+.section-title {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  font-family: 'Bernardo';
+}
+
+/* Styles pour les boutons */
+.btn-primary {
+  background-color: #172845;
+  color: white;
+  border: 2px solid white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  font-family: 'Stop';
+}
+
+.btn-primary:hover {
+  background-color: white;
+  color: #172845;
+}
+
+/* Styles pour les cartes */
+.card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+  font-family: 'Comforta';
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Styles pour les icônes */
+.icon {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Styles pour les liens */
+.link {
+  color: white;
+  position: relative;
+  transition: all 0.3s ease;
+  font-family: 'Garet';
+}
+
+.link:before {
+  content: '';
+  background: #FFFFFF;
+  display: block;
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  transition: all 0.3s ease-in-out;
+}
+
+.link:hover:before {
+  width: 100%;
+}
+
+/* Styles pour le formulaire de contact */
+.contact-form input,
+.contact-form textarea {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  color: white;
+  padding: 10px;
+  margin-bottom: 15px;
+  width: 100%;
+  font-family: 'Comforta';
+}
+
+.contact-form input::placeholder,
+.contact-form textarea::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Comforta';
+}
+
+/* Styles pour les projets */
+.project-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: 'Comforta';
+}
+
+.project-logo {
+  height: 100px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 15px;
+}
+
+/* Styles pour la section compétences */
+.skill-card {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 20px;
+  font-family: 'Comforta';
+}
+
+.skill-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.skill-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-family: 'Bernardo';
+}
+
+.skill-item {
+  margin-bottom: 5px;
+  font-family: 'Comforta';
+}
+
+/* Styles pour la section formation */
+.education-card {
+  text-align: center;
+  padding: 20px;
+  margin-bottom: 30px;
+  font-family: 'Comforta';
+}
+
+.education-icon {
+  font-size: 2.5rem;
+  margin-bottom: 15px;
+}
+
+.education-name {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-family: 'Bernardo';
+}
+
+.education-sub {
+  font-size: 1rem;
+  margin-bottom: 5px;
+  font-family: 'Comforta';
+}
+
+/* Styles pour la section contact */
+.contact-info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  font-family: 'Comforta';
+}
+
+.contact-icon {
+  font-size: 1.5rem;
+  margin-right: 15px;
+}
+
+/* Styles pour le footer */
+.footer {
+  background-color: rgba(0, 0, 0, 0.2);
+  padding: 30px 0;
+  margin-top: 60px;
+  font-family: 'Comforta';
+}
+
+.footer-link {
+  color: white;
+  margin: 0 10px;
+  transition: all 0.3s ease;
+  font-family: 'Garet';
+}
+
+.footer-link:hover {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.signature {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  font-family: 'Garet';
+}
