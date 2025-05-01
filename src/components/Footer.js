@@ -21,7 +21,7 @@ const Footer = () => {
           <Grid item xs={12} md={8}>
             <Box sx={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', gap: 2, mb: 2 }}>
               <Link
-                href="#bio"
+                href="#projets"
                 color="inherit"
                 underline="hover"
                 sx={{
@@ -34,11 +34,11 @@ const Footer = () => {
                   '&:hover': { color: '#1976d2' },
                 }}
               >
-                Bio
+                Projets
               </Link>
               <Link href="#stack" color="inherit" underline="hover" sx={{ color: '#e3e8ee', fontWeight: 500, fontSize: '1rem', mx: 1.5, '&:hover': { color: '#1976d2' } }}>Stack</Link>
               <Link href="#formation" color="inherit" underline="hover" sx={{ color: '#e3e8ee', fontWeight: 500, fontSize: '1rem', mx: 1.5, '&:hover': { color: '#1976d2' } }}>Formation</Link>
-              <Link href="#projets" color="inherit" underline="hover" sx={{ color: '#e3e8ee', fontWeight: 500, fontSize: '1rem', mx: 1.5, '&:hover': { color: '#1976d2' } }}>Projets</Link>
+              <Link href="#bio" color="inherit" underline="hover" sx={{ color: '#e3e8ee', fontWeight: 500, fontSize: '1rem', mx: 1.5, '&:hover': { color: '#1976d2' } }}>Bio</Link>
               <Link href="#contact" color="inherit" underline="hover" sx={{ color: '#e3e8ee', fontWeight: 500, fontSize: '1rem', mx: 1.5, '&:hover': { color: '#1976d2' } }}>Contact</Link>
             </Box>
           </Grid>
