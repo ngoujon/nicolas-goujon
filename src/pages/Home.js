@@ -522,68 +522,57 @@ const Home = () => {
         </HeroContent>
       </HeroSection>
 
-      {/* Section Bio améliorée */}
-      <Box id="bio" sx={{ py: { xs: 4, sm: 6, md: 8 }, backgroundColor: '#172845' }}>
+      {/* Section Projets */}
+      <Box id="projets" sx={{ 
+        py: { xs: 4, sm: 6, md: 8 }, 
+        backgroundColor: '#fff' 
+      }}>
         <Container>
-          {/* Bloc 1 : Image gauche, texte droite */}
-          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} alignItems="center">
-            <Grid item xs={12} md={5}>
-              <BioCard>
-                <BioImg style={{ backgroundImage: 'url(/images/background/workspace.jpg)' }} />
-              </BioCard>
+          <SectionTitle sx={{ color: '#172845', mb: 6 }}>Projets</SectionTitle>
+          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} justifyContent="center">
+            <Grid item xs={12} md={4}>
+              <ProjectCard>
+                <ProjectLogo sx={{ backgroundImage: 'url(/images/projets/logo_hydroseed.png)', height: '90px', mb: 2 }} />
+                <ProjectName sx={{ color: '#172845' }}>HYDROSEED</ProjectName>
+                <ProjectLink>
+                  <a href="http://www.hydroseed.nc" target="_blank" rel="noopener noreferrer" style={{ color: '#172845', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    www.hydroseed.nc <OpenInNewIcon fontSize="small" sx={{ ml: 1 }} />
+                  </a>
+                </ProjectLink>
+                <ProjectText sx={{ color: '#172845' }}>
+                  La société HYDROSEED s'intéresse au génie végétal dans le secteur du génie civil.<br/>
+                  Nous étudions toutes les solutions techniques pour la protection de l'environnement, notamment pour le confortement des talus et la stabilisation de la surface des pentes.
+                </ProjectText>
+              </ProjectCard>
             </Grid>
-            <Grid item xs={12} md={7}>
-              <Typography variant="body1" paragraph sx={{ color: 'white', fontSize: '1.1rem', mb: 2 }}>
-                Mon expérience au sein d'une entreprise conception de logiciels SaaS a fait développer mes compétences sur ce type de logiciel, sur la qualité logicielle, et sur les échanges avec le client en phase de conception et de maintenance.<br/>
-                J'ai également acquis une bonne connaissance de la gestion de projet et de l'organisation d'une équipe de développement. En effet, j'ai eu l'occasion de gérer plusieurs projets de développement de logiciels SaaS, en particulier sur la phase de conception et de développement. J'ai ainsi pu mettre en place plusieurs processus et outils de qualité logicielle.<br/>
-                En outre, j'ai également travaillé en étroite collaboration avec les clients, afin de comprendre leurs besoins et de leur fournir un logiciel SaaS adapté à leurs attentes. J'ai ainsi pu développer une bonne compréhension des enjeux et des contraintes liés à ce type de projet.
-              </Typography>
-              <Box sx={{ mt: 1 }}>
-                <ChipTag># Engineering</ChipTag>
-                <ChipTag># SaaS</ChipTag>
-                <ChipTag># ERP</ChipTag>
-                <ChipTag># CRM</ChipTag>
-                <ChipTag># Relation client</ChipTag>
-              </Box>
+            <Grid item xs={12} md={4}>
+              <ProjectCard>
+                <ProjectLogo sx={{ backgroundImage: 'url(/images/projets/logo_gabions.png)', height: '90px', mb: 2 }} />
+                <ProjectName sx={{ color: '#172845' }}>GABIONS</ProjectName>
+                <ProjectLink>
+                  <a href="http://www.gabions.nc" target="_blank" rel="noopener noreferrer" style={{ color: '#172845', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    www.gabions.nc <OpenInNewIcon fontSize="small" sx={{ ml: 1 }} />
+                  </a>
+                </ProjectLink>
+                <ProjectText sx={{ color: '#172845' }}>
+                  Nous réalisons des murs de soutènement en gabions. Ce mur « poids » permet généralement de gagner de la surface utilisable autour de votre maison d'habitation. Ces travaux réalisés dans les règles de l'art sont déductibles des impôts comme une amélioration durable du patrimoine immobilier.
+                </ProjectText>
+              </ProjectCard>
             </Grid>
-          </Grid>
-
-          {/* Bloc 2 : Texte gauche, image droite */}
-          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} alignItems="center" sx={{ mt: 4 }}>
-            <Grid item xs={12} md={7}>
-              <Typography variant="body1" paragraph sx={{ color: 'white', fontSize: '1.1rem', mb: 2 }}>
-                Fort de plus de 5 années d'expérience dans la conception de site-web, j'ai participé à toutes les étapes de conception : de la définition du besoin jusqu'à la maintenance du site. Etant à mon compte, j'ai également eu à porter tous les aspects de la gestion d'une micro-entreprise, d'un point de vue financier, administratif et gestion des ressources.<br/>
-                Mes clients ont été variés : des institutionnels, des associations, des collectivités locales, des entreprises et des particuliers. J'ai ainsi pu mettre en œuvre des projets de toute nature, avec des équipes et des contraintes différentes. Cela m'a permis de développer une grande adaptabilité et une bonne capacité à gérer les imprévus.<br/>
-                Aujourd'hui, je souhaite mettre mes compétences au service d'une entreprise dynamique, en quête de nouvelles technologies pour améliorer ses processus. J'ai envie de m'investir dans un projet à long terme et de pouvoir apporter ma contribution à la croissance d'une entreprise.
-              </Typography>
-              <Box sx={{ mt: 1 }}>
-                <ChipTag># Gestion de projet</ChipTag>
-                <ChipTag># Definition des besoins</ChipTag>
-                <ChipTag># Web Design</ChipTag>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={5}>
-              <BioCard>
-                <BioImg style={{ backgroundImage: 'url(/images/background/_workspace.jpg)' }} />
-              </BioCard>
-            </Grid>
-          </Grid>
-
-          {/* Citation améliorée */}
-          <Grid container justifyContent="center" sx={{ mt: 7, px: 2 }}>
-            <Grid item xs={12}>
-              <CitationBox>
-                <CitationImg style={{ backgroundImage: 'url(/images/profil.jpg)' }} />
-                <CitationContent>
-                  <CitationHeader>
-                    <CitationName>Nicolas GOUJON</CitationName>
-                    <CitationDate>Développeur Web et web mobile - Product Owner</CitationDate>
-                  </CitationHeader>
-                  <CitationText>
-                    Passionné d'informatique depuis toujours, je me suis très vite orienté vers la programmation web dès le plus jeune âge étant donné que c'est là que se trouve toute l'innovation et les dernières avancées technologiques. J'ai donc décidé de faire de mon hobby un métier et je me suis lancé dans la création de sites internet professionnels.
-                  </CitationText>
-                </CitationContent>
-              </CitationBox>
+            <Grid item xs={12} md={4}>
+              <ProjectCard>
+                <ProjectLogo sx={{ backgroundImage: 'url(/images/projets/logo_skeye.png)', height: '90px', mb: 2 }} />
+                <ProjectName sx={{ color: '#172845' }}>SKEYE</ProjectName>
+                <ProjectLink>
+                  <a href="http://www.skeye.nc" target="_blank" rel="noopener noreferrer" style={{ color: '#172845', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    www.skeye.nc <OpenInNewIcon fontSize="small" sx={{ ml: 1 }} />
+                  </a>
+                </ProjectLink>
+                <ProjectText sx={{ color: '#172845' }}>
+                  Plus pratique, plus économique et plus écologique que l'hélicoptère, l'avion ou l'ULM, le drone permet de réaliser des photos ou des vidéos aériennes dans des endroits inaccessibles à toute autre machine, avec une mise en œuvre extrêmement simple et rapide, tout en limitant les risques aux personnes et les nuisances sonores.<br/>
+                  Durant sa période de vol, la caméra embarquée autorise la capture d'images ou de vidéos aériennes en temps réel, dans des zones sensibles ou difficiles d'accès.
+                </ProjectText>
+              </ProjectCard>
             </Grid>
           </Grid>
         </Container>
@@ -978,57 +967,68 @@ const Home = () => {
         </Container>
       </Box>
 
-      {/* Section Projets */}
-      <Box id="projets" sx={{ 
-        py: { xs: 4, sm: 6, md: 8 }, 
-        backgroundColor: '#fff' 
-      }}>
+      {/* Section Bio améliorée */}
+      <Box id="bio" sx={{ py: { xs: 4, sm: 6, md: 8 }, backgroundColor: '#172845' }}>
         <Container>
-          <SectionTitle sx={{ color: '#172845', mb: 6 }}>Projets</SectionTitle>
-          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} justifyContent="center">
-            <Grid item xs={12} md={4}>
-              <ProjectCard>
-                <ProjectLogo sx={{ backgroundImage: 'url(/images/projets/logo_hydroseed.png)', height: '90px', mb: 2 }} />
-                <ProjectName sx={{ color: '#172845' }}>HYDROSEED</ProjectName>
-                <ProjectLink>
-                  <a href="http://www.hydroseed.nc" target="_blank" rel="noopener noreferrer" style={{ color: '#172845', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    www.hydroseed.nc <OpenInNewIcon fontSize="small" sx={{ ml: 1 }} />
-                  </a>
-                </ProjectLink>
-                <ProjectText sx={{ color: '#172845' }}>
-                  La société HYDROSEED s'intéresse au génie végétal dans le secteur du génie civil.<br/>
-                  Nous étudions toutes les solutions techniques pour la protection de l'environnement, notamment pour le confortement des talus et la stabilisation de la surface des pentes.
-                </ProjectText>
-              </ProjectCard>
+          {/* Bloc 1 : Image gauche, texte droite */}
+          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} alignItems="center">
+            <Grid item xs={12} md={5}>
+              <BioCard>
+                <BioImg style={{ backgroundImage: 'url(/images/background/workspace.jpg)' }} />
+              </BioCard>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <ProjectCard>
-                <ProjectLogo sx={{ backgroundImage: 'url(/images/projets/logo_gabions.png)', height: '90px', mb: 2 }} />
-                <ProjectName sx={{ color: '#172845' }}>GABIONS</ProjectName>
-                <ProjectLink>
-                  <a href="http://www.gabions.nc" target="_blank" rel="noopener noreferrer" style={{ color: '#172845', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    www.gabions.nc <OpenInNewIcon fontSize="small" sx={{ ml: 1 }} />
-                  </a>
-                </ProjectLink>
-                <ProjectText sx={{ color: '#172845' }}>
-                  Nous réalisons des murs de soutènement en gabions. Ce mur « poids » permet généralement de gagner de la surface utilisable autour de votre maison d'habitation. Ces travaux réalisés dans les règles de l'art sont déductibles des impôts comme une amélioration durable du patrimoine immobilier.
-                </ProjectText>
-              </ProjectCard>
+            <Grid item xs={12} md={7}>
+              <Typography variant="body1" paragraph sx={{ color: 'white', fontSize: '1.1rem', mb: 2 }}>
+                Mon expérience au sein d'une entreprise conception de logiciels SaaS a fait développer mes compétences sur ce type de logiciel, sur la qualité logicielle, et sur les échanges avec le client en phase de conception et de maintenance.<br/>
+                J'ai également acquis une bonne connaissance de la gestion de projet et de l'organisation d'une équipe de développement. En effet, j'ai eu l'occasion de gérer plusieurs projets de développement de logiciels SaaS, en particulier sur la phase de conception et de développement. J'ai ainsi pu mettre en place plusieurs processus et outils de qualité logicielle.<br/>
+                En outre, j'ai également travaillé en étroite collaboration avec les clients, afin de comprendre leurs besoins et de leur fournir un logiciel SaaS adapté à leurs attentes. J'ai ainsi pu développer une bonne compréhension des enjeux et des contraintes liés à ce type de projet.
+              </Typography>
+              <Box sx={{ mt: 1 }}>
+                <ChipTag># Engineering</ChipTag>
+                <ChipTag># SaaS</ChipTag>
+                <ChipTag># ERP</ChipTag>
+                <ChipTag># CRM</ChipTag>
+                <ChipTag># Relation client</ChipTag>
+              </Box>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <ProjectCard>
-                <ProjectLogo sx={{ backgroundImage: 'url(/images/projets/logo_skeye.png)', height: '90px', mb: 2 }} />
-                <ProjectName sx={{ color: '#172845' }}>SKEYE</ProjectName>
-                <ProjectLink>
-                  <a href="http://www.skeye.nc" target="_blank" rel="noopener noreferrer" style={{ color: '#172845', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    www.skeye.nc <OpenInNewIcon fontSize="small" sx={{ ml: 1 }} />
-                  </a>
-                </ProjectLink>
-                <ProjectText sx={{ color: '#172845' }}>
-                  Plus pratique, plus économique et plus écologique que l'hélicoptère, l'avion ou l'ULM, le drone permet de réaliser des photos ou des vidéos aériennes dans des endroits inaccessibles à toute autre machine, avec une mise en œuvre extrêmement simple et rapide, tout en limitant les risques aux personnes et les nuisances sonores.<br/>
-                  Durant sa période de vol, la caméra embarquée autorise la capture d'images ou de vidéos aériennes en temps réel, dans des zones sensibles ou difficiles d'accès.
-                </ProjectText>
-              </ProjectCard>
+          </Grid>
+
+          {/* Bloc 2 : Texte gauche, image droite */}
+          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} alignItems="center" sx={{ mt: 4 }}>
+            <Grid item xs={12} md={7}>
+              <Typography variant="body1" paragraph sx={{ color: 'white', fontSize: '1.1rem', mb: 2 }}>
+                Fort de plus de 5 années d'expérience dans la conception de site-web, j'ai participé à toutes les étapes de conception : de la définition du besoin jusqu'à la maintenance du site. Etant à mon compte, j'ai également eu à porter tous les aspects de la gestion d'une micro-entreprise, d'un point de vue financier, administratif et gestion des ressources.<br/>
+                Mes clients ont été variés : des institutionnels, des associations, des collectivités locales, des entreprises et des particuliers. J'ai ainsi pu mettre en œuvre des projets de toute nature, avec des équipes et des contraintes différentes. Cela m'a permis de développer une grande adaptabilité et une bonne capacité à gérer les imprévus.<br/>
+                Aujourd'hui, je souhaite mettre mes compétences au service d'une entreprise dynamique, en quête de nouvelles technologies pour améliorer ses processus. J'ai envie de m'investir dans un projet à long terme et de pouvoir apporter ma contribution à la croissance d'une entreprise.
+              </Typography>
+              <Box sx={{ mt: 1 }}>
+                <ChipTag># Gestion de projet</ChipTag>
+                <ChipTag># Definition des besoins</ChipTag>
+                <ChipTag># Web Design</ChipTag>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <BioCard>
+                <BioImg style={{ backgroundImage: 'url(/images/background/_workspace.jpg)' }} />
+              </BioCard>
+            </Grid>
+          </Grid>
+
+          {/* Citation améliorée */}
+          <Grid container justifyContent="center" sx={{ mt: 7, px: 2 }}>
+            <Grid item xs={12}>
+              <CitationBox>
+                <CitationImg style={{ backgroundImage: 'url(/images/profil.jpg)' }} />
+                <CitationContent>
+                  <CitationHeader>
+                    <CitationName>Nicolas GOUJON</CitationName>
+                    <CitationDate>Développeur Web et web mobile - Product Owner</CitationDate>
+                  </CitationHeader>
+                  <CitationText>
+                    Passionné d'informatique depuis toujours, je me suis très vite orienté vers la programmation web dès le plus jeune âge étant donné que c'est là que se trouve toute l'innovation et les dernières avancées technologiques. J'ai donc décidé de faire de mon hobby un métier et je me suis lancé dans la création de sites internet professionnels.
+                  </CitationText>
+                </CitationContent>
+              </CitationBox>
             </Grid>
           </Grid>
         </Container>
