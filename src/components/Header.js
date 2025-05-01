@@ -33,10 +33,10 @@ const Header = () => {
 
   // Navigation items configuration
   const navItems = [
-    { id: 'bio', label: 'bio' },
+    { id: 'projets', label: 'projets' },
     { id: 'stack', label: 'Stack' },
     { id: 'formation', label: 'formation' },
-    { id: 'projets', label: 'projets' },
+    { id: 'bio', label: 'bio' },
     { id: 'contact', label: 'contact' },
   ];
 
