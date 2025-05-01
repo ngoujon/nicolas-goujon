@@ -57,7 +57,7 @@ const Footer = () => {
               }
             }}>
               <Link
-                href="#projets"
+                href="#experience"
                 color="inherit"
                 underline="none"
                 sx={{
@@ -68,7 +68,7 @@ const Footer = () => {
                   mx: 1.5,
                 }}
               >
-                Projets
+                Experience
               </Link>
               <Link 
                 href="#stack" 

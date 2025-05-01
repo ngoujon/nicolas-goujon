@@ -557,58 +557,203 @@ const Home = () => {
         )}
       </HeroSection>
 
-      {/* Section Projets */}
-      <Box id="projets" sx={{ 
+      {/* Section Expérience */}
+      <Box id="experience" sx={{ 
         pt: { xs: 8, sm: 8, md: 8 },
         pb: { xs: 8, sm: 10, md: 12 },
         backgroundColor: '#fff',
         scrollMarginTop: '100px'
       }}>
         <Container>
-          <SectionTitle sx={{ color: '#172845' }}>PROJETS</SectionTitle>
+          <SectionTitle sx={{ color: '#172845' }}>EXPERIENCE</SectionTitle>
           <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} justifyContent="center">
-            <Grid item xs={12} md={4}>
-              <ProjectCard>
-                <ProjectLogo sx={{ backgroundImage: 'url(/images/projets/logo_hydroseed.png)', height: '90px', mb: 2 }} />
-                <ProjectName sx={{ color: '#172845' }}>HYDROSEED</ProjectName>
-                <ProjectLink>
-                  <a href="http://www.hydroseed.nc" target="_blank" rel="noopener noreferrer" style={{ color: '#172845', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    www.hydroseed.nc <OpenInNewIcon fontSize="small" sx={{ ml: 1 }} />
-                  </a>
-                </ProjectLink>
-                <ProjectText sx={{ color: '#172845' }}>
-                  La société HYDROSEED s'intéresse au génie végétal dans le secteur du génie civil.<br/>
-                  Nous étudions toutes les solutions techniques pour la protection de l'environnement, notamment pour le confortement des talus et la stabilisation de la surface des pentes.
-                </ProjectText>
+            {/* Bloc Création de sites internet */}
+            <Grid item xs={12} md={6}>
+              <ProjectCard sx={{
+                height: '100%',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-10px)',
+                  boxShadow: '0 8px 32px rgba(23, 40, 69, 0.2)',
+                }
+              }}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'center',
+                  p: 4,
+                  height: '100%'
+                }}>
+                  <Box sx={{
+                    width: '80px',
+                    height: '80px',
+                    backgroundColor: 'rgba(23, 40, 69, 0.1)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mb: 3
+                  }}>
+                    <i className="bi bi-code-square" style={{ fontSize: '40px', color: '#172845' }}></i>
+                  </Box>
+                  <Typography variant="h4" sx={{ 
+                    color: '#172845', 
+                    mb: 3,
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    fontSize: { xs: '1.8rem', md: '2rem' }
+                  }}>
+                    Applications web
+                  </Typography>
+                  <Typography sx={{ 
+                    color: '#172845',
+                    textAlign: 'justify',
+                    lineHeight: 1.8,
+                    fontSize: '1.1rem',
+                    mb: 3
+                  }}>
+                    Au cours de ma carrière, j'ai développé une expertise dans la création de sites internet variés :
+                  </Typography>
+                  <Box sx={{ 
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2
+                  }}>
+                    {[
+                      { icon: 'bi-layout-wtf', text: 'Sites vitrines modernes et responsifs avec React, Next.js' },
+                      { icon: 'bi-database', text: 'Applications web complexes avec gestion de base de données et API REST' },
+                      { icon: 'bi-cart', text: 'Solutions e-commerce avec intégration de paiement sécurisé' },
+                      { icon: 'bi-file-earmark-text', text: 'Sites institutionnels avec gestion de contenu (CMS)' },
+                      { icon: 'bi-phone', text: 'Applications web progressives (PWA) pour une expérience mobile optimale' }
+                    ].map((item, index) => (
+                      <Box key={index} sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 2,
+                        p: 1,
+                        borderRadius: '8px',
+                        transition: 'background-color 0.3s ease',
+                        '&:hover': {
+                          backgroundColor: 'rgba(23, 40, 69, 0.05)'
+                        }
+                      }}>
+                        <i className={`bi ${item.icon}`} style={{ fontSize: '24px', color: '#172845' }}></i>
+                        <Typography sx={{ 
+                          color: '#172845',
+                          fontSize: '1rem',
+                          textAlign: 'justify'
+                        }}>
+                          {item.text}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
+                  <Typography sx={{ 
+                    color: '#172845',
+                    textAlign: 'justify',
+                    mt: 4,
+                    fontStyle: 'italic',
+                    fontSize: '1rem'
+                  }}>
+                    Je m'efforce de suivre les meilleures pratiques en matière de développement, en accordant une attention particulière à la sécurité, l'accessibilité et les performances.
+                  </Typography>
+                </Box>
               </ProjectCard>
             </Grid>
-            <Grid item xs={12} md={4}>
-              <ProjectCard>
-                <ProjectLogo sx={{ backgroundImage: 'url(/images/projets/logo_gabions.png)', height: '90px', mb: 2 }} />
-                <ProjectName sx={{ color: '#172845' }}>GABIONS</ProjectName>
-                <ProjectLink>
-                  <a href="http://www.gabions.nc" target="_blank" rel="noopener noreferrer" style={{ color: '#172845', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    www.gabions.nc <OpenInNewIcon fontSize="small" sx={{ ml: 1 }} />
-                  </a>
-                </ProjectLink>
-                <ProjectText sx={{ color: '#172845' }}>
-                  Nous réalisons des murs de soutènement en gabions. Ce mur « poids » permet généralement de gagner de la surface utilisable autour de votre maison d'habitation. Ces travaux réalisés dans les règles de l'art sont déductibles des impôts comme une amélioration durable du patrimoine immobilier.
-                </ProjectText>
-              </ProjectCard>
-            </Grid>
-            <Grid item xs={12} md={4}>
-              <ProjectCard>
-                <ProjectLogo sx={{ backgroundImage: 'url(/images/projets/logo_skeye.png)', height: '90px', mb: 2 }} />
-                <ProjectName sx={{ color: '#172845' }}>SKEYE</ProjectName>
-                <ProjectLink>
-                  <a href="http://www.skeye.nc" target="_blank" rel="noopener noreferrer" style={{ color: '#172845', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    www.skeye.nc <OpenInNewIcon fontSize="small" sx={{ ml: 1 }} />
-                  </a>
-                </ProjectLink>
-                <ProjectText sx={{ color: '#172845' }}>
-                  Plus pratique, plus économique et plus écologique que l'hélicoptère, l'avion ou l'ULM, le drone permet de réaliser des photos ou des vidéos aériennes dans des endroits inaccessibles à toute autre machine, avec une mise en œuvre extrêmement simple et rapide, tout en limitant les risques aux personnes et les nuisances sonores.<br/>
-                  Durant sa période de vol, la caméra embarquée autorise la capture d'images ou de vidéos aériennes en temps réel, dans des zones sensibles ou difficiles d'accès.
-                </ProjectText>
+
+            {/* Bloc Programme IA */}
+            <Grid item xs={12} md={6}>
+              <ProjectCard sx={{
+                height: '100%',
+                transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-10px)',
+                  boxShadow: '0 8px 32px rgba(23, 40, 69, 0.2)',
+                }
+              }}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  alignItems: 'center',
+                  p: 4,
+                  height: '100%'
+                }}>
+                  <Box sx={{
+                    width: '80px',
+                    height: '80px',
+                    backgroundColor: 'rgba(23, 40, 69, 0.1)',
+                    borderRadius: '50%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    mb: 3
+                  }}>
+                    <i className="bi bi-cpu" style={{ fontSize: '40px', color: '#172845' }}></i>
+                  </Box>
+                  <Typography variant="h4" sx={{ 
+                    color: '#172845', 
+                    mb: 3,
+                    fontWeight: 'bold',
+                    textAlign: 'center',
+                    fontSize: { xs: '1.8rem', md: '2rem' }
+                  }}>
+                  Solutions IA
+                  </Typography>
+                  <Typography sx={{ 
+                    color: '#172845',
+                    textAlign: 'justify',
+                    lineHeight: 1.8,
+                    fontSize: '1.1rem',
+                    mb: 3
+                  }}>
+                    J'ai exploré et expérimenté avec différentes technologies d'intelligence artificielle :
+                  </Typography>
+                  <Box sx={{ 
+                    width: '100%',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2
+                  }}>
+                    {[
+                      { icon: 'bi-mic', text: 'Intégration d\'OpenAI pour des solutions de Text-to-Speech (TTS) avancées' },
+                      { icon: 'bi-chat-dots', text: 'Développement de chatbots intelligents utilisant l\'API ChatGPT' },
+                      { icon: 'bi-image', text: 'Création d\'applications avec DALL-E pour la génération d\'images' },
+                      { icon: 'bi-palette', text: 'Utilisation de Stable Diffusion pour la génération et la manipulation d\'images' },
+                      { icon: 'bi-hdd-network', text: 'Déploiement local de modèles Mistral 8x7B pour des applications IA autonomes' }
+                    ].map((item, index) => (
+                      <Box key={index} sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 2,
+                        p: 1,
+                        borderRadius: '8px',
+                        transition: 'background-color 0.3s ease',
+                        '&:hover': {
+                          backgroundColor: 'rgba(23, 40, 69, 0.05)'
+                        }
+                      }}>
+                        <i className={`bi ${item.icon}`} style={{ fontSize: '24px', color: '#172845' }}></i>
+                        <Typography sx={{ 
+                          color: '#172845',
+                          fontSize: '1rem',
+                          textAlign: 'justify'
+                        }}>
+                          {item.text}
+                        </Typography>
+                      </Box>
+                    ))}
+                  </Box>
+                  <Typography sx={{ 
+                    color: '#172845',
+                    textAlign: 'justify',
+                    mt: 4,
+                    fontStyle: 'italic',
+                    fontSize: '1rem'
+                  }}>
+                    Ces expériences m'ont permis d'acquérir une bonne compréhension des possibilités offertes par l'IA et de son intégration dans le développement web.
+                  </Typography>
+                </Box>
               </ProjectCard>
             </Grid>
           </Grid>
