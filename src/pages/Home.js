@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box, Grid, Paper, Button, TextField, TextareaAutosize, useTheme } from '@mui/material';
+import { Container, Typography, Box, Grid, Paper, Button, TextField, TextareaAutosize, useTheme, Checkbox, FormControlLabel } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -11,6 +11,9 @@ import { BsAward, BsBookmarkCheck, BsMortarboard, BsPatchCheck } from "react-ico
 import "bootstrap-icons/font/bootstrap-icons.css";
 import emailjs from '@emailjs/browser';
 import { logger } from '../utils/logger';
+
+// Initialisation d'EmailJS
+emailjs.init("EMAILJS_PUBLIC_KEY");
 
 // Composants stylisés
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -279,7 +282,7 @@ const HeroCvButton = styled(Button)(({ theme }) => ({
   transition: 'all 0.2s',
   textTransform: 'none',
   '&:hover': {
-    background: '#172845',
+    backgroundColor: '#172845',
     color: 'white',
     boxShadow: '0 6px 32px 0 rgba(23,40,69,0.25)',
   },
@@ -473,6 +476,7 @@ const Home = () => {
   const [formStatus, setFormStatus] = useState('idle');
   const [selectedOption, setSelectedOption] = useState('');
   const [showScrollArrow, setShowScrollArrow] = useState(true);
+  const [isHuman, setIsHuman] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -529,27 +533,42 @@ const Home = () => {
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
+    if (!isHuman) {
+      setFormStatus('error');
+      return;
+    }
+
     setFormStatus('sending');
 
     try {
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
-        message: formData.message,
-        subject: selectedOption || 'Contact depuis le site web',
+        message: `
+Nouveau message depuis le formulaire de contact
+
+Sujet: ${selectedOption || 'Contact depuis le site web'}
+Nom: ${formData.name}
+Email: ${formData.email}
+
+Message:
+${formData.message}
+        `,
         to_email: 'contact@nicolas-goujon.fr'
       };
 
       await emailjs.send(
-        'YOUR_SERVICE_ID',
-        'YOUR_TEMPLATE_ID',
+        'EMAILJS_SERVICE_ID', 
+        'EMAILJS_TEMPLATE_ID',
         templateParams,
-        'YOUR_PUBLIC_KEY'
+        'EMAILJS_PUBLIC_KEY'
       );
 
       setFormStatus('success');
       setFormData({ name: '', email: '', message: '' });
       setSelectedOption('');
+      setIsHuman(false);
       
       setTimeout(() => {
         setFormStatus(null);
@@ -572,13 +591,14 @@ const Home = () => {
         <HeroContent>
           <HeroName>Nicolas GOUJON</HeroName>
           <HeroTitle>Développeur Web et web mobile</HeroTitle>
-          <HeroCvButton
+          {/*<HeroCvButton
             variant="contained"
             href="/docs/CV_Nicolas-GOUJON.pdf"
             target="_blank"
           >
             Consulter mon CV
           </HeroCvButton>
+          */}
         </HeroContent>
         {showScrollArrow && (
           <Box className="scroll-arrow">
@@ -1126,7 +1146,7 @@ const Home = () => {
             md: 4,
             lg: 4
           }} justifyContent="center">
-            <Grid item xs={12} sm={6} md={6} lg={3}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
               <Box sx={{
                 background: 'white',
                 borderRadius: 3,
@@ -1153,7 +1173,7 @@ const Home = () => {
                 <Typography sx={{ color: '#172845' }}>Développeur web et web mobile</Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={3}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
               <Box sx={{
                 background: 'white',
                 borderRadius: 3,
@@ -1180,7 +1200,7 @@ const Home = () => {
                 <Typography sx={{ color: '#172845' }}>Système Numérique Élec. & Com.</Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={3}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
               <Box sx={{
                 background: 'white',
                 borderRadius: 3,
@@ -1207,7 +1227,7 @@ const Home = () => {
                 <Typography sx={{ color: '#172845' }}>STI2D - SIN</Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={3}>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
               <Box sx={{
                 background: 'white',
                 borderRadius: 3,
@@ -1404,8 +1424,8 @@ const Home = () => {
                     'Créer un site vitrine',
                     'Améliorer un projet existant',
                     'Discuter d\'une opportunité',
-                    'Optimiser le référencement SEO',
-                    'Mettre en place une solution SaaS',
+                    'Optimiser le référencement',
+                    'Déployer une solution SaaS',
                     'Autres'
                   ].map((option) => (
                     <Button
@@ -1552,24 +1572,119 @@ const Home = () => {
                   }}
                 />
 
+                <Box sx={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  width: '100%',
+                  mb: 3
+                }}>
+                  <FormControlLabel
+                    control={
+                      <Checkbox
+                        checked={isHuman}
+                        onChange={(e) => setIsHuman(e.target.checked)}
+                        sx={{
+                          '&.MuiCheckbox-root': {
+                            padding: '9px',
+                          },
+                          '& .MuiSvgIcon-root': {
+                            width: '18px',
+                            height: '18px',
+                            border: '1.5px solid rgba(255, 255, 255, 0.6)',
+                            borderRadius: '4px',
+                            backgroundColor: 'transparent',
+                            transition: 'all 0.2s ease',
+                            color: 'transparent',
+                            padding: '0px',
+                          },
+                          '&.Mui-checked .MuiSvgIcon-root': {
+                            backgroundColor: 'white',
+                            borderColor: 'white',
+                            color: '#172845',
+                            '&:before': {
+                              content: '""',
+                              position: 'absolute',
+                              width: '10px',
+                              height: '10px',
+                              backgroundColor: '#172845',
+                              borderRadius: '2px',
+                            }
+                          },
+                          '&:hover .MuiSvgIcon-root': {
+                            borderColor: 'white',
+                          },
+                          '&:hover.Mui-checked .MuiSvgIcon-root': {
+                            backgroundColor: 'white',
+                            borderColor: 'white',
+                          }
+                        }}
+                      />
+                    }
+                    label="Je ne suis pas un robot"
+                    sx={{ 
+                      color: 'rgba(255, 255, 255, 0.9)',
+                      m: 0,
+                      alignItems: 'center',
+                      '& .MuiFormControlLabel-label': {
+                        fontSize: '0.95rem',
+                        fontWeight: 400,
+                        letterSpacing: '0.3px',
+                        userSelect: 'none',
+                        paddingTop: '1px',
+                        transition: 'color 0.2s ease',
+                      },
+                      '&:hover': {
+                        '& .MuiFormControlLabel-label': {
+                          color: 'white',
+                        }
+                      }
+                    }}
+                  />
+                </Box>
+
                 <Button
                   type="submit"
                   variant="contained"
-                  endIcon={<SendIcon />}
-                  disabled={formStatus === 'sending'}
+                  endIcon={
+                    <SendIcon sx={{ 
+                      fontSize: '1.2rem',
+                      transform: 'translateX(2px)',
+                      transition: 'transform 0.2s ease',
+                    }} />
+                  }
+                  disabled={formStatus === 'sending' || !isHuman}
                   sx={{
-                    backgroundColor: 'white',
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     color: '#172845',
-                    borderRadius: 2,
+                    borderRadius: '30px',
                     py: 1.5,
                     px: 4,
+                    fontSize: '0.95rem',
+                    fontWeight: 500,
+                    letterSpacing: '0.3px',
+                    textTransform: 'none',
+                    boxShadow: 'none',
+                    transition: 'all 0.2s ease',
                     '&:hover': {
-                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                      backgroundColor: 'white',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                      '& .MuiSvgIcon-root': {
+                        transform: 'translateX(4px)',
+                      },
+                    },
+                    '&:active': {
+                      transform: 'translateY(0)',
                     },
                     '&:disabled': {
-                      backgroundColor: 'white',
-                      opacity: 0.7,
-                    }
+                      backgroundColor: 'rgba(255, 255, 255, 0.5)',
+                      color: 'rgba(23, 40, 69, 0.6)',
+                    },
+                    width: '100%',
+                    maxWidth: '300px',
+                    margin: '0 auto',
+                    display: 'flex',
+                    justifyContent: 'center',
                   }}
                 >
                   {formStatus === 'sending' ? 'Envoi en cours...' : 'Envoyer le message'}
@@ -1582,10 +1697,20 @@ const Home = () => {
                     </Typography>
                   </Box>
                 )}
-                {formStatus === 'error' && (
-                  <Box sx={{ mt: 3, textAlign: 'center' }}>
-                    <Typography sx={{ color: '#f44336', fontWeight: 600 }}>
-                      Une erreur est survenue. Veuillez réessayer ou me contacter directement par email.
+                {formStatus === 'error' && !isHuman && (
+                  <Box sx={{ 
+                    mt: 2, 
+                    textAlign: 'center',
+                    backgroundColor: 'rgba(244, 67, 54, 0.1)',
+                    borderRadius: '8px',
+                    p: 1.5,
+                  }}>
+                    <Typography sx={{ 
+                      color: '#f44336', 
+                      fontWeight: 500,
+                      fontSize: '0.9rem',
+                    }}>
+                      Veuillez confirmer que vous n'êtes pas un robot
                     </Typography>
                   </Box>
                 )}
