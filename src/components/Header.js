@@ -118,7 +118,7 @@ const Header = () => {
         }}>
           {/* Logo */}
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <RouterLink to="/">
+            <RouterLink to="/" aria-label="Retour à l'accueil">
               <Box
                 sx={{
                   backgroundImage: 'url(/images/logo/logo_light.png)',
@@ -128,6 +128,8 @@ const Header = () => {
                   backgroundSize: 'cover',
                   margin: '10px 0px 15px 0px',
                 }}
+                role="img"
+                aria-label="Logo de Nicolas GOUJON"
               />
             </RouterLink>
           </Box>
@@ -149,14 +151,11 @@ const Header = () => {
               {socialLinks.map((link, index) => (
                 <IconButton
                   key={index}
-                  color="inherit"
                   href={link.href}
                   target="_blank"
-                  sx={{ 
-                    color: 'white', 
-                    fontSize: '32px',
-                    marginLeft: index > 0 ? '10px' : 0
-                  }}
+                  rel="noopener noreferrer"
+                  aria-label={`Visiter mon profil ${link.label}`}
+                  sx={{ color: 'white' }}
                 >
                   {link.icon}
                 </IconButton>
@@ -165,17 +164,15 @@ const Header = () => {
           </Box>
 
           {/* Mobile Menu Button */}
-          <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleToggle}
-              sx={{ color: 'white' }}
-            >
-              <MenuIcon />
-            </IconButton>
-          </Box>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="menu"
+            onClick={handleToggle}
+            sx={{ display: { xs: 'flex', md: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
         </Toolbar>
 
         {/* Mobile Menu */}

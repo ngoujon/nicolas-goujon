@@ -1,3 +1,9 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
-Disallow:
+Allow: /
+Disallow: /private/
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://nicolas-goujon.com/sitemap.xml

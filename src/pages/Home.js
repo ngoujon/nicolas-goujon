@@ -10,6 +10,7 @@ import SvgIcon from '@mui/material/SvgIcon';
 import { BsAward, BsBookmarkCheck, BsMortarboard, BsPatchCheck } from "react-icons/bs";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import emailjs from '@emailjs/browser';
+import { logger } from '../utils/logger';
 
 // Composants stylisés
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -57,9 +58,17 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
   letterSpacing: '2px',
   fontFamily: 'Garet',
   [theme.breakpoints.down('sm')]: {
+    fontSize: '2rem',
+    marginBottom: theme.spacing(4),
+  },
+  [theme.breakpoints.between('sm', 'md')]: {
     fontSize: '2.5rem',
     marginBottom: theme.spacing(6),
   },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '3.5rem',
+    marginBottom: theme.spacing(10),
+  }
 }));
 
 const SkillCard = styled(Box)(({ theme }) => ({
@@ -182,14 +191,18 @@ const HeroSection = styled(Box)(({ theme }) => ({
   backgroundAttachment: 'fixed',
   overflow: 'hidden',
   [theme.breakpoints.down('sm')]: {
-    height: '80vh',
-    minHeight: '400px',
+    height: '100vh',
+    minHeight: '500px',
     backgroundAttachment: 'scroll',
   },
   [theme.breakpoints.between('sm', 'md')]: {
-    height: '90vh',
-    minHeight: '500px',
+    height: '100vh',
+    minHeight: '600px',
   },
+  [theme.breakpoints.up('lg')]: {
+    height: '100vh',
+    minHeight: '700px',
+  }
 }));
 
 const HeroOverlay = styled(Box)(({ theme }) => ({
@@ -233,6 +246,9 @@ const HeroName = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.between('sm', 'md')]: {
     fontSize: '2.4rem',
   },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '3.2rem',
+  }
 }));
 
 const HeroTitle = styled(Typography)(({ theme }) => ({
@@ -247,6 +263,9 @@ const HeroTitle = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.between('sm', 'md')]: {
     fontSize: '1.2rem',
   },
+  [theme.breakpoints.up('lg')]: {
+    fontSize: '1.5rem',
+  }
 }));
 
 const HeroCvButton = styled(Button)(({ theme }) => ({
@@ -446,12 +465,16 @@ function SkypeIcon(props) {
   );
 }
 
+/**
+ * Composant principal de la page d'accueil
+ * Gère l'affichage des différentes sections et le formulaire de contact
+ */
 const Home = () => {
-  const [formStatus, setFormStatus] = React.useState(null);
+  const [formStatus, setFormStatus] = useState('idle');
   const [selectedOption, setSelectedOption] = useState('');
   const [showScrollArrow, setShowScrollArrow] = useState(true);
   const [formData, setFormData] = useState({
-    nom: '',
+    name: '',
     email: '',
     message: ''
   });
@@ -485,25 +508,32 @@ const Home = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
+  /**
+   * Gère les changements dans les champs du formulaire
+   * @param {Event} e - Événement de changement
+   */
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
   };
 
   const handleOptionClick = (option) => {
     setSelectedOption(option === selectedOption ? '' : option);
   };
 
+  /**
+   * Gère la soumission du formulaire de contact
+   * @param {Event} e - Événement de soumission du formulaire
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     setFormStatus('sending');
 
     try {
       const templateParams = {
-        from_name: formData.nom,
+        from_name: formData.name,
         from_email: formData.email,
         message: formData.message,
         subject: selectedOption || 'Contact depuis le site web',
@@ -511,21 +541,21 @@ const Home = () => {
       };
 
       await emailjs.send(
-        'YOUR_SERVICE_ID', // Remplacez par votre Service ID
-        'YOUR_TEMPLATE_ID', // Remplacez par votre Template ID
+        'YOUR_SERVICE_ID',
+        'YOUR_TEMPLATE_ID',
         templateParams,
-        'YOUR_PUBLIC_KEY' // Remplacez par votre Public Key
+        'YOUR_PUBLIC_KEY'
       );
 
       setFormStatus('success');
-      setFormData({ nom: '', email: '', message: '' });
+      setFormData({ name: '', email: '', message: '' });
       setSelectedOption('');
       
       setTimeout(() => {
         setFormStatus(null);
       }, 5000);
     } catch (error) {
-      console.error('Erreur lors de l\'envoi:', error);
+      logger.logError(error, 'Contact Form Submission');
       setFormStatus('error');
       
       setTimeout(() => {
@@ -537,7 +567,7 @@ const Home = () => {
   return (
     <Box>
       {/* Hero Section améliorée */}
-      <HeroSection>
+      <HeroSection aria-label="Section d'accueil avec image de fond représentant un espace de travail moderne">
         <HeroOverlay />
         <HeroContent>
           <HeroName>Nicolas GOUJON</HeroName>
@@ -612,7 +642,7 @@ const Home = () => {
                     fontSize: '1.1rem',
                     mb: 3
                   }}>
-                    Au cours de ma carrière, j'ai développé une expertise dans la création de sites internet variés :
+                    Fort d'une solide expérience, je maîtrise la création de sites internet variés :
                   </Typography>
                   <Box sx={{ 
                     width: '100%',
@@ -707,7 +737,7 @@ const Home = () => {
                     fontSize: '1.1rem',
                     mb: 3
                   }}>
-                    J'ai exploré et expérimenté avec différentes technologies d'intelligence artificielle :
+                    Je maîtrise différentes technologies d'intelligence artificielle :
                   </Typography>
                   <Box sx={{ 
                     width: '100%',
@@ -775,8 +805,18 @@ const Home = () => {
           
           <Box sx={{ 
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: { xs: 4, md: 8 },
+            gridTemplateColumns: {
+              xs: 'repeat(2, 1fr)',
+              sm: 'repeat(2, 1fr)',
+              md: 'repeat(4, 1fr)',
+              lg: 'repeat(4, 1fr)'
+            },
+            gap: { 
+              xs: 3,
+              sm: 4,
+              md: 6,
+              lg: 8
+            },
             width: '100%',
             maxWidth: '1200px',
             position: 'relative',
@@ -787,7 +827,12 @@ const Home = () => {
               right: '0',
               top: '50%',
               height: '1px',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)'
+              backgroundColor: 'rgba(255, 255, 255, 0.1)',
+              display: {
+                xs: 'none',
+                sm: 'none',
+                md: 'block'
+              }
             }
           }}>
             {/* Première ligne */}
@@ -1075,65 +1120,114 @@ const Home = () => {
       }}>
         <Container>
           <SectionTitle sx={{ color: '#172845' }}>FORMATION</SectionTitle>
-          <Grid container spacing={4} justifyContent="center">
-            <Grid item xs={12} sm={6}>
+          <Grid container spacing={{ 
+            xs: 2,
+            sm: 3,
+            md: 4,
+            lg: 4
+          }} justifyContent="center">
+            <Grid item xs={12} sm={6} md={6} lg={3}>
               <Box sx={{
                 background: 'white',
                 borderRadius: 3,
                 boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
-                p: 3,
+                p: {
+                  xs: 2,
+                  sm: 2.5,
+                  md: 3,
+                  lg: 3
+                },
                 textAlign: 'center',
                 transition: '0.2s',
                 height: '100%',
-                '&:hover': { boxShadow: '0 8px 32px 0 rgba(23,40,69,0.18)', transform: 'scale(1.04)' }
+                '&:hover': { 
+                  boxShadow: '0 8px 32px 0 rgba(23,40,69,0.18)', 
+                  transform: 'scale(1.04)',
+                  [theme.breakpoints.down('sm')]: {
+                    transform: 'scale(1.02)'
+                  }
+                }
               }}>
                 <BsAward size={40} color="#172845" style={{ marginBottom: 12 }} />
                 <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Titre Professionnel</Typography>
                 <Typography sx={{ color: '#172845' }}>Développeur web et web mobile</Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} md={6} lg={3}>
               <Box sx={{
                 background: 'white',
                 borderRadius: 3,
                 boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
-                p: 3,
+                p: {
+                  xs: 2,
+                  sm: 2.5,
+                  md: 3,
+                  lg: 3
+                },
                 textAlign: 'center',
                 transition: '0.2s',
                 height: '100%',
-                '&:hover': { boxShadow: '0 8px 32px 0 rgba(23,40,69,0.18)', transform: 'scale(1.04)' }
+                '&:hover': { 
+                  boxShadow: '0 8px 32px 0 rgba(23,40,69,0.18)', 
+                  transform: 'scale(1.04)',
+                  [theme.breakpoints.down('sm')]: {
+                    transform: 'scale(1.02)'
+                  }
+                }
               }}>
                 <BsBookmarkCheck size={40} color="#172845" style={{ marginBottom: 12 }} />
                 <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Brevet de Technicien Supérieur</Typography>
                 <Typography sx={{ color: '#172845' }}>Système Numérique Élec. & Com.</Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} md={6} lg={3}>
               <Box sx={{
                 background: 'white',
                 borderRadius: 3,
                 boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
-                p: 3,
+                p: {
+                  xs: 2,
+                  sm: 2.5,
+                  md: 3,
+                  lg: 3
+                },
                 textAlign: 'center',
                 transition: '0.2s',
                 height: '100%',
-                '&:hover': { boxShadow: '0 8px 32px 0 rgba(23,40,69,0.18)', transform: 'scale(1.04)' }
+                '&:hover': { 
+                  boxShadow: '0 8px 32px 0 rgba(23,40,69,0.18)', 
+                  transform: 'scale(1.04)',
+                  [theme.breakpoints.down('sm')]: {
+                    transform: 'scale(1.02)'
+                  }
+                }
               }}>
                 <BsMortarboard size={40} color="#172845" style={{ marginBottom: 12 }} />
                 <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Baccalauréat</Typography>
                 <Typography sx={{ color: '#172845' }}>STI2D - SIN</Typography>
               </Box>
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12} sm={6} md={6} lg={3}>
               <Box sx={{
                 background: 'white',
                 borderRadius: 3,
                 boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
-                p: 3,
+                p: {
+                  xs: 2,
+                  sm: 2.5,
+                  md: 3,
+                  lg: 3
+                },
                 textAlign: 'center',
                 transition: '0.2s',
                 height: '100%',
-                '&:hover': { boxShadow: '0 8px 32px 0 rgba(23,40,69,0.18)', transform: 'scale(1.04)' }
+                '&:hover': { 
+                  boxShadow: '0 8px 32px 0 rgba(23,40,69,0.18)', 
+                  transform: 'scale(1.04)',
+                  [theme.breakpoints.down('sm')]: {
+                    transform: 'scale(1.02)'
+                  }
+                }
               }}>
                 <BsPatchCheck size={40} color="#172845" style={{ marginBottom: 12 }} />
                 <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Certification PSPO 1</Typography>
@@ -1158,7 +1252,11 @@ const Home = () => {
           <Grid container justifyContent="center" sx={{ mb: 7, px: 2 }}>
             <Grid item xs={12}>
               <CitationBox>
-                <CitationImg style={{ backgroundImage: 'url(/images/profil.jpg)' }} />
+                <CitationImg 
+                  style={{ backgroundImage: 'url(/images/profil.jpg)' }} 
+                  role="img"
+                  aria-label="Photo de profil de Nicolas GOUJON"
+                />
                 <CitationContent>
                   <CitationHeader>
                     <CitationName>Nicolas GOUJON</CitationName>
@@ -1169,7 +1267,7 @@ const Home = () => {
                     fontSize: '1rem',
                     lineHeight: 1.6
                   }}>
-                    Passionné d'informatique depuis toujours, je me suis très vite orienté vers la programmation web dès le plus jeune âge étant donné que c'est là que se trouve toute l'innovation et les dernières avancées technologiques. J'ai donc décidé de faire de mon hobby un métier et je me suis lancé dans la création de sites internet professionnels.
+                    Passionné d'informatique depuis toujours, je me suis naturellement orienté vers la programmation web. Ce domaine représente pour moi l'innovation et les dernières avancées technologiques. J'ai donc décidé de faire de mon hobby un métier et je me suis lancé dans la création de sites internet professionnels.
                   </CitationText>
                 </CitationContent>
               </CitationBox>
@@ -1186,7 +1284,7 @@ const Home = () => {
                 textAlign: 'justify',
                 lineHeight: 1.6
               }}>
-                Pendant plusieurs années, j'ai travaillé dans la conception de logiciels SaaS, ce qui m'a permis de développer une vraie expertise, autant sur le plan technique que dans la relation client. À travers plusieurs projets, notamment sur les phases de conception et de développement, j'ai pu mettre en place des outils et processus de qualité. <br/>
+                Mon expérience dans la conception de logiciels SaaS m'a permis de développer une expertise technique et relationnelle. À travers plusieurs projets, notamment sur les phases de conception et de développement, j'ai pu mettre en place des outils et processus de qualité. <br/>
                 <br/>
                 J'ai également assuré le suivi et l'accompagnement des projets dans le temps, en restant à l'écoute des besoins clients pour faire évoluer les solutions. Cette collaboration directe avec les utilisateurs m'a appris à bien comprendre leurs attentes et à adapter les logiciels aux contraintes propres à chaque projet.<br/>
                 <br/>
@@ -1215,7 +1313,12 @@ const Home = () => {
       }}>
         <Container>
           <SectionTitle sx={{ color: '#172845' }}>CONTACT</SectionTitle>
-          <Grid container spacing={{ xs: 2, sm: 4, md: 4 }} justifyContent="center">
+          <Grid container spacing={{ 
+            xs: 2,
+            sm: 3,
+            md: 4,
+            lg: 4
+          }} justifyContent="center">
             {/* Colonne de gauche - Informations de contact */}
             <Grid item xs={12} md={5}>
               <Box sx={{ 
@@ -1223,8 +1326,18 @@ const Home = () => {
                 display: 'flex',
                 flexDirection: 'column',
                 justifyContent: 'center',
-                gap: 4,
-                p: 4
+                gap: {
+                  xs: 2,
+                  sm: 3,
+                  md: 4,
+                  lg: 4
+                },
+                p: {
+                  xs: 2,
+                  sm: 3,
+                  md: 4,
+                  lg: 4
+                }
               }}>
                 <Typography variant="h4" sx={{ 
                   color: '#172845',
@@ -1268,9 +1381,24 @@ const Home = () => {
                   boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
                 }}
               >
-                <Typography variant="h6" sx={{ color: 'white', mb: 3 }}>Je souhaite...</Typography>
+                <Typography variant="h6" sx={{ color: 'white', mb: 3 }}>Comment puis-je vous aider ?</Typography>
                 
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  flexWrap: 'wrap', 
+                  gap: {
+                    xs: 1,
+                    sm: 1,
+                    md: 1.5,
+                    lg: 2
+                  }, 
+                  mb: {
+                    xs: 2,
+                    sm: 2.5,
+                    md: 3,
+                    lg: 3
+                  }
+                }}>
                   {[
                     'Développer une application web',
                     'Créer un site vitrine',
@@ -1304,12 +1432,19 @@ const Home = () => {
                 <TextField
                   fullWidth
                   placeholder="Votre nom"
-                  name="nom"
-                  value={formData.nom}
-                  onChange={handleInputChange}
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
                   variant="outlined"
                   required
-                  sx={{ mb: 2 }}
+                  sx={{ 
+                    mb: {
+                      xs: 1.5,
+                      sm: 2,
+                      md: 2,
+                      lg: 2
+                    }
+                  }}
                   InputProps={{
                     sx: {
                       borderRadius: 2,
@@ -1324,15 +1459,12 @@ const Home = () => {
                       '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                         borderColor: 'white',
                       },
-                    }
-                  }}
-                  inputProps={{
-                    sx: {
-                      color: '#172845',
-                      '&::placeholder': {
-                        color: '#172845',
-                        opacity: 0.7,
-                      },
+                      fontSize: {
+                        xs: '0.9rem',
+                        sm: '1rem',
+                        md: '1rem',
+                        lg: '1.1rem'
+                      }
                     }
                   }}
                 />
@@ -1342,11 +1474,18 @@ const Home = () => {
                   placeholder="Votre email"
                   name="email"
                   value={formData.email}
-                  onChange={handleInputChange}
+                  onChange={handleChange}
                   type="email"
                   variant="outlined"
                   required
-                  sx={{ mb: 2 }}
+                  sx={{ 
+                    mb: {
+                      xs: 1.5,
+                      sm: 2,
+                      md: 2,
+                      lg: 2
+                    }
+                  }}
                   InputProps={{
                     sx: {
                       borderRadius: 2,
@@ -1361,15 +1500,12 @@ const Home = () => {
                       '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                         borderColor: 'white',
                       },
-                    }
-                  }}
-                  inputProps={{
-                    sx: {
-                      color: '#172845',
-                      '&::placeholder': {
-                        color: '#172845',
-                        opacity: 0.7,
-                      },
+                      fontSize: {
+                        xs: '0.9rem',
+                        sm: '1rem',
+                        md: '1rem',
+                        lg: '1.1rem'
+                      }
                     }
                   }}
                 />
@@ -1379,12 +1515,19 @@ const Home = () => {
                   placeholder="Votre message"
                   name="message"
                   value={formData.message}
-                  onChange={handleInputChange}
+                  onChange={handleChange}
                   multiline
                   rows={4}
                   variant="outlined"
                   required
-                  sx={{ mb: 3 }}
+                  sx={{ 
+                    mb: {
+                      xs: 1.5,
+                      sm: 2,
+                      md: 2,
+                      lg: 2
+                    }
+                  }}
                   InputProps={{
                     sx: {
                       borderRadius: 2,
@@ -1399,15 +1542,12 @@ const Home = () => {
                       '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
                         borderColor: 'white',
                       },
-                    }
-                  }}
-                  inputProps={{
-                    sx: {
-                      color: '#172845',
-                      '&::placeholder': {
-                        color: '#172845',
-                        opacity: 0.7,
-                      },
+                      fontSize: {
+                        xs: '0.9rem',
+                        sm: '1rem',
+                        md: '1rem',
+                        lg: '1.1rem'
+                      }
                     }
                   }}
                 />
