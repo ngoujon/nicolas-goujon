@@ -651,11 +651,15 @@ const Home = () => {
                 mb: 2, 
                 fontSize: '1.8rem',
                 fontFamily: 'Stop',
-                fontWeight: '500'
+                fontWeight: '500',
+                textAlign: 'center',
+                width: '100%',
+                whiteSpace: 'nowrap'
               }}>Front-End</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>HTML</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>CSS</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
+              <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>React JS</Typography>
+              <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Next.js</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>HTML & CSS</Typography>
               </Box>
             </Box>
 
@@ -680,12 +684,14 @@ const Home = () => {
                 mb: 2, 
                 fontSize: '1.8rem',
                 fontFamily: 'Stop',
-                fontWeight: '500'
+                fontWeight: '500',
+                textAlign: 'center',
+                width: '100%',
+                whiteSpace: 'nowrap'
               }}>Back-End</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>PHP</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>MySQL</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>SQL</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>PHP & SQL</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>API REST</Typography>
               </Box>
             </Box>
 
@@ -710,12 +716,17 @@ const Home = () => {
                 mb: 2, 
                 fontSize: '1.8rem',
                 fontFamily: 'Stop',
-                fontWeight: '500'
+                fontWeight: '500',
+                textAlign: 'center',
+                width: '100%',
+                whiteSpace: 'nowrap'
               }}>Design</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Security by Design</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Adobe XD</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>UI / UX</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>UI & UX</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Responsive</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Figma</Typography>
               </Box>
             </Box>
 
@@ -740,12 +751,14 @@ const Home = () => {
                 mb: 2, 
                 fontSize: '1.8rem',
                 fontFamily: 'Stop',
-                fontWeight: '500'
+                fontWeight: '500',
+                textAlign: 'center',
+                width: '100%',
+                whiteSpace: 'nowrap'
               }}>Referencement</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Google Analytics</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>SEO - SEA - SMO</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Rank tracker</Typography>
               </Box>
             </Box>
 
@@ -764,17 +777,22 @@ const Home = () => {
                 justifyContent: 'center',
                 alignItems: 'center'
               }}>
-                <i className="bi bi-phone" style={{ fontSize: '48px' }}></i>
+                <i className="bi bi-cpu" style={{ fontSize: '48px' }}></i>
               </Box>
               <Typography sx={{ 
                 color: 'white', 
                 mb: 2, 
                 fontSize: '1.8rem',
                 fontFamily: 'Stop',
-                fontWeight: '500'
-              }}>Responsive</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Bootstrap</Typography>
+                fontWeight: '500',
+                textAlign: 'center',
+                width: '100%',
+                whiteSpace: 'nowrap'
+              }}>I.A</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Stable Diffusion</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Open AI</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Mistral</Typography>
               </Box>
             </Box>
 
@@ -799,12 +817,15 @@ const Home = () => {
                 mb: 2, 
                 fontSize: '1.8rem',
                 fontFamily: 'Stop',
-                fontWeight: '500'
+                fontWeight: '500',
+                textAlign: 'center',
+                width: '100%',
+                whiteSpace: 'nowrap'
               }}>Agile</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>GitHub</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Jira</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Trello</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>MindView</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Kanban</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Gantt</Typography>
               </Box>
             </Box>
@@ -830,12 +851,20 @@ const Home = () => {
                 mb: 2, 
                 fontSize: '1.8rem',
                 fontFamily: 'Stop',
-                fontWeight: '500'
-              }}>Terminal</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>MS DOS</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>UNIX</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>SSH</Typography>
+                fontWeight: '500',
+                textAlign: 'center',
+                width: '100%',
+                whiteSpace: 'nowrap'
+              }}>DevOps</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Docker</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Git</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>GitHub</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>GitLab</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Vultr</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>OVH</Typography>
+                
+                
               </Box>
             </Box>
 
@@ -853,18 +882,23 @@ const Home = () => {
                 justifyContent: 'center',
                 alignItems: 'center'
               }}>
-                <i className="bi bi-cpu" style={{ fontSize: '48px' }}></i>
+                <i className="bi bi-gear" style={{ fontSize: '48px' }}></i>
               </Box>
               <Typography sx={{ 
                 color: 'white', 
                 mb: 2, 
                 fontSize: '1.8rem',
                 fontFamily: 'Stop',
-                fontWeight: '500'
+                fontWeight: '500',
+                textAlign: 'center',
+                width: '100%',
+                whiteSpace: 'nowrap'
               }}>Engineering</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Application Web / SaaS</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>UML Diagram</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Conception logigramme</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Rédaction MU</Typography>
               </Box>
             </Box>
           </Box>
@@ -890,7 +924,6 @@ const Home = () => {
                 <BsAward size={40} color="#172845" style={{ marginBottom: 12 }} />
                 <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Titre Professionnel</Typography>
                 <Typography sx={{ color: '#172845' }}>Développeur web et web mobile</Typography>
-                <Typography sx={{ color: '#172845' }}>Graduate Développeur web full stack Promo ELLENBY</Typography>
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -906,8 +939,7 @@ const Home = () => {
               }}>
                 <BsBookmarkCheck size={40} color="#172845" style={{ marginBottom: 12 }} />
                 <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Brevet de Technicien Supérieur</Typography>
-                <Typography sx={{ color: '#172845' }}>Système Numérique</Typography>
-                <Typography sx={{ color: '#172845' }}>Option (B) Électronique et Communication</Typography>
+                <Typography sx={{ color: '#172845' }}>Système Numérique Élec. & Com.</Typography>
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -923,8 +955,7 @@ const Home = () => {
               }}>
                 <BsMortarboard size={40} color="#172845" style={{ marginBottom: 12 }} />
                 <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Baccalauréat</Typography>
-                <Typography sx={{ color: '#172845' }}>Sciences et Technologies de l'Industrie et du Développement Durable</Typography>
-                <Typography sx={{ color: '#172845' }}>Option Système d'Information et du Numérique</Typography>
+                <Typography sx={{ color: '#172845' }}>STI2D - SIN</Typography>
               </Box>
             </Grid>
             <Grid item xs={12} sm={6}>
