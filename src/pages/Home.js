@@ -1168,6 +1168,33 @@ ${formData.message}
                   }
                 }
               }}>
+                <BsPatchCheck size={40} color="#172845" style={{ marginBottom: 12 }} />
+                <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Certification PSPO 1</Typography>
+                <Typography sx={{ color: '#172845' }}>Scrum.org</Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12} sm={6} md={6} lg={6}>
+              <Box sx={{
+                background: 'white',
+                borderRadius: 3,
+                boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
+                p: {
+                  xs: 2,
+                  sm: 2.5,
+                  md: 3,
+                  lg: 3
+                },
+                textAlign: 'center',
+                transition: '0.2s',
+                height: '100%',
+                '&:hover': { 
+                  boxShadow: '0 8px 32px 0 rgba(23,40,69,0.18)', 
+                  transform: 'scale(1.04)',
+                  [theme.breakpoints.down('sm')]: {
+                    transform: 'scale(1.02)'
+                  }
+                }
+              }}>
                 <BsAward size={40} color="#172845" style={{ marginBottom: 12 }} />
                 <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Titre Professionnel</Typography>
                 <Typography sx={{ color: '#172845' }}>Développeur web et web mobile</Typography>
@@ -1225,33 +1252,6 @@ ${formData.message}
                 <BsMortarboard size={40} color="#172845" style={{ marginBottom: 12 }} />
                 <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Baccalauréat</Typography>
                 <Typography sx={{ color: '#172845' }}>STI2D - SIN</Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12} sm={6} md={6} lg={6}>
-              <Box sx={{
-                background: 'white',
-                borderRadius: 3,
-                boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
-                p: {
-                  xs: 2,
-                  sm: 2.5,
-                  md: 3,
-                  lg: 3
-                },
-                textAlign: 'center',
-                transition: '0.2s',
-                height: '100%',
-                '&:hover': { 
-                  boxShadow: '0 8px 32px 0 rgba(23,40,69,0.18)', 
-                  transform: 'scale(1.04)',
-                  [theme.breakpoints.down('sm')]: {
-                    transform: 'scale(1.02)'
-                  }
-                }
-              }}>
-                <BsPatchCheck size={40} color="#172845" style={{ marginBottom: 12 }} />
-                <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Certification PSPO 1</Typography>
-                <Typography sx={{ color: '#172845' }}>Scrum.org</Typography>
               </Box>
             </Grid>
           </Grid>
