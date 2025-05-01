@@ -226,7 +226,7 @@ const HeroName = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
   letterSpacing: '1px',
   textShadow: '0 2px 8px rgba(0,0,0,0.45)',
-  fontFamily: 'Stop',
+  fontFamily: 'Comforta',
   [theme.breakpoints.down('sm')]: {
     fontSize: '2rem',
   },
@@ -1065,11 +1065,11 @@ const Home = () => {
       <Box id="contact" sx={{ 
         pt: { xs: 8, sm: 8, md: 8 },
         pb: { xs: 8, sm: 10, md: 12 },
-        backgroundColor: '#172845',
+        backgroundColor: 'white',
         scrollMarginTop: '100px'
       }}>
         <Container>
-          <SectionTitle sx={{ color: 'white' }}>CONTACT</SectionTitle>
+          <SectionTitle sx={{ color: '#172845' }}>CONTACT</SectionTitle>
           <Grid container spacing={{ xs: 2, sm: 4, md: 4 }} justifyContent="center">
             {/* Colonne de gauche - Informations de contact */}
             <Grid item xs={12} md={5}>
@@ -1082,7 +1082,7 @@ const Home = () => {
                 p: 4
               }}>
                 <Typography variant="h4" sx={{ 
-                  color: 'white',
+                  color: '#172845',
                   fontWeight: 500,
                   mb: 4
                 }}>
@@ -1091,10 +1091,10 @@ const Home = () => {
                 
                 <ContactInfo>
                   <ContactIcon>
-                    <EmailIcon sx={{ fontSize: 28, color: 'white' }} />
+                    <EmailIcon sx={{ fontSize: 28, color: '#172845' }} />
                   </ContactIcon>
                   <ContactLabel>
-                    <a href="mailto:contact@nicolas-goujon.fr" style={{ color: 'white', textDecoration: 'none' }}>
+                    <a href="mailto:contact@nicolas-goujon.fr" style={{ color: '#172845', textDecoration: 'none' }}>
                       contact@nicolas-goujon.fr
                     </a>
                   </ContactLabel>
@@ -1102,9 +1102,9 @@ const Home = () => {
 
                 <ContactInfo>
                   <ContactIcon>
-                    <PhoneIcon sx={{ fontSize: 28, color: 'white' }} />
+                    <PhoneIcon sx={{ fontSize: 28, color: '#172845' }} />
                   </ContactIcon>
-                  <ContactLabel sx={{ color: 'white' }}>
+                  <ContactLabel sx={{ color: '#172845' }}>
                     +33 (0) 6 95 35 28 12
                   </ContactLabel>
                 </ContactInfo>
@@ -1117,13 +1117,13 @@ const Home = () => {
                 component="form"
                 onSubmit={handleSubmit}
                 sx={{
-                  background: 'white',
+                  background: '#172845',
                   borderRadius: '18px',
                   p: 4,
                   boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
                 }}
               >
-                <Typography variant="h6" sx={{ color: '#172845', mb: 3 }}>Je souhaite...</Typography>
+                <Typography variant="h6" sx={{ color: 'white', mb: 3 }}>Je souhaite...</Typography>
                 
                 <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 3 }}>
                   {[
@@ -1141,13 +1141,13 @@ const Home = () => {
                       onClick={() => handleOptionClick(option)}
                       sx={{
                         borderRadius: '20px',
-                        borderColor: '#172845',
-                        color: selectedOption === option ? 'white' : '#172845',
-                        backgroundColor: selectedOption === option ? '#172845' : 'transparent',
+                        borderColor: 'white',
+                        color: selectedOption === option ? '#172845' : 'white',
+                        backgroundColor: selectedOption === option ? 'white' : '#172845',
                         '&:hover': {
-                          borderColor: '#172845',
-                          backgroundColor: '#172845',
-                          color: 'white',
+                          borderColor: 'white',
+                          backgroundColor: 'white',
+                          color: '#172845',
                         }
                       }}
                     >
@@ -1168,9 +1168,16 @@ const Home = () => {
                   InputProps={{
                     sx: {
                       borderRadius: 2,
+                      backgroundColor: 'white',
                       color: '#172845',
                       '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: '#172845',
+                        borderColor: 'white',
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
                       },
                     }
                   }}
@@ -1198,9 +1205,16 @@ const Home = () => {
                   InputProps={{
                     sx: {
                       borderRadius: 2,
+                      backgroundColor: 'white',
                       color: '#172845',
                       '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: '#172845',
+                        borderColor: 'white',
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
                       },
                     }
                   }}
@@ -1229,9 +1243,16 @@ const Home = () => {
                   InputProps={{
                     sx: {
                       borderRadius: 2,
+                      backgroundColor: 'white',
                       color: '#172845',
                       '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: '#172845',
+                        borderColor: 'white',
+                      },
+                      '&:hover .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
+                      },
+                      '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                        borderColor: 'white',
                       },
                     }
                   }}
@@ -1252,16 +1273,16 @@ const Home = () => {
                   endIcon={<SendIcon />}
                   disabled={formStatus === 'sending'}
                   sx={{
-                    backgroundColor: '#172845',
-                    color: 'white',
+                    backgroundColor: 'white',
+                    color: '#172845',
                     borderRadius: 2,
                     py: 1.5,
                     px: 4,
                     '&:hover': {
-                      backgroundColor: '#0e1a2d',
+                      backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     },
                     '&:disabled': {
-                      backgroundColor: '#172845',
+                      backgroundColor: 'white',
                       opacity: 0.7,
                     }
                   }}
