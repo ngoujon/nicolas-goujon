@@ -6,6 +6,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  background-color: #172845;
 }
 
 #root {
@@ -16,7 +17,7 @@ body {
 
 main {
   flex: 1;
-  padding: 20px 0;
+  padding: 0;
 }
 
 .App {
@@ -27,4 +28,102 @@ main {
 
 code {
   font-family: 'Stop';
+}
+
+/* Nouveau style de scrollbar */
+:root {
+  --scrollbar-width: 12px;
+  --scrollbar-track-color: rgba(255, 255, 255, 0.05);
+  --scrollbar-thumb-color: rgba(255, 255, 255, 0.2);
+  --scrollbar-thumb-hover-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb-color) var(--scrollbar-track-color);
+}
+
+/* WebKit */
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  height: var(--scrollbar-width);
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-track-color);
+  border-radius: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb-color);
+  border-radius: 8px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+  min-height: 100px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover-color);
+}
+
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+/* Pour le coin entre les scrollbars */
+::-webkit-scrollbar-corner {
+  background-color: transparent;
+}
+
+/* Pour les éléments qui peuvent avoir un scroll */
+.scrollable {
+  scrollbar-gutter: stable;
+}
+
+/* Animation de la flèche de scroll */
+.scroll-arrow {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  animation: fadeInOut 2s infinite;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-arrow svg {
+  width: 80px;
+  height: 80px;
+  fill: rgba(255, 255, 255, 0.85);
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.4));
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(20px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(40px);
+  }
 }

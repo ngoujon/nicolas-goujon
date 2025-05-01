@@ -72,20 +72,25 @@ const Header = () => {
         textTransform: 'uppercase',
         fontWeight: 'bold',
         position: 'relative',
-        '&:before': {
+        transition: 'all 0.3s ease',
+        backgroundColor: 'transparent',
+        '&::after': {
           content: '""',
-          background: '#FFFFFF',
-          display: 'block',
           position: 'absolute',
-          bottom: '-3px',
+          bottom: '-2px',
           left: 0,
-          width: 0,
-          height: '1px',
-          transition: 'all 0.3s ease-in-out',
+          width: '0',
+          height: '2px',
+          background: 'white',
+          transition: 'width 0.3s ease',
         },
-        '&:hover:before': {
-          width: '100%',
-        },
+        '&:hover': {
+          backgroundColor: 'transparent',
+          color: 'white',
+          '&::after': {
+            width: '100%',
+          }
+        }
       }}
     >
       {item.label}
@@ -134,10 +139,10 @@ const Header = () => {
               display: 'flex', 
               marginLeft: '25px',
               '& .MuiIconButton-root': {
-                transition: 'all 0.3s ease-in-out',
+                transition: 'all 0.3s ease',
                 '&:hover': {
-                  transform: 'scale(1.1)',
-                  color: '#64B5F6'
+                  transform: 'translateY(-3px)',
+                  color: 'white'
                 }
               }
             }}>
@@ -192,8 +197,9 @@ const Header = () => {
                   color: 'white', 
                   my: 1,
                   width: '100%',
+                  transition: 'all 0.3s ease',
                   '&:hover': {
-                    backgroundColor: 'rgba(255, 255, 255, 0.1)'
+                    color: 'white'
                   }
                 }}
               >
@@ -210,8 +216,10 @@ const Header = () => {
                   sx={{ 
                     color: 'white', 
                     mx: 1,
+                    transition: 'all 0.3s ease',
                     '&:hover': {
-                      color: '#64B5F6'
+                      color: 'white',
+                      transform: 'translateY(-3px)'
                     }
                   }}
                 >

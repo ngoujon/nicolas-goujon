@@ -5,6 +5,7 @@ import SendIcon from '@mui/icons-material/Send';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import SvgIcon from '@mui/material/SvgIcon';
 import { BsAward, BsBookmarkCheck, BsMortarboard, BsPatchCheck } from "react-icons/bs";
 import "bootstrap-icons/font/bootstrap-icons.css";
@@ -49,10 +50,16 @@ const CvButton = styled(Button)(({ theme }) => ({
 }));
 
 const SectionTitle = styled(Typography)(({ theme }) => ({
-  fontSize: '2rem',
-  fontWeight: 'bold',
-  marginBottom: theme.spacing(3),
+  fontSize: '3rem',
+  fontWeight: '500',
+  marginBottom: theme.spacing(8),
   textAlign: 'center',
+  letterSpacing: '2px',
+  fontFamily: 'Garet',
+  [theme.breakpoints.down('sm')]: {
+    fontSize: '2.5rem',
+    marginBottom: theme.spacing(6),
+  },
 }));
 
 const SkillCard = styled(Box)(({ theme }) => ({
@@ -60,7 +67,7 @@ const SkillCard = styled(Box)(({ theme }) => ({
   padding: theme.spacing(2),
   marginBottom: theme.spacing(3),
   [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(1),
+    padding: theme.breakpoints.down('sm') ? theme.spacing(1) : theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
 }));
@@ -206,6 +213,8 @@ const HeroContent = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   textShadow: '0 2px 8px rgba(0,0,0,0.45)',
   padding: theme.spacing(4),
+  width: '100%',
+  height: '100%',
   [theme.breakpoints.down('sm')]: {
     padding: theme.spacing(2),
   },
@@ -217,6 +226,7 @@ const HeroName = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(1),
   letterSpacing: '1px',
   textShadow: '0 2px 8px rgba(0,0,0,0.45)',
+  fontFamily: 'Stop',
   [theme.breakpoints.down('sm')]: {
     fontSize: '2rem',
   },
@@ -309,13 +319,13 @@ const CitationBox = styled(Box)(({ theme }) => ({
   '&::before': {
     content: '""',
     position: 'absolute',
-    left: '48px',
-    top: '-12px',
+    left: '-10px',
+    top: '48px',
     width: '20px',
     height: '20px',
     background: 'white',
     transform: 'rotate(45deg)',
-    boxShadow: '-3px -3px 5px rgba(23,40,69,0.05)',
+    boxShadow: '-3px 3px 5px rgba(23,40,69,0.05)',
   },
   [theme.breakpoints.down('sm')]: {
     flexDirection: 'column',
@@ -323,6 +333,7 @@ const CitationBox = styled(Box)(({ theme }) => ({
     padding: theme.spacing(3),
     '&::before': {
       left: '50%',
+      top: '-10px',
       transform: 'translateX(-50%) rotate(45deg)',
     }
   },
@@ -438,6 +449,7 @@ function SkypeIcon(props) {
 const Home = () => {
   const [formStatus, setFormStatus] = React.useState(null);
   const [selectedOption, setSelectedOption] = useState('');
+  const [showScrollArrow, setShowScrollArrow] = useState(true);
   const [formData, setFormData] = useState({
     nom: '',
     email: '',
@@ -446,13 +458,31 @@ const Home = () => {
   const theme = useTheme();
 
   useEffect(() => {
-    const path = window.location.pathname.substring(1); // Retire le slash initial
+    const path = window.location.pathname.substring(1);
     if (path && path !== '') {
       const element = document.getElementById(path);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        const offset = 100; // Hauteur de la navbar + marge de sécurité
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - offset;
+        
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
       }
     }
+
+    const handleScroll = () => {
+      if (window.scrollY > 100) {
+        setShowScrollArrow(false);
+      } else {
+        setShowScrollArrow(true);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const handleInputChange = (e) => {
@@ -520,15 +550,22 @@ const Home = () => {
             Consulter mon CV
           </HeroCvButton>
         </HeroContent>
+        {showScrollArrow && (
+          <Box className="scroll-arrow">
+            <KeyboardArrowDownIcon />
+          </Box>
+        )}
       </HeroSection>
 
       {/* Section Projets */}
       <Box id="projets" sx={{ 
-        py: { xs: 4, sm: 6, md: 8 }, 
-        backgroundColor: '#fff' 
+        pt: { xs: 8, sm: 8, md: 8 },
+        pb: { xs: 8, sm: 10, md: 12 },
+        backgroundColor: '#fff',
+        scrollMarginTop: '100px'
       }}>
         <Container>
-          <SectionTitle sx={{ color: '#172845', mb: 6 }}>Projets</SectionTitle>
+          <SectionTitle sx={{ color: '#172845' }}>PROJETS</SectionTitle>
           <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} justifyContent="center">
             <Grid item xs={12} md={4}>
               <ProjectCard>
@@ -580,26 +617,16 @@ const Home = () => {
 
       {/* Section Stack */}
       <Box id="stack" sx={{ 
-        py: { xs: 4, sm: 6, md: 12 }, 
+        pt: { xs: 8, sm: 8, md: 8 },
+        pb: { xs: 8, sm: 10, md: 12 },
         backgroundColor: '#172845',
+        scrollMarginTop: '100px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
       }}>
-        <Container maxWidth="lg" sx={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          alignItems: 'center',
-          px: { xs: 2, sm: 4, md: 8 }
-        }}>
-          <Typography variant="h2" sx={{ 
-            color: 'white', 
-            mb: 12, 
-            textAlign: 'center', 
-            fontSize: '3rem',
-            fontWeight: '500',
-            letterSpacing: '2px'
-          }}>STACK</Typography>
+        <Container maxWidth="lg">
+          <SectionTitle sx={{ color: 'white' }}>STACK</SectionTitle>
           
           <Box sx={{ 
             display: 'grid',
@@ -895,9 +922,14 @@ const Home = () => {
       </Box>
 
       {/* Section Formation */}
-      <Box id="formation" sx={{ py: 8, background: 'white' }}>
+      <Box id="formation" sx={{ 
+        pt: { xs: 8, sm: 8, md: 8 },
+        pb: { xs: 8, sm: 10, md: 12 },
+        background: 'white',
+        scrollMarginTop: '100px'
+      }}>
         <Container>
-          <SectionTitle sx={{ color: '#172845', mb: 6 }}>FORMATION</SectionTitle>
+          <SectionTitle sx={{ color: '#172845' }}>FORMATION</SectionTitle>
           <Grid container spacing={4} justifyContent="center">
             <Grid item xs={12} sm={6}>
               <Box sx={{
@@ -967,21 +999,55 @@ const Home = () => {
         </Container>
       </Box>
 
-      {/* Section Bio améliorée */}
-      <Box id="bio" sx={{ py: { xs: 4, sm: 6, md: 8 }, backgroundColor: '#172845' }}>
+      {/* Section Bio */}
+      <Box id="bio" sx={{ 
+        pt: { xs: 8, sm: 8, md: 8 },
+        pb: { xs: 8, sm: 10, md: 12 },
+        backgroundColor: '#172845',
+        scrollMarginTop: '100px'
+      }}>
         <Container>
-          {/* Bloc 1 : Image gauche, texte droite */}
-          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} alignItems="center">
-            <Grid item xs={12} md={5}>
-              <BioCard>
-                <BioImg style={{ backgroundImage: 'url(/images/background/workspace.jpg)' }} />
-              </BioCard>
+          <SectionTitle sx={{ color: 'white' }}>BIO</SectionTitle>
+          
+          {/* Citation Box */}
+          <Grid container justifyContent="center" sx={{ mb: 7, px: 2 }}>
+            <Grid item xs={12}>
+              <CitationBox>
+                <CitationImg style={{ backgroundImage: 'url(/images/profil.jpg)' }} />
+                <CitationContent>
+                  <CitationHeader>
+                    <CitationName>Nicolas GOUJON</CitationName>
+                    <CitationDate>Développeur Web et web mobile - Product Owner</CitationDate>
+                  </CitationHeader>
+                  <CitationText sx={{
+                    textAlign: 'justify',
+                    fontSize: '1rem',
+                    lineHeight: 1.6
+                  }}>
+                    Passionné d'informatique depuis toujours, je me suis très vite orienté vers la programmation web dès le plus jeune âge étant donné que c'est là que se trouve toute l'innovation et les dernières avancées technologiques. J'ai donc décidé de faire de mon hobby un métier et je me suis lancé dans la création de sites internet professionnels.
+                  </CitationText>
+                </CitationContent>
+              </CitationBox>
             </Grid>
-            <Grid item xs={12} md={7}>
-              <Typography variant="body1" paragraph sx={{ color: 'white', fontSize: '1.1rem', mb: 2 }}>
-                Mon expérience au sein d'une entreprise conception de logiciels SaaS a fait développer mes compétences sur ce type de logiciel, sur la qualité logicielle, et sur les échanges avec le client en phase de conception et de maintenance.<br/>
-                J'ai également acquis une bonne connaissance de la gestion de projet et de l'organisation d'une équipe de développement. En effet, j'ai eu l'occasion de gérer plusieurs projets de développement de logiciels SaaS, en particulier sur la phase de conception et de développement. J'ai ainsi pu mettre en place plusieurs processus et outils de qualité logicielle.<br/>
-                En outre, j'ai également travaillé en étroite collaboration avec les clients, afin de comprendre leurs besoins et de leur fournir un logiciel SaaS adapté à leurs attentes. J'ai ainsi pu développer une bonne compréhension des enjeux et des contraintes liés à ce type de projet.
+          </Grid>
+
+          {/* Premier bloc de texte */}
+          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} alignItems="center">
+            <Grid item xs={12}>
+              <Typography variant="body1" paragraph sx={{ 
+                color: 'white', 
+                fontSize: '1rem',
+                mb: 2,
+                textAlign: 'justify',
+                lineHeight: 1.6
+              }}>
+                Pendant plusieurs années, j'ai travaillé dans la conception de logiciels SaaS, ce qui m'a permis de développer une vraie expertise, autant sur le plan technique que dans la relation client. À travers plusieurs projets, notamment sur les phases de conception et de développement, j'ai pu mettre en place des outils et processus de qualité. <br/>
+                <br/>
+                J'ai également assuré le suivi et l'accompagnement des projets dans le temps, en restant à l'écoute des besoins clients pour faire évoluer les solutions. Cette collaboration directe avec les utilisateurs m'a appris à bien comprendre leurs attentes et à adapter les logiciels aux contraintes propres à chaque projet.<br/>
+                <br/>
+                Mon parcours en conception de sites web m'a permis de prendre en charge l'ensemble des étapes d'un projet, de la définition des besoins jusqu'à la maintenance. En tant qu'indépendant, j'ai également géré tous les aspects liés à la micro-entreprise : finance, administratif, organisation.<br/>
+                <br/>
+                Au fil des missions, j'ai accompagné des clients très variés : associations, entreprises et particuliers, avec des contextes, des équipes et des contraintes toujours différentes. Cette diversité m'a appris à m'adapter rapidement et à faire face aux imprévus avec efficacité
               </Typography>
               <Box sx={{ mt: 1 }}>
                 <ChipTag># Engineering</ChipTag>
@@ -992,54 +1058,18 @@ const Home = () => {
               </Box>
             </Grid>
           </Grid>
-
-          {/* Bloc 2 : Texte gauche, image droite */}
-          <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} alignItems="center" sx={{ mt: 4 }}>
-            <Grid item xs={12} md={7}>
-              <Typography variant="body1" paragraph sx={{ color: 'white', fontSize: '1.1rem', mb: 2 }}>
-                Fort de plus de 5 années d'expérience dans la conception de site-web, j'ai participé à toutes les étapes de conception : de la définition du besoin jusqu'à la maintenance du site. Etant à mon compte, j'ai également eu à porter tous les aspects de la gestion d'une micro-entreprise, d'un point de vue financier, administratif et gestion des ressources.<br/>
-                Mes clients ont été variés : des institutionnels, des associations, des collectivités locales, des entreprises et des particuliers. J'ai ainsi pu mettre en œuvre des projets de toute nature, avec des équipes et des contraintes différentes. Cela m'a permis de développer une grande adaptabilité et une bonne capacité à gérer les imprévus.<br/>
-                Aujourd'hui, je souhaite mettre mes compétences au service d'une entreprise dynamique, en quête de nouvelles technologies pour améliorer ses processus. J'ai envie de m'investir dans un projet à long terme et de pouvoir apporter ma contribution à la croissance d'une entreprise.
-              </Typography>
-              <Box sx={{ mt: 1 }}>
-                <ChipTag># Gestion de projet</ChipTag>
-                <ChipTag># Definition des besoins</ChipTag>
-                <ChipTag># Web Design</ChipTag>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={5}>
-              <BioCard>
-                <BioImg style={{ backgroundImage: 'url(/images/background/_workspace.jpg)' }} />
-              </BioCard>
-            </Grid>
-          </Grid>
-
-          {/* Citation améliorée */}
-          <Grid container justifyContent="center" sx={{ mt: 7, px: 2 }}>
-            <Grid item xs={12}>
-              <CitationBox>
-                <CitationImg style={{ backgroundImage: 'url(/images/profil.jpg)' }} />
-                <CitationContent>
-                  <CitationHeader>
-                    <CitationName>Nicolas GOUJON</CitationName>
-                    <CitationDate>Développeur Web et web mobile - Product Owner</CitationDate>
-                  </CitationHeader>
-                  <CitationText>
-                    Passionné d'informatique depuis toujours, je me suis très vite orienté vers la programmation web dès le plus jeune âge étant donné que c'est là que se trouve toute l'innovation et les dernières avancées technologiques. J'ai donc décidé de faire de mon hobby un métier et je me suis lancé dans la création de sites internet professionnels.
-                  </CitationText>
-                </CitationContent>
-              </CitationBox>
-            </Grid>
-          </Grid>
         </Container>
       </Box>
 
       {/* Section Contact ergonomique */}
       <Box id="contact" sx={{ 
-        py: { xs: 4, sm: 6, md: 8 }, 
-        backgroundColor: '#172845' 
+        pt: { xs: 8, sm: 8, md: 8 },
+        pb: { xs: 8, sm: 10, md: 12 },
+        backgroundColor: '#172845',
+        scrollMarginTop: '100px'
       }}>
         <Container>
+          <SectionTitle sx={{ color: 'white' }}>CONTACT</SectionTitle>
           <Grid container spacing={{ xs: 2, sm: 4, md: 4 }} justifyContent="center">
             {/* Colonne de gauche - Informations de contact */}
             <Grid item xs={12} md={5}>
