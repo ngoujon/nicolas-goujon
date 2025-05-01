@@ -590,7 +590,7 @@ ${formData.message}
         <HeroOverlay />
         <HeroContent>
           <HeroName>Nicolas GOUJON</HeroName>
-          <HeroTitle>Développeur Web et web mobile</HeroTitle>
+          <HeroTitle>Développeur Web  & Product Owner</HeroTitle>
           {/*<HeroCvButton
             variant="contained"
             href="/docs/CV_Nicolas-GOUJON.pdf"
@@ -1280,7 +1280,7 @@ ${formData.message}
                 <CitationContent>
                   <CitationHeader>
                     <CitationName>Nicolas GOUJON</CitationName>
-                    <CitationDate>Développeur Web et web mobile - Product Owner</CitationDate>
+                    <CitationDate>Développeur Web & Product Owner</CitationDate>
                   </CitationHeader>
                   <CitationText sx={{
                     textAlign: 'justify',
