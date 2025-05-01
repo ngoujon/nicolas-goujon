@@ -671,7 +671,7 @@ ${formData.message}
                     gap: 2
                   }}>
                     {[
-                      { icon: 'bi-layout-wtf', text: 'Sites vitrines modernes et responsifs avec React, Next.js' },
+                      { icon: 'bi-layout-wtf', text: 'Sites vitrines modernes et responsives avec React, Next.js' },
                       { icon: 'bi-database', text: 'Applications web complexes avec gestion de base de données et API REST' },
                       { icon: 'bi-cart', text: 'Solutions e-commerce avec intégration de paiement sécurisé' },
                       { icon: 'bi-file-earmark-text', text: 'Sites institutionnels avec gestion de contenu (CMS)' },
