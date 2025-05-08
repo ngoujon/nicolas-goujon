@@ -1,11 +1,11 @@
-# Portfolio de Nicolas Goujon
+# Site professionnel de Nicolas Goujon
 
-Ce projet est le portfolio personnel de Nicolas Goujon, développé avec React. Il présente mes compétences, mes projets et mon parcours professionnel.
+Ce projet est le site professionnel de Nicolas Goujon, développé avec React. Il présente mes compétences, mes projets et mon parcours professionnel.
 
 ## 🚀 Fonctionnalités
 
 - Présentation personnelle
-- Portfolio de projets
+- Projets réalisés
 - Compétences techniques
 - Expérience professionnelle
 - Formulaire de contact
