@@ -474,7 +474,7 @@ function SkypeIcon(props) {
  */
 const Home = () => {
   const [formStatus, setFormStatus] = useState('idle');
-  const [selectedOption, setSelectedOption] = useState('');
+  const [selectedOptions, setSelectedOptions] = useState([]);
   const [showScrollArrow, setShowScrollArrow] = useState(true);
   const [isHuman, setIsHuman] = useState(false);
   const [formData, setFormData] = useState({
@@ -524,7 +524,13 @@ const Home = () => {
   };
 
   const handleOptionClick = (option) => {
-    setSelectedOption(option === selectedOption ? '' : option);
+    setSelectedOptions(prevOptions => {
+      if (prevOptions.includes(option)) {
+        return prevOptions.filter(opt => opt !== option);
+      } else {
+        return [...prevOptions, option];
+      }
+    });
   };
 
   /**
@@ -548,7 +554,7 @@ const Home = () => {
         message: `
 Nouveau message depuis le formulaire de contact
 
-Sujet: ${selectedOption || 'Contact depuis le site web'}
+Sujets: ${selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Contact depuis le site web'}
 Nom: ${formData.name}
 Email: ${formData.email}
 
@@ -567,7 +573,7 @@ ${formData.message}
 
       setFormStatus('success');
       setFormData({ name: '', email: '', message: '' });
-      setSelectedOption('');
+      setSelectedOptions([]);
       setIsHuman(false);
       
       setTimeout(() => {
@@ -1435,8 +1441,8 @@ ${formData.message}
                       sx={{
                         borderRadius: '20px',
                         borderColor: 'white',
-                        color: selectedOption === option ? '#172845' : 'white',
-                        backgroundColor: selectedOption === option ? 'white' : '#172845',
+                        color: selectedOptions.includes(option) ? '#172845' : 'white',
+                        backgroundColor: selectedOptions.includes(option) ? 'white' : '#172845',
                         '&:hover': {
                           borderColor: 'white',
                           backgroundColor: 'white',
