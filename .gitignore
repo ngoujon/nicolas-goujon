@@ -53,4 +53,4 @@ Thumbs.db
 .temp/
 
 # Deployment
-deploy.sh
+deploy.ps1
