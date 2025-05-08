@@ -157,7 +157,7 @@ const Footer = () => {
             letterSpacing: '0.5px',
           }}
         >
-          © {new Date().getFullYear()} Nicolas GOUJON.
+          © {new Date().getFullYear()} Nicolas GOUJON
         </Typography>
       </Container>
     </Box>
