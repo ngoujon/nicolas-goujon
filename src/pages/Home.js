@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box, Grid, Paper, Button, TextField, TextareaAutosize, useTheme, Checkbox, FormControlLabel } from '@mui/material';
+import { Container, Typography, Box, Grid, Button, TextField, useTheme, Checkbox, FormControlLabel, Divider } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
 import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import SvgIcon from '@mui/material/SvgIcon';
 import { BsAward, BsBookmarkCheck, BsMortarboard, BsPatchCheck } from "react-icons/bs";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import emailjs from '@emailjs/browser';
@@ -16,43 +15,6 @@ import { logger } from '../utils/logger';
 emailjs.init("EMAILJS_PUBLIC_KEY");
 
 // Composants stylisés
-const StyledPaper = styled(Paper)(({ theme }) => ({
-  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  padding: theme.spacing(3),
-  borderRadius: '10px',
-  marginBottom: theme.spacing(3),
-}));
-
-const ProfileSection = styled(Box)(({ theme }) => ({
-  textAlign: 'center',
-  padding: theme.spacing(5, 0),
-}));
-
-const Name = styled(Typography)(({ theme }) => ({
-  fontSize: '50px',
-  fontWeight: 'bold',
-  marginBottom: theme.spacing(2),
-}));
-
-const Title = styled(Typography)(({ theme }) => ({
-  fontSize: '30px',
-  marginBottom: theme.spacing(3),
-}));
-
-const CvButton = styled(Button)(({ theme }) => ({
-  backgroundColor: 'transparent',
-  color: 'white',
-  border: '2px solid white',
-  padding: theme.spacing(1, 3),
-  borderRadius: '5px',
-  fontWeight: 'bold',
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    backgroundColor: 'white',
-    color: '#172845',
-  },
-}));
-
 const SectionTitle = styled(Typography)(({ theme }) => ({
   fontSize: '3rem',
   fontWeight: '500',
@@ -74,56 +36,6 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
   }
 }));
 
-const SkillCard = styled(Box)(({ theme }) => ({
-  textAlign: 'center',
-  padding: theme.spacing(2),
-  marginBottom: theme.spacing(3),
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.breakpoints.down('sm') ? theme.spacing(1) : theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-}));
-
-const SkillIcon = styled(Box)(({ theme }) => ({
-  fontSize: '2.5rem',
-  marginBottom: theme.spacing(1),
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '2rem',
-  },
-}));
-
-const SkillName = styled(Typography)(({ theme }) => ({
-  fontSize: '1.2rem',
-  fontWeight: 'bold',
-  marginBottom: theme.spacing(1),
-}));
-
-const SkillItem = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(0.5),
-}));
-
-const EducationCard = styled(Box)(({ theme }) => ({
-  textAlign: 'center',
-  padding: theme.spacing(2),
-  marginBottom: theme.spacing(3),
-}));
-
-const EducationIcon = styled(Box)(({ theme }) => ({
-  fontSize: '2.5rem',
-  marginBottom: theme.spacing(1),
-}));
-
-const EducationName = styled(Typography)(({ theme }) => ({
-  fontSize: '1.2rem',
-  fontWeight: 'bold',
-  marginBottom: theme.spacing(0.5),
-}));
-
-const EducationSub = styled(Typography)(({ theme }) => ({
-  fontSize: '1rem',
-  marginBottom: theme.spacing(0.5),
-}));
-
 const ProjectCard = styled(Box)(({ theme }) => ({
   textAlign: 'center',
   padding: theme.spacing(3),
@@ -132,37 +44,6 @@ const ProjectCard = styled(Box)(({ theme }) => ({
     padding: theme.spacing(2),
     marginBottom: theme.spacing(2),
   },
-}));
-
-const ProjectLogo = styled(Box)(({ theme }) => ({
-  height: '100px',
-  backgroundSize: 'contain',
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'center',
-  marginBottom: theme.spacing(2),
-  [theme.breakpoints.down('sm')]: {
-    height: '80px',
-  },
-}));
-
-const ProjectName = styled(Typography)(({ theme }) => ({
-  fontSize: '1.5rem',
-  fontWeight: 'bold',
-  marginBottom: theme.spacing(1),
-}));
-
-const ProjectLink = styled(Typography)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  marginBottom: theme.spacing(1),
-  '& svg': {
-    marginLeft: theme.spacing(0.5),
-  },
-}));
-
-const ProjectText = styled(Typography)(({ theme }) => ({
-  marginBottom: theme.spacing(1),
 }));
 
 const ContactInfo = styled(Box)(({ theme }) => ({
@@ -271,49 +152,6 @@ const HeroTitle = styled(Typography)(({ theme }) => ({
   }
 }));
 
-const HeroCvButton = styled(Button)(({ theme }) => ({
-  background: 'white',
-  color: '#172845',
-  borderRadius: '30px',
-  fontWeight: 700,
-  fontSize: '1.1rem',
-  padding: '12px 36px',
-  boxShadow: '0 4px 24px 0 rgba(23,40,69,0.18)',
-  transition: 'all 0.2s',
-  textTransform: 'none',
-  '&:hover': {
-    backgroundColor: '#172845',
-    color: 'white',
-    boxShadow: '0 6px 32px 0 rgba(23,40,69,0.25)',
-  },
-}));
-
-// Carte image bio
-const BioCard = styled(Box)(({ theme }) => ({
-  background: 'white',
-  borderRadius: '18px',
-  boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
-  overflow: 'hidden',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  height: '220px',
-  [theme.breakpoints.down('sm')]: {
-    height: '160px',
-    marginBottom: theme.spacing(2),
-  },
-  [theme.breakpoints.between('sm', 'md')]: {
-    height: '180px',
-  },
-}));
-
-const BioImg = styled('div')(() => ({
-  width: '100%',
-  height: '100%',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-}));
-
 const ChipTag = styled(Box)(({ theme }) => ({
   display: 'inline-block',
   background: 'rgba(23,40,69,0.08)',
@@ -419,54 +257,6 @@ const CitationText = styled(Typography)(({ theme }) => ({
     textAlign: 'justify',
   },
 }));
-
-const ContactCard = styled(Box)(({ theme }) => ({
-  background: 'white',
-  borderRadius: '18px',
-  boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
-  padding: theme.spacing(4, 4),
-  maxWidth: 500,
-  margin: '0 auto',
-  [theme.breakpoints.down('sm')]: {
-    padding: theme.spacing(2, 1),
-  },
-  [theme.breakpoints.between('sm', 'md')]: {
-    padding: theme.spacing(3, 2),
-  },
-}));
-
-const ContactButton = styled(Button)(({ theme }) => ({
-  background: '#172845',
-  color: 'white',
-  borderRadius: '30px',
-  fontWeight: 700,
-  fontSize: '1.1rem',
-  padding: '12px 0',
-  width: '100%',
-  marginTop: theme.spacing(2),
-  boxShadow: '0 2px 8px 0 rgba(23,40,69,0.10)',
-  textTransform: 'none',
-  transition: 'all 0.2s',
-  [theme.breakpoints.down('sm')]: {
-    fontSize: '1rem',
-    padding: '10px 0',
-  },
-  '&:hover': {
-    background: '#172845',
-    color: 'white',
-    boxShadow: '0 4px 16px 0 rgba(23,40,69,0.18)',
-  },
-}));
-
-// Icône Skype personnalisée
-function SkypeIcon(props) {
-  return (
-    <SvgIcon {...props} viewBox="0 0 32 32">
-      <circle cx="16" cy="16" r="16" fill="#00AFF0" />
-      <path d="M23.5 18.7c-.3-.2-.7-.3-1-.2-.3.1-.6.3-.7.6-.5 1.1-1.7 1.8-3.2 1.8-1.7 0-2.8-.7-2.8-1.7 0-.5.2-.8 1.2-1.1l2.1-.5c2.1-.5 3.1-1.5 3.1-3.1 0-2-2-3.3-4.5-3.3-2.1 0-3.8.8-4.5 2.2-.2.3-.2.7-.1 1 .2.3.5.5.9.5.3 0 .6-.2.8-.5.5-1 1.7-1.6 3.1-1.6 1.6 0 2.6.6 2.6 1.6 0 .6-.3 1-1.5 1.3l-2.1.5c-2.1.5-3.1 1.5-3.1 3.1 0 2 2 3.3 4.7 3.3 2.2 0 4-1 4.7-2.5.2-.3.1-.7-.2-1z" fill="#fff"/>
-    </SvgIcon>
-  );
-}
 
 /**
  * Composant principal de la page d'accueil
@@ -596,7 +386,7 @@ ${formData.message}
         <HeroOverlay />
         <HeroContent>
           <HeroName>Nicolas GOUJON</HeroName>
-          <HeroTitle>Développeur Web  & Product Owner</HeroTitle>
+          <HeroTitle>Développeur Web & Product Owner</HeroTitle>
           {/*<HeroCvButton
             variant="contained"
             href="/docs/CV_Nicolas-GOUJON.pdf"
@@ -621,7 +411,7 @@ ${formData.message}
         scrollMarginTop: '100px'
       }}>
         <Container>
-          <SectionTitle sx={{ color: '#172845' }}>EXPERIENCE</SectionTitle>
+          <SectionTitle sx={{ color: '#172845' }}>EXPÉRIENCE</SectionTitle>
           <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} justifyContent="center">
             {/* Bloc Création de sites internet */}
             <Grid item xs={12} md={6}>
@@ -818,320 +608,348 @@ ${formData.message}
 
       {/* Section Stack */}
       <Box id="stack" sx={{ 
-        pt: { xs: 8, sm: 8, md: 8 },
-        pb: { xs: 8, sm: 10, md: 12 },
+        pt: { xs: 6, sm: 8, md: 8 },
+        pb: { xs: 6, sm: 10, md: 12 },
         backgroundColor: '#172845',
         scrollMarginTop: '100px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
       }}>
-        <Container maxWidth="lg">
+        <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
           <SectionTitle sx={{ color: 'white' }}>STACK</SectionTitle>
           
           <Box sx={{ 
-            display: 'grid',
-            gridTemplateColumns: {
-              xs: 'repeat(2, 1fr)',
-              sm: 'repeat(2, 1fr)',
-              md: 'repeat(4, 1fr)',
-              lg: 'repeat(4, 1fr)'
-            },
-            gap: { 
-              xs: 3,
-              sm: 4,
-              md: 6,
-              lg: 8
-            },
+            display: 'flex',
+            flexDirection: 'column',
             width: '100%',
-            maxWidth: '1200px',
-            position: 'relative',
-            '&::after': {
-              content: '""',
-              position: 'absolute',
-              left: '0',
-              right: '0',
-              top: '50%',
-              height: '1px',
-              backgroundColor: 'rgba(255, 255, 255, 0.1)',
-              display: {
-                xs: 'none',
-                sm: 'none',
-                md: 'block'
-              }
-            }
+            maxWidth: '1200px'
           }}>
             {/* Première ligne */}
             <Box sx={{ 
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: 'repeat(2, 1fr)',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(4, 1fr)',
+                lg: 'repeat(4, 1fr)'
+              },
+              gap: { 
+                xs: 2,
+                sm: 3,
+                md: 6,
+                lg: 8
+              },
+              width: '100%'
+            }}>
+            <Box sx={{ 
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
                 color: 'white', 
-                mb: 4,
-                height: '60px',
-                width: '60px',
+                mb: { xs: 1.5, sm: 3, md: 4 },
+                height: { xs: 44, sm: 52, md: 60 },
+                width: { xs: 44, sm: 52, md: 60 },
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                fontSize: { xs: '32px', sm: '40px', md: '48px' }
               }}>
-                <i className="bi bi-front" style={{ fontSize: '48px' }}></i>
+                <i className="bi bi-front" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
                 color: 'white', 
-                mb: 2, 
-                fontSize: '1.8rem',
+                mb: { xs: 1, sm: 2 }, 
+                fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
                 fontWeight: '500',
                 textAlign: 'center',
                 width: '100%',
-                whiteSpace: 'nowrap'
+                whiteSpace: { xs: 'normal', md: 'nowrap' }
               }}>Front-End</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
-              <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>React JS</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
+              <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>React JS</Typography>
               <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Next.js</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>HTML & CSS</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>HTML & CSS</Typography>
               </Box>
             </Box>
 
             <Box sx={{ 
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
                 color: 'white', 
-                mb: 4,
-                height: '60px',
-                width: '60px',
+                mb: { xs: 1.5, sm: 3, md: 4 },
+                height: { xs: 44, sm: 52, md: 60 },
+                width: { xs: 44, sm: 52, md: 60 },
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                fontSize: { xs: '32px', sm: '40px', md: '48px' }
               }}>
-                <i className="bi bi-back" style={{ fontSize: '48px' }}></i>
+                <i className="bi bi-back" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
                 color: 'white', 
-                mb: 2, 
-                fontSize: '1.8rem',
+                mb: { xs: 1, sm: 2 }, 
+                fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
                 fontWeight: '500',
                 textAlign: 'center',
                 width: '100%',
-                whiteSpace: 'nowrap'
+                whiteSpace: { xs: 'normal', md: 'nowrap' }
               }}>Back-End</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>PHP & SQL</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>API REST</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>PHP & SQL</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>API REST</Typography>
               </Box>
             </Box>
 
             <Box sx={{ 
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
                 color: 'white', 
-                mb: 4,
-                height: '60px',
-                width: '60px',
+                mb: { xs: 1.5, sm: 3, md: 4 },
+                height: { xs: 44, sm: 52, md: 60 },
+                width: { xs: 44, sm: 52, md: 60 },
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                fontSize: { xs: '32px', sm: '40px', md: '48px' }
               }}>
-                <i className="bi bi-layout-wtf" style={{ fontSize: '48px' }}></i>
+                <i className="bi bi-layout-wtf" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
                 color: 'white', 
-                mb: 2, 
-                fontSize: '1.8rem',
+                mb: { xs: 1, sm: 2 }, 
+                fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
                 fontWeight: '500',
                 textAlign: 'center',
                 width: '100%',
-                whiteSpace: 'nowrap'
+                whiteSpace: { xs: 'normal', md: 'nowrap' }
               }}>Design</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Security by Design</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Adobe XD</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>UI & UX</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Responsive</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Figma</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Security by Design</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Adobe XD</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>UI & UX</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Responsive</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Figma</Typography>
               </Box>
             </Box>
 
             <Box sx={{ 
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
                 color: 'white', 
-                mb: 4,
-                height: '60px',
-                width: '60px',
+                mb: { xs: 1.5, sm: 3, md: 4 },
+                height: { xs: 44, sm: 52, md: 60 },
+                width: { xs: 44, sm: 52, md: 60 },
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                fontSize: { xs: '32px', sm: '40px', md: '48px' }
               }}>
-                <i className="bi bi-list-ol" style={{ fontSize: '48px' }}></i>
+                <i className="bi bi-list-ol" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
                 color: 'white', 
-                mb: 2, 
-                fontSize: '1.8rem',
+                mb: { xs: 1, sm: 2 }, 
+                fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
                 fontWeight: '500',
                 textAlign: 'center',
                 width: '100%',
-                whiteSpace: 'nowrap'
-              }}>Referencement</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Google Analytics</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>SEO - SEA - SMO</Typography>
+                whiteSpace: { xs: 'normal', md: 'nowrap' }
+              }}>Référencement</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Google Analytics</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>SEO - SEA - SMO</Typography>
               </Box>
             </Box>
+            </Box>
+
+            <Divider sx={{ 
+              my: { xs: 2, sm: 3, md: 6, lg: 8 },
+              borderColor: 'rgba(255, 255, 255, 0.1)',
+              width: '100%'
+            }} />
 
             {/* Deuxième ligne */}
+            <Box sx={{
+              display: 'grid',
+              gridTemplateColumns: {
+                xs: 'repeat(2, 1fr)',
+                sm: 'repeat(2, 1fr)',
+                md: 'repeat(4, 1fr)',
+                lg: 'repeat(4, 1fr)'
+              },
+              gap: { 
+                xs: 2,
+                sm: 3,
+                md: 6,
+                lg: 8
+              },
+              width: '100%'
+            }}>
             <Box sx={{ 
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
                 color: 'white', 
-                mb: 4,
-                height: '60px',
-                width: '60px',
+                mb: { xs: 1.5, sm: 3, md: 4 },
+                height: { xs: 44, sm: 52, md: 60 },
+                width: { xs: 44, sm: 52, md: 60 },
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                fontSize: { xs: '32px', sm: '40px', md: '48px' }
               }}>
-                <i className="bi bi-cpu" style={{ fontSize: '48px' }}></i>
+                <i className="bi bi-cpu" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
                 color: 'white', 
-                mb: 2, 
-                fontSize: '1.8rem',
+                mb: { xs: 1, sm: 2 }, 
+                fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
                 fontWeight: '500',
                 textAlign: 'center',
                 width: '100%',
-                whiteSpace: 'nowrap'
+                whiteSpace: { xs: 'normal', md: 'nowrap' }
               }}>I.A</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Stable Diffusion</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Open AI</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Mistral</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Stable Diffusion</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Open AI</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Mistral</Typography>
               </Box>
             </Box>
 
             <Box sx={{ 
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
                 color: 'white', 
-                mb: 4,
-                height: '60px',
-                width: '60px',
+                mb: { xs: 1.5, sm: 3, md: 4 },
+                height: { xs: 44, sm: 52, md: 60 },
+                width: { xs: 44, sm: 52, md: 60 },
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                fontSize: { xs: '32px', sm: '40px', md: '48px' }
               }}>
-                <i className="bi bi-bar-chart-steps" style={{ fontSize: '48px' }}></i>
+                <i className="bi bi-bar-chart-steps" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
                 color: 'white', 
-                mb: 2, 
-                fontSize: '1.8rem',
+                mb: { xs: 1, sm: 2 }, 
+                fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
                 fontWeight: '500',
                 textAlign: 'center',
                 width: '100%',
-                whiteSpace: 'nowrap'
+                whiteSpace: { xs: 'normal', md: 'nowrap' }
               }}>Agile</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Jira</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Trello</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>MindView</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Gantt</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Jira</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Trello</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>MindView</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Gantt</Typography>
               </Box>
             </Box>
 
             <Box sx={{ 
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
                 color: 'white', 
-                mb: 4,
-                height: '60px',
-                width: '60px',
+                mb: { xs: 1.5, sm: 3, md: 4 },
+                height: { xs: 44, sm: 52, md: 60 },
+                width: { xs: 44, sm: 52, md: 60 },
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                fontSize: { xs: '32px', sm: '40px', md: '48px' }
               }}>
-                <i className="bi bi-terminal" style={{ fontSize: '48px' }}></i>
+                <i className="bi bi-terminal" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
                 color: 'white', 
-                mb: 2, 
-                fontSize: '1.8rem',
+                mb: { xs: 1, sm: 2 }, 
+                fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
                 fontWeight: '500',
                 textAlign: 'center',
                 width: '100%',
-                whiteSpace: 'nowrap'
+                whiteSpace: { xs: 'normal', md: 'nowrap' }
               }}>DevOps</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Docker</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Git</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>GitHub</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>GitLab</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Vultr</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>OVH</Typography>
-                
-                
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Docker</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Git</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>GitHub</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>GitLab</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Vultr</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>OVH</Typography>
               </Box>
             </Box>
 
             <Box sx={{ 
               display: 'flex',
               flexDirection: 'column',
-              alignItems: 'center'
+              alignItems: 'center',
+              py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
                 color: 'white', 
-                mb: 4,
-                height: '60px',
-                width: '60px',
+                mb: { xs: 1.5, sm: 3, md: 4 },
+                height: { xs: 44, sm: 52, md: 60 },
+                width: { xs: 44, sm: 52, md: 60 },
                 display: 'flex',
                 justifyContent: 'center',
-                alignItems: 'center'
+                alignItems: 'center',
+                fontSize: { xs: '32px', sm: '40px', md: '48px' }
               }}>
-                <i className="bi bi-gear" style={{ fontSize: '48px' }}></i>
+                <i className="bi bi-gear" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
                 color: 'white', 
-                mb: 2, 
-                fontSize: '1.8rem',
+                mb: { xs: 1, sm: 2 }, 
+                fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
                 fontWeight: '500',
                 textAlign: 'center',
                 width: '100%',
-                whiteSpace: 'nowrap'
+                whiteSpace: { xs: 'normal', md: 'nowrap' }
               }}>Engineering</Typography>
-              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Application Web / SaaS</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>UML Diagram</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Conception logigramme</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Rédaction MU</Typography>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Application Web / SaaS</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>UML Diagram</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Conception logigramme</Typography>
+                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Rédaction MU</Typography>
               </Box>
+            </Box>
             </Box>
           </Box>
         </Container>
@@ -1318,6 +1136,100 @@ ${formData.message}
                 <br/>
                 Au fil des missions, j'ai accompagné des clients très variés : associations, entreprises et particuliers, avec des contextes, des équipes et des contraintes toujours différentes. Cette diversité m'a appris à m'adapter rapidement et à faire face aux imprévus avec efficacité
               </Typography>
+              <Typography variant="body1" sx={{ 
+                color: 'white', 
+                fontSize: '1rem',
+                mt: 4,
+                mb: 2,
+                textAlign: 'justify',
+                lineHeight: 1.6
+              }}>
+                Aujourd'hui, je poursuis cette aventure à travers ma micro-entreprise :
+              </Typography>
+              <Box sx={{
+                borderRadius: 2,
+                overflow: 'hidden',
+                backgroundColor: 'rgba(255, 255, 255, 0.06)',
+                border: '1px solid rgba(255, 255, 255, 0.1)',
+                display: 'flex',
+                flexDirection: { xs: 'column', md: 'row' },
+                transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
+                '&:hover': {
+                  borderColor: 'rgba(255, 255, 255, 0.18)',
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15)',
+                }
+              }}>
+                {/* Zone logo : même bleu que la section (logo blanc visible) */}
+                <Box sx={{
+                  backgroundColor: '#172845',
+                  py: { xs: 2.5, md: 3 },
+                  px: { xs: 2.5, md: 3 },
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: { xs: 'center', md: 'flex-start' },
+                  gap: 2,
+                  minWidth: { md: 220 },
+                  flexShrink: 0
+                }}>
+                  <Box
+                    component="img"
+                    src="/images/qwebty/logo-v2-hd-blanc.png"
+                    alt="Logo Qwebty - Agence Web & Digital"
+                    sx={{
+                      height: { xs: 40, sm: 46 },
+                      width: 'auto',
+                      objectFit: 'contain',
+                      display: 'block'
+                    }}
+                  />
+                  <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+                    <Typography sx={{ color: 'white', fontSize: '1.05rem', fontWeight: 600, letterSpacing: '0.02em' }}>
+                      Qwebty
+                    </Typography>
+                    <Typography sx={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.85rem', mt: 0.25 }}>
+                      Agence Web & Digital
+                    </Typography>
+                  </Box>
+                </Box>
+                <Box sx={{
+                  p: { xs: 2.5, md: 3 },
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'flex-start',
+                  gap: 2
+                }}>
+                  <Typography sx={{
+                    color: 'rgba(255, 255, 255, 0.92)',
+                    textAlign: 'justify',
+                    lineHeight: 1.75,
+                    fontSize: '0.98rem'
+                  }}>
+                    Qwebty accompagne les entreprises et indépendants dans la création de solutions web sur mesure. Du site vitrine aux projets plus complexes, j'allie design, performance et expérience utilisateur pour développer des outils efficaces, adaptés aux objectifs de chaque client.
+                  </Typography>
+                  <Button
+                    component="a"
+                    href="https://www.qwebty.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    variant="outlined"
+                    size="small"
+                    endIcon={<OpenInNewIcon sx={{ fontSize: '1rem' }} />}
+                    sx={{
+                      color: 'rgba(255, 255, 255, 0.95)',
+                      borderColor: 'rgba(255, 255, 255, 0.4)',
+                      textTransform: 'none',
+                      fontWeight: 500,
+                      fontSize: '0.9rem',
+                      '&:hover': {
+                        borderColor: 'white',
+                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                      }
+                    }}
+                  >
+                    En savoir plus
+                  </Button>
+                </Box>
+              </Box>
               <Box sx={{ mt: 1 }}>
                 <ChipTag># Engineering</ChipTag>
                 <ChipTag># SaaS</ChipTag>

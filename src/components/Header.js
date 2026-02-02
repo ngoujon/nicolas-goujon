@@ -33,7 +33,7 @@ const Header = () => {
 
   // Navigation items configuration
   const navItems = [
-    { id: 'experience', label: 'experience' },
+    { id: 'experience', label: 'Expérience' },
     { id: 'stack', label: 'Stack' },
     { id: 'formation', label: 'formation' },
     { id: 'bio', label: 'bio' },
@@ -45,7 +45,7 @@ const Header = () => {
     {
       icon: <LinkedInIcon fontSize="large" />,
       href: 'https://www.linkedin.com/in/ngoujon/',
-      label: 'Linkedin'
+      label: 'LinkedIn'
     },
     {
       icon: <GitHubIcon fontSize="large" />,

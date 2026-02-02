@@ -39,7 +39,7 @@ const theme = createTheme({
 });
 
 function App() {
-  const [isMaintenance, setIsMaintenance] = React.useState(false);
+  const [isMaintenance] = React.useState(false);
 
   return (
     <ThemeProvider theme={theme}>

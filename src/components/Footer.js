@@ -68,7 +68,7 @@ const Footer = () => {
                   mx: 1.5,
                 }}
               >
-                Experience
+                Expérience
               </Link>
               <Link 
                 href="#stack" 
