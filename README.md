@@ -61,15 +61,16 @@ nicolas-goujon/
 
 ## 🐳 Docker
 
+Par défaut le site écoute sur le **port 3001** (pour éviter les conflits avec d'autres services).
+
 ### Local (port 3000)
 ```bash
-docker compose up -d
-# ou: docker compose up --build
+PORT=3000 docker compose up -d
 ```
 
-### Production (port 3001)
+### Production / VPS (port 3001)
 ```bash
-docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+docker compose up -d
 ```
 
 ## 🚀 Déploiement VPS

@@ -3,5 +3,5 @@ services:
     build: .
     container_name: nicolas-goujon
     ports:
-      - "3000:80"  # Local: port 3000
+      - "${PORT:-3001}:80"  # Prod: 3001 par défaut. Local: PORT=3000 docker compose up
     restart: unless-stopped

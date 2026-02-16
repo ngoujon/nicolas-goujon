@@ -1,5 +1,4 @@
-# Override pour la production - port 3001 (ne pas écraser les autres sites)
+# Override pour la production - port 3001
+# docker-compose.yml utilise déjà 3001 par défaut, ce fichier est conservé pour d'éventuelles configs prod
 services:
-  web:
-    ports:
-      - "3001:80"
+  web: {}
