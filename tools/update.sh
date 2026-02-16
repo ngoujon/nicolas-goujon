@@ -16,7 +16,13 @@ echo "[INFO] Mise à jour du site..."
 echo "[INFO] Récupération des modifications (git pull)..."
 git pull
 
-# 2. Rebuild et relance
+# 2. Arrêter et supprimer l'ancien conteneur (évite le conflit de nom)
+echo "[INFO] Arrêt de l'ancien conteneur..."
+docker compose down 2>/dev/null || true
+docker stop nicolas-goujon 2>/dev/null || true
+docker rm nicolas-goujon 2>/dev/null || true
+
+# 3. Rebuild et relance
 echo "[INFO] Rebuild et relance du conteneur Docker..."
 docker compose up --build -d
 
