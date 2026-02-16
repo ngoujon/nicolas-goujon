@@ -1204,7 +1204,7 @@ ${formData.message}
                     lineHeight: 1.75,
                     fontSize: '0.98rem'
                   }}>
-                    Qwebty accompagne les entreprises et indépendants dans la création de solutions web sur mesure. Du site vitrine aux projets plus complexes, j'allie design, performance et expérience utilisateur pour développer des outils efficaces, adaptés aux objectifs de chaque client.
+                    Qwebty accompagne les entreprises et indépendants dans la création de solutions web sur mesure. Du site vitrine aux projets plus complexes, j'allie design, performance et expérience utilisateur pour développer des outils efficaces, adaptés aux objectifs de chaque client
                   </Typography>
                   <Button
                     component="a"
