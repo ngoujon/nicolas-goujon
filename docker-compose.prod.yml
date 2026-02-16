@@ -1,0 +1,5 @@
+# Override pour la production - port 3001 (ne pas écraser les autres sites)
+services:
+  web:
+    ports:
+      - "3001:80"

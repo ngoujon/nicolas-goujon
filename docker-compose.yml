@@ -1,0 +1,7 @@
+services:
+  web:
+    build: .
+    container_name: nicolas-goujon
+    ports:
+      - "3000:80"  # Local: port 3000
+    restart: unless-stopped

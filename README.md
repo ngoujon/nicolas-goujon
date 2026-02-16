@@ -59,6 +59,36 @@ nicolas-goujon/
 - `npm test` : Lance les tests
 - `npm run eject` : Éjecte la configuration (opération irréversible)
 
+## 🐳 Docker
+
+### Local (port 3000)
+```bash
+docker compose up -d
+# ou: docker compose up --build
+```
+
+### Production (port 3001)
+```bash
+docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d
+```
+
+## 🚀 Déploiement VPS
+
+Le script `tools/deploy.sh` déploie sur un VPS sans écraser les configurations existantes (port 3001).
+
+```bash
+# Déploiement
+./tools/deploy.sh -h votre-vps.com
+
+# Avec options
+./tools/deploy.sh -h vps.example.com -u deploy -p /opt/nicolas-goujon
+
+# Build uniquement (sans déployer)
+./tools/deploy.sh --build-only
+```
+
+Pour exposer via un domaine, utilisez le template `tools/nginx-site.conf.example`.
+
 ## 🔧 Configuration avancée
 
 Pour plus d'informations sur la configuration, consultez la [documentation de Create React App](https://facebook.github.io/create-react-app/docs/getting-started).

@@ -1,0 +1,21 @@
+# =============================================================================
+# Configuration nginx à AJOUTER (ne pas remplacer les configs existantes)
+# Copier ce fichier dans /etc/nginx/sites-available/ ou /etc/nginx/conf.d/
+# Puis: sudo ln -s /etc/nginx/sites-available/nicolas-goujon.conf /etc/nginx/sites-enabled/
+#       sudo nginx -t && sudo systemctl reload nginx
+# =============================================================================
+# Remplacez VOTRE_DOMAINE par votre domaine (ex: nicolas-goujon.com)
+
+server {
+    listen 80;
+    server_name VOTRE_DOMAINE;
+
+    location / {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
