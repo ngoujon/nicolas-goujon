@@ -142,15 +142,18 @@ echo '  CONTACT_EMAIL_TO: ' . getenv('CONTACT_EMAIL_TO') . PHP_EOL;
 " 2>/dev/null || log_warn "Impossible d'afficher la config (conteneur api)."
 
 # -----------------------------------------------------------------------------
-# 8. Afficher la dernière erreur dans les logs Laravel
+# 8. Afficher la dernière erreur mail (mail-error.log ou laravel.log)
 # -----------------------------------------------------------------------------
 echo ""
-log_info "Dernières lignes du log Laravel (erreur réelle) :"
+log_info "Dernière erreur envoi mail (pour diagnostic) :"
 echo "----------------------------------------"
-if $COMPOSE_CMD exec -T api test -r storage/logs/laravel.log 2>/dev/null; then
-  $COMPOSE_CMD exec -T api tail -80 storage/logs/laravel.log 2>/dev/null | tail -60 || true
+if $COMPOSE_CMD exec -T api test -r storage/logs/mail-error.log 2>/dev/null; then
+  $COMPOSE_CMD exec -T api tail -50 storage/logs/mail-error.log 2>/dev/null || true
+elif $COMPOSE_CMD exec -T api test -r storage/logs/laravel.log 2>/dev/null; then
+  $COMPOSE_CMD exec -T api tail -60 storage/logs/laravel.log 2>/dev/null || true
 else
-  echo "  (aucun fichier storage/logs/laravel.log ou pas d'erreur encore)"
+  echo "  (aucune erreur enregistrée encore)"
+  echo "  Envoyez un message depuis le formulaire de contact puis relancez ce script."
 fi
 echo "----------------------------------------"
 echo ""

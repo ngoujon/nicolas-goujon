@@ -54,10 +54,22 @@ class ContactController extends Controller
         } catch (\Throwable $e) {
             report($e);
 
-            return response()->json([
+            // Enregistrer l'erreur réelle pour diagnostic (fix-500.sh lit ce fichier)
+            $logPath = storage_path('logs/mail-error.log');
+            $message = '[' . now()->toIso8601String() . '] ' . $e->getMessage() . "\n"
+                . $e->getFile() . ':' . $e->getLine() . "\n"
+                . $e->getTraceAsString() . "\n---\n";
+            @file_put_contents($logPath, $message, FILE_APPEND | LOCK_EX);
+
+            $response = [
                 'success' => false,
                 'error' => 'Erreur lors de l’envoi du message. Réessayez plus tard.',
-            ], 500);
+            ];
+            if (config('app.debug')) {
+                $response['debug'] = $e->getMessage();
+            }
+
+            return response()->json($response, 500);
         }
     }
 }
