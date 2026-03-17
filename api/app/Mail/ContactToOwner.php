@@ -31,6 +31,7 @@ class ContactToOwner extends Mailable
     public function content(): Content
     {
         return new Content(
+            view: 'emails.contact-to-owner',
             text: 'emails.contact-to-owner',
         );
     }
