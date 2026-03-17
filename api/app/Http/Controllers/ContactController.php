@@ -35,7 +35,6 @@ class ContactController extends Controller
 
         try {
             Mail::to($contactEmailTo)
-                ->replyTo($validated['email'], $validated['name'])
                 ->send(new ContactToOwner(
                     name: $validated['name'],
                     email: $validated['email'],
