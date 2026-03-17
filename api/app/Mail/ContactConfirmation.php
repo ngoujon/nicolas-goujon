@@ -29,7 +29,9 @@ class ContactConfirmation extends Mailable
     {
         return new Content(
             view: 'emails.contact-confirmation',
-            text: 'emails.contact-confirmation',
+            with: [
+                'body' => $this->message,
+            ],
         );
     }
 }

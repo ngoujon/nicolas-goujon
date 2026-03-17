@@ -32,7 +32,9 @@ class ContactToOwner extends Mailable
     {
         return new Content(
             view: 'emails.contact-to-owner',
-            text: 'emails.contact-to-owner',
+            with: [
+                'body' => $this->message,
+            ],
         );
     }
 }
