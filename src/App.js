@@ -6,6 +6,7 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import Home from './pages/Home';
 import Maintenance from './pages/Maintenance';
+import NotFound from './pages/NotFound';
 import './App.css';
 
 const theme = createTheme({
@@ -55,6 +56,7 @@ function App() {
               <Route path="/formation" element={isMaintenance ? <Maintenance /> : <Home />} />
               <Route path="/projets" element={isMaintenance ? <Maintenance /> : <Home />} />
               <Route path="/contact" element={isMaintenance ? <Maintenance /> : <Home />} />
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </main>
           <Footer />
