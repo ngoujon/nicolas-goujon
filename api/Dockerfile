@@ -1,4 +1,4 @@
-FROM php:8.3-cli-alpine AS builder
+FROM php:8.4-cli-alpine AS builder
 
 RUN apk add --no-cache $PHPIZE_DEPS git unzip libzip-dev libpng-dev oniguruma-dev icu-dev \
     && docker-php-ext-install zip pcntl exif intl opcache \
@@ -12,7 +12,7 @@ RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
 COPY . .
 RUN composer dump-autoload --optimize
 
-FROM php:8.3-cli-alpine
+FROM php:8.4-cli-alpine
 
 RUN apk add --no-cache libzip icu-libs
 
