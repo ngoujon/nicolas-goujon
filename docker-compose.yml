@@ -1,7 +1,29 @@
 services:
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: nicolas-goujon
     ports:
-      - "${PORT:-3001}:80"  # Prod: 3001 par défaut. Local: PORT=3000 docker compose up
+      - "${PORT:-3001}:80"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  api:
+    build:
+      context: api
+      dockerfile: Dockerfile
+    container_name: nicolas-goujon-api
+    environment:
+      - APP_KEY=${APP_KEY}
+      - APP_ENV=production
+      - MAIL_MAILER=${MAIL_MAILER:-smtp}
+      - MAIL_HOST=${MAIL_HOST}
+      - MAIL_PORT=${MAIL_PORT:-587}
+      - MAIL_USERNAME=${MAIL_USERNAME}
+      - MAIL_PASSWORD=${MAIL_PASSWORD}
+      - MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
+      - MAIL_FROM_NAME=${MAIL_FROM_NAME}
+      - CONTACT_EMAIL_TO=${CONTACT_EMAIL_TO}
     restart: unless-stopped

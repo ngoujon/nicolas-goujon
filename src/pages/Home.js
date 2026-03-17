@@ -10,7 +10,7 @@ import { BsAward, BsBookmarkCheck, BsMortarboard, BsPatchCheck } from "react-ico
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { logger } from '../utils/logger';
 
-const CONTACT_API_URL = process.env.REACT_APP_CONTACT_API_URL || '';
+const CONTACT_API_URL = process.env.REACT_APP_CONTACT_API_URL || '/api/contact';
 
 // Composants stylisés
 const SectionTitle = styled(Typography)(({ theme }) => ({
@@ -336,10 +336,6 @@ const Home = () => {
     setFormStatus('sending');
 
     try {
-      if (!CONTACT_API_URL) {
-        throw new Error('REACT_APP_CONTACT_API_URL non configurée');
-      }
-
       const res = await fetch(CONTACT_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
