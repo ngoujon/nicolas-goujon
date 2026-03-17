@@ -158,6 +158,19 @@ const Footer = () => {
           }}
         >
           © {new Date().getFullYear()} Nicolas GOUJON
+          {' - Site internet réalisé par '}
+          <Link
+            href="https://qwebty.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            sx={{
+              color: 'rgba(227,232,238,0.92)',
+              textDecoration: 'underline',
+              '&:hover': { color: '#e3e8ee' },
+            }}
+          >
+            Qwebty
+          </Link>
         </Typography>
       </Container>
     </Box>

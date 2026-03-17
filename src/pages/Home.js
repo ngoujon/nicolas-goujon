@@ -8,11 +8,9 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { BsAward, BsBookmarkCheck, BsMortarboard, BsPatchCheck } from "react-icons/bs";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import emailjs from '@emailjs/browser';
 import { logger } from '../utils/logger';
 
-// Initialisation d'EmailJS
-emailjs.init("EMAILJS_PUBLIC_KEY");
+const CONTACT_API_URL = process.env.REACT_APP_CONTACT_API_URL || '';
 
 // Composants stylisés
 const SectionTitle = styled(Typography)(({ theme }) => ({
@@ -338,28 +336,26 @@ const Home = () => {
     setFormStatus('sending');
 
     try {
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        message: `
-Nouveau message depuis le formulaire de contact
+      if (!CONTACT_API_URL) {
+        throw new Error('REACT_APP_CONTACT_API_URL non configurée');
+      }
 
-Sujets: ${selectedOptions.length > 0 ? selectedOptions.join(', ') : 'Contact depuis le site web'}
-Nom: ${formData.name}
-Email: ${formData.email}
+      const res = await fetch(CONTACT_API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+          subjects: selectedOptions.length > 0 ? selectedOptions : undefined,
+        }),
+      });
 
-Message:
-${formData.message}
-        `,
-        to_email: 'contact@nicolas-goujon.fr'
-      };
+      const data = await res.json().catch(() => ({}));
 
-      await emailjs.send(
-        'EMAILJS_SERVICE_ID', 
-        'EMAILJS_TEMPLATE_ID',
-        templateParams,
-        'EMAILJS_PUBLIC_KEY'
-      );
+      if (!res.ok) {
+        throw new Error(data.error || `Erreur ${res.status}`);
+      }
 
       setFormStatus('success');
       setFormData({ name: '', email: '', message: '' });
@@ -1615,7 +1611,7 @@ ${formData.message}
                     </Typography>
                   </Box>
                 )}
-                {formStatus === 'error' && !isHuman && (
+                {formStatus === 'error' && (
                   <Box sx={{ 
                     mt: 2, 
                     textAlign: 'center',
@@ -1628,7 +1624,9 @@ ${formData.message}
                       fontWeight: 500,
                       fontSize: '0.9rem',
                     }}>
-                      Veuillez confirmer que vous n'êtes pas un robot
+                      {!isHuman
+                        ? 'Veuillez confirmer que vous n\'êtes pas un robot'
+                        : 'Une erreur s\'est produite. Réessayez plus tard.'}
                     </Typography>
                   </Box>
                 )}
