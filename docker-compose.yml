@@ -18,6 +18,7 @@ services:
     environment:
       - APP_KEY=${APP_KEY}
       - APP_ENV=production
+      - APP_DEBUG=${APP_DEBUG:-false}
       - MAIL_MAILER=${MAIL_MAILER:-smtp}
       - MAIL_HOST=${MAIL_HOST}
       - MAIL_PORT=${MAIL_PORT:-587}

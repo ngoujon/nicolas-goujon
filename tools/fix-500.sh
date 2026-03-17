@@ -142,24 +142,55 @@ echo '  CONTACT_EMAIL_TO: ' . getenv('CONTACT_EMAIL_TO') . PHP_EOL;
 " 2>/dev/null || log_warn "Impossible d'afficher la config (conteneur api)."
 
 # -----------------------------------------------------------------------------
-# 8. Afficher la dernière erreur mail (mail-error.log ou laravel.log)
+# 8. Envoyer une requête test pour déclencher l'erreur et afficher la réponse (dont "debug")
+# -----------------------------------------------------------------------------
+PORT="$({ grep -E '^PORT=' "$ENV_FILE" 2>/dev/null || true; } | cut -d= -f2- | xargs)"
+PORT="${PORT:-3001}"
+log_step "Envoi d’une requête test vers http://127.0.0.1:${PORT}/api/contact ..."
+RESPONSE=""
+if command -v curl >/dev/null 2>&1; then
+  RESPONSE=$(curl -s -w "\n%{http_code}" -X POST "http://127.0.0.1:${PORT}/api/contact" \
+    -H "Content-Type: application/json" \
+    -H "Accept: application/json" \
+    -d '{"name":"Test script","email":"test@test.fr","message":"Message test fix-500"}' 2>/dev/null || true)
+  HTTP_CODE=$(echo "$RESPONSE" | tail -n1)
+  BODY=$(echo "$RESPONSE" | sed '$d')
+  echo ""
+  log_info "Réponse API (HTTP $HTTP_CODE) :"
+  echo "----------------------------------------"
+  if command -v jq >/dev/null 2>&1; then
+    echo "$BODY" | jq . 2>/dev/null || echo "$BODY"
+  else
+    echo "$BODY"
+  fi
+  echo "----------------------------------------"
+  if echo "$BODY" | grep -q '"debug"'; then
+    echo ""
+    log_info "Le champ \"debug\" ci-dessus contient l’erreur réelle (ex: SSL, auth SMTP). Corrigez la config en conséquence."
+  fi
+else
+  log_warn "curl introuvable, impossible d’envoyer la requête test."
+fi
+
+# -----------------------------------------------------------------------------
+# 9. Afficher la dernière erreur mail (mail-error.log ou laravel.log)
 # -----------------------------------------------------------------------------
 echo ""
-log_info "Dernière erreur envoi mail (pour diagnostic) :"
+log_info "Dernière erreur enregistrée dans les logs :"
 echo "----------------------------------------"
 if $COMPOSE_CMD exec -T api test -r storage/logs/mail-error.log 2>/dev/null; then
   $COMPOSE_CMD exec -T api tail -50 storage/logs/mail-error.log 2>/dev/null || true
 elif $COMPOSE_CMD exec -T api test -r storage/logs/laravel.log 2>/dev/null; then
   $COMPOSE_CMD exec -T api tail -60 storage/logs/laravel.log 2>/dev/null || true
 else
-  echo "  (aucune erreur enregistrée encore)"
-  echo "  Envoyez un message depuis le formulaire de contact puis relancez ce script."
+  echo "  (aucun log d’erreur mail)"
 fi
 echo "----------------------------------------"
 echo ""
 
-log_info "Terminé. Si l'erreur persiste :"
-echo "  1. Regardez le bloc d'erreur ci-dessus (stack trace / message Symfony)."
-echo "  2. Port 465 = MAIL_ENCRYPTION=ssl et souvent MAIL_HOST=smtp.hostinger.com."
-echo "  3. Vérifiez identifiants SMTP (mot de passe appli Hostinger, pas le mot de passe du compte)."
+log_info "Terminé. Si l’erreur persiste :"
+echo "  1. Regardez la « Réponse API » et le champ \"debug\" ci-dessus (message d’erreur réel)."
+echo "  2. Si vous venez de mettre à jour le code, reconstruisez l’image api :"
+echo "     docker compose build api && docker compose up -d"
+echo "  3. Port 465 = MAIL_ENCRYPTION=ssl ; identifiants = mot de passe d’application Hostinger."
 echo ""
