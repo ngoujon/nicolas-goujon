@@ -27,10 +27,15 @@ class ContactController extends Controller
 
         $contactEmailTo = config('mail.contact_to');
         if (empty($contactEmailTo)) {
-            return response()->json([
-                'success' => false,
-                'error' => 'Service email non configuré.',
-            ], 503);
+            // En local / dev, accepter une adresse factice pour MailHog
+            if (config('app.env') === 'local') {
+                $contactEmailTo = config('mail.from.address', 'dev@localhost');
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'error' => 'Service email non configuré.',
+                ], 503);
+            }
         }
 
         try {
@@ -66,6 +71,7 @@ class ContactController extends Controller
             ];
             if (config('app.debug')) {
                 $response['debug'] = $e->getMessage();
+                $response['debug_file'] = $e->getFile() . ':' . $e->getLine();
             }
 
             return response()->json($response, 500);
