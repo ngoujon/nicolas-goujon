@@ -69,7 +69,8 @@ class ContactController extends Controller
                 'success' => false,
                 'error' => 'Erreur lors de l’envoi du message. Réessayez plus tard.',
             ];
-            if (config('app.debug')) {
+            // Détails d’erreur uniquement en local (jamais en prod, même si APP_DEBUG=true)
+            if (config('app.env') === 'local' && config('app.debug')) {
                 $response['debug'] = $e->getMessage();
                 $response['debug_file'] = $e->getFile() . ':' . $e->getLine();
             }

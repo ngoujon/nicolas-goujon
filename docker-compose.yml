@@ -28,13 +28,14 @@ services:
       - MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
       - MAIL_FROM_NAME=${MAIL_FROM_NAME}
       - CONTACT_EMAIL_TO=${CONTACT_EMAIL_TO}
-    depends_on:
-      - mailhog
     restart: unless-stopped
 
+  # MailHog : uniquement en dev (docker compose --profile dev up). En prod, ne pas lancer ; définir MAIL_* vers ton SMTP.
   mailhog:
     image: mailhog/mailhog:latest
     container_name: nicolas-goujon-mailhog
+    profiles:
+      - dev
     ports:
       - "1025:1025"   # SMTP
       - "8025:8025"   # Interface web
