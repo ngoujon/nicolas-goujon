@@ -10,6 +10,7 @@ COPY composer.json composer.lock ./
 RUN composer install --no-dev --no-scripts --no-autoloader --prefer-dist
 
 COPY . .
+RUN chmod -R a+rX /app
 RUN composer dump-autoload --optimize
 
 FROM php:8.4-cli-alpine
@@ -19,6 +20,7 @@ RUN apk add --no-cache libzip icu-libs
 WORKDIR /app
 
 COPY --from=builder /app /app
+RUN chmod -R a+rX /app
 
 EXPOSE 8000
 
