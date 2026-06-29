@@ -3,12 +3,13 @@
 # Copier ce fichier dans /etc/nginx/sites-available/ ou /etc/nginx/conf.d/
 # Puis: sudo ln -s /etc/nginx/sites-available/nicolas-goujon.conf /etc/nginx/sites-enabled/
 #       sudo nginx -t && sudo systemctl reload nginx
+# Puis pour HTTPS (avec www) :
+#       certbot --nginx --expand -d nicolas-goujon.fr -d www.nicolas-goujon.fr
 # =============================================================================
-# Remplacez VOTRE_DOMAINE par votre domaine (ex: nicolas-goujon.com)
 
 server {
     listen 80;
-    server_name VOTRE_DOMAINE;
+    server_name nicolas-goujon.fr www.nicolas-goujon.fr;
 
     location / {
         proxy_pass http://127.0.0.1:3001;
