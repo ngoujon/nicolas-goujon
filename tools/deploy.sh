@@ -4,7 +4,7 @@ set -e
 # =============================================================================
 # Script de mise à jour du projet - Site Nicolas Goujon
 # À exécuter SUR LE SERVEUR (dans le répertoire du projet).
-# Fait : git pull, reconstruction des images Docker, relance des conteneurs.
+# Fait : reconstruction des images Docker, relance des conteneurs.
 # =============================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -21,17 +21,13 @@ log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
 
 log_info "Mise à jour du projet..."
 
-# 1. Récupérer les dernières modifications
-log_info "Récupération des modifications (git pull)..."
-git pull
-
-# 2. Arrêter les conteneurs existants
+# 1. Arrêter les conteneurs existants
 log_info "Arrêt des conteneurs..."
 docker compose down 2>/dev/null || true
 docker stop nicolas-goujon nicolas-goujon-api 2>/dev/null || true
 docker rm nicolas-goujon nicolas-goujon-api 2>/dev/null || true
 
-# 3. Rebuild et relance (web + api)
+# 2. Rebuild et relance (web + api)
 log_info "Reconstruction des images et démarrage (docker compose up --build -d)..."
 docker compose up --build -d
 
@@ -39,7 +35,7 @@ log_info "Mise à jour terminée."
 log_info "Site (web + API) accessible sur le port défini par PORT (défaut: 3001)."
 log_warn "Vérifiez que le fichier .env à la racine contient APP_KEY et les variables MAIL_* / CONTACT_EMAIL_TO."
 
-# 4. Activer www.nicolas-goujon.fr si pas encore configuré (idempotent)
+# 3. Activer www.nicolas-goujon.fr si pas encore configuré (idempotent)
 NGINX_CONF=""
 for candidate in /etc/nginx/sites-available/nicolas-goujon.conf /etc/nginx/conf.d/nicolas-goujon.conf; do
     [ -f "$candidate" ] && NGINX_CONF="$candidate" && break

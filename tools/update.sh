@@ -7,7 +7,7 @@ set -e
 # =============================================================================
 
 VPS_USER="${VPS_USER:-root}"
-VPS_HOST="${VPS_HOST}"
+VPS_HOST="${VPS_HOST:-VOTRE_IP_VPS}"
 VPS_DEPLOY_PATH="${VPS_DEPLOY_PATH:-/opt/nicolas-goujon}"
 
 RED='\033[0;31m'
@@ -54,6 +54,6 @@ if [[ -z "$VPS_HOST" ]]; then
 fi
 
 log_info "Connexion à ${VPS_USER}@${VPS_HOST} et exécution de deploy.sh..."
-ssh "${VPS_USER}@${VPS_HOST}" "cd ${VPS_DEPLOY_PATH} && bash tools/deploy.sh"
+ssh "${VPS_USER}@${VPS_HOST}" "cd ${VPS_DEPLOY_PATH} && git pull && bash tools/deploy.sh"
 
 log_info "Terminé. Le site a été mis à jour sur le serveur."
