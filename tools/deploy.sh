@@ -45,8 +45,17 @@ if [ -n "$NGINX_CONF" ]; then
     if grep -q "www\.nicolas-goujon\.fr" "$NGINX_CONF"; then
         log_info "www.nicolas-goujon.fr déjà configuré dans Nginx."
     else
-        log_info "Ajout de www.nicolas-goujon.fr au certificat et à la config Nginx..."
+        # Étape A : ajouter www au server_name AVANT d'appeler Certbot,
+        # sinon Certbot ne trouve pas de bloc Nginx pour www et échoue.
+        log_info "Ajout de www.nicolas-goujon.fr dans la config Nginx..."
+        sudo sed -i 's/server_name nicolas-goujon\.fr;/server_name nicolas-goujon.fr www.nicolas-goujon.fr;/g' "$NGINX_CONF"
+        sudo nginx -t && sudo systemctl reload nginx \
+            && log_info "Nginx rechargé." \
+            || { log_error "Erreur Nginx — config annulée : nginx -t"; exit 1; }
+
+        # Étape B : installer/étendre le certificat SSL pour les deux domaines
         if command -v certbot &>/dev/null; then
+            log_info "Configuration SSL pour www.nicolas-goujon.fr..."
             sudo certbot --nginx --expand \
                 -d nicolas-goujon.fr -d www.nicolas-goujon.fr \
                 --non-interactive --agree-tos \
@@ -54,11 +63,7 @@ if [ -n "$NGINX_CONF" ]; then
             && log_info "www.nicolas-goujon.fr activé avec succès." \
             || log_warn "Certbot a échoué. Vérifiez les logs : journalctl -u certbot"
         else
-            log_warn "certbot introuvable — ajout manuel de www dans la config Nginx..."
-            sudo sed -i 's/server_name nicolas-goujon\.fr;/server_name nicolas-goujon.fr www.nicolas-goujon.fr;/g' "$NGINX_CONF"
-            sudo nginx -t && sudo systemctl reload nginx \
-                && log_info "Nginx rechargé avec www.nicolas-goujon.fr." \
-                || log_error "Erreur Nginx — vérifiez la config : nginx -t"
+            log_warn "certbot introuvable — SSL non configuré pour www."
         fi
     fi
 else
