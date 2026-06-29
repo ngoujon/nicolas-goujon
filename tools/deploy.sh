@@ -47,7 +47,7 @@ if [ -n "$NGINX_CONF" ]; then
     else
         log_info "Ajout de www.nicolas-goujon.fr au certificat et à la config Nginx..."
         if command -v certbot &>/dev/null; then
-            certbot --nginx --expand \
+            sudo certbot --nginx --expand \
                 -d nicolas-goujon.fr -d www.nicolas-goujon.fr \
                 --non-interactive --agree-tos \
                 -m nicolas.goujon18@gmail.com \
@@ -55,8 +55,8 @@ if [ -n "$NGINX_CONF" ]; then
             || log_warn "Certbot a échoué. Vérifiez les logs : journalctl -u certbot"
         else
             log_warn "certbot introuvable — ajout manuel de www dans la config Nginx..."
-            sed -i 's/server_name nicolas-goujon\.fr;/server_name nicolas-goujon.fr www.nicolas-goujon.fr;/g' "$NGINX_CONF"
-            nginx -t && systemctl reload nginx \
+            sudo sed -i 's/server_name nicolas-goujon\.fr;/server_name nicolas-goujon.fr www.nicolas-goujon.fr;/g' "$NGINX_CONF"
+            sudo nginx -t && sudo systemctl reload nginx \
                 && log_info "Nginx rechargé avec www.nicolas-goujon.fr." \
                 || log_error "Erreur Nginx — vérifiez la config : nginx -t"
         fi
