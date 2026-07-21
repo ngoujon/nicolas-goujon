@@ -111,10 +111,10 @@ const Header = () => {
       }}
     >
       <Container>
-        <Toolbar sx={{ 
-          justifyContent: 'space-between', 
-          padding: '10px 0',
-          minHeight: '80px'
+        <Toolbar sx={{
+          justifyContent: 'space-between',
+          padding: { xs: '5px 0', sm: '10px 0' },
+          minHeight: { xs: '56px', sm: '70px', md: '80px' }
         }}>
           {/* Logo */}
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -122,11 +122,11 @@ const Header = () => {
               <Box
                 sx={{
                   backgroundImage: 'url(/images/logo/logo_light.png)',
-                  height: '75px',
-                  width: '75px',
+                  height: { xs: '45px', sm: '60px', md: '75px' },
+                  width: { xs: '45px', sm: '60px', md: '75px' },
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'cover',
-                  margin: '10px 0px 15px 0px',
+                  margin: { xs: '5px 0px', sm: '10px 0px 15px 0px' },
                 }}
                 role="img"
                 aria-label="Logo de Nicolas GOUJON"

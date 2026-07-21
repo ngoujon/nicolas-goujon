@@ -377,7 +377,7 @@ const Home = () => {
       <HeroSection aria-label="Section d'accueil avec image de fond représentant un espace de travail moderne">
         <HeroOverlay />
         <HeroContent>
-          <HeroName>Nicolas GOUJON</HeroName>
+          <HeroName component="h1">Nicolas GOUJON</HeroName>
           <HeroTitle>Développeur Web & Product Owner</HeroTitle>
           {/*<HeroCvButton
             variant="contained"
@@ -403,7 +403,7 @@ const Home = () => {
         scrollMarginTop: '100px'
       }}>
         <Container>
-          <SectionTitle sx={{ color: '#172845' }}>EXPÉRIENCE</SectionTitle>
+          <SectionTitle component="h2" sx={{ color: '#172845' }}>EXPÉRIENCE</SectionTitle>
           <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} justifyContent="center">
             {/* Bloc Création de sites internet */}
             <Grid item xs={12} md={6}>
@@ -434,8 +434,8 @@ const Home = () => {
                   }}>
                     <i className="bi bi-code-square" style={{ fontSize: '40px', color: '#172845' }}></i>
                   </Box>
-                  <Typography variant="h4" sx={{ 
-                    color: '#172845', 
+                  <Typography variant="h3" sx={{
+                    color: '#172845',
                     mb: 3,
                     fontWeight: 'bold',
                     textAlign: 'center',
@@ -529,8 +529,8 @@ const Home = () => {
                   }}>
                     <i className="bi bi-cpu" style={{ fontSize: '40px', color: '#172845' }}></i>
                   </Box>
-                  <Typography variant="h4" sx={{ 
-                    color: '#172845', 
+                  <Typography variant="h3" sx={{
+                    color: '#172845',
                     mb: 3,
                     fontWeight: 'bold',
                     textAlign: 'center',
@@ -609,7 +609,7 @@ const Home = () => {
         alignItems: 'center'
       }}>
         <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-          <SectionTitle sx={{ color: 'white' }}>STACK</SectionTitle>
+          <SectionTitle component="h2" sx={{ color: 'white' }}>STACK</SectionTitle>
           
           <Box sx={{ 
             display: 'flex',
@@ -661,7 +661,7 @@ const Home = () => {
                 textAlign: 'center',
                 width: '100%',
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
-              }}>Front-End</Typography>
+              }} component="h3">Front-End</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
               <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>React JS</Typography>
               <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Next.js</Typography>
@@ -696,7 +696,7 @@ const Home = () => {
                 textAlign: 'center',
                 width: '100%',
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
-              }}>Back-End</Typography>
+              }} component="h3">Back-End</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>PHP & SQL</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>API REST</Typography>
@@ -730,7 +730,7 @@ const Home = () => {
                 textAlign: 'center',
                 width: '100%',
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
-              }}>Design</Typography>
+              }} component="h3">Design</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Security by Design</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Adobe XD</Typography>
@@ -767,7 +767,7 @@ const Home = () => {
                 textAlign: 'center',
                 width: '100%',
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
-              }}>Référencement</Typography>
+              }} component="h3">Référencement</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Google Analytics</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>SEO - SEA - SMO</Typography>
@@ -825,7 +825,7 @@ const Home = () => {
                 textAlign: 'center',
                 width: '100%',
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
-              }}>I.A</Typography>
+              }} component="h3">I.A</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Stable Diffusion</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Open AI</Typography>
@@ -860,7 +860,7 @@ const Home = () => {
                 textAlign: 'center',
                 width: '100%',
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
-              }}>Agile</Typography>
+              }} component="h3">Agile</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Jira</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Trello</Typography>
@@ -896,7 +896,7 @@ const Home = () => {
                 textAlign: 'center',
                 width: '100%',
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
-              }}>DevOps</Typography>
+              }} component="h3">DevOps</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Docker</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Git</Typography>
@@ -934,7 +934,7 @@ const Home = () => {
                 textAlign: 'center',
                 width: '100%',
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
-              }}>Engineering</Typography>
+              }} component="h3">Engineering</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Application Web / SaaS</Typography>
                 <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>UML Diagram</Typography>
@@ -955,7 +955,7 @@ const Home = () => {
         scrollMarginTop: '100px'
       }}>
         <Container>
-          <SectionTitle sx={{ color: '#172845' }}>FORMATION</SectionTitle>
+          <SectionTitle component="h2" sx={{ color: '#172845' }}>FORMATION</SectionTitle>
           <Grid container spacing={{ 
             xs: 2,
             sm: 3,
@@ -985,7 +985,7 @@ const Home = () => {
                 }
               }}>
                 <BsPatchCheck size={40} color="#172845" style={{ marginBottom: 12 }} />
-                <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Certification PSPO 1</Typography>
+                <Typography variant="h6" component="h3" sx={{ color: '#172845', fontWeight: 700 }}>Certification PSPO 1</Typography>
                 <Typography sx={{ color: '#172845' }}>Scrum.org</Typography>
               </Box>
             </Grid>
@@ -1012,7 +1012,7 @@ const Home = () => {
                 }
               }}>
                 <BsAward size={40} color="#172845" style={{ marginBottom: 12 }} />
-                <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Titre Professionnel</Typography>
+                <Typography variant="h6" component="h3" sx={{ color: '#172845', fontWeight: 700 }}>Titre Professionnel</Typography>
                 <Typography sx={{ color: '#172845' }}>Développeur web et web mobile</Typography>
               </Box>
             </Grid>
@@ -1039,7 +1039,7 @@ const Home = () => {
                 }
               }}>
                 <BsBookmarkCheck size={40} color="#172845" style={{ marginBottom: 12 }} />
-                <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Brevet de Technicien Supérieur</Typography>
+                <Typography variant="h6" component="h3" sx={{ color: '#172845', fontWeight: 700 }}>Brevet de Technicien Supérieur</Typography>
                 <Typography sx={{ color: '#172845' }}>Système Numérique Élec. & Com.</Typography>
               </Box>
             </Grid>
@@ -1066,7 +1066,7 @@ const Home = () => {
                 }
               }}>
                 <BsMortarboard size={40} color="#172845" style={{ marginBottom: 12 }} />
-                <Typography variant="h6" sx={{ color: '#172845', fontWeight: 700 }}>Baccalauréat</Typography>
+                <Typography variant="h6" component="h3" sx={{ color: '#172845', fontWeight: 700 }}>Baccalauréat</Typography>
                 <Typography sx={{ color: '#172845' }}>STI2D - SIN</Typography>
               </Box>
             </Grid>
@@ -1082,7 +1082,7 @@ const Home = () => {
         scrollMarginTop: '100px'
       }}>
         <Container>
-          <SectionTitle sx={{ color: 'white' }}>BIO</SectionTitle>
+          <SectionTitle component="h2" sx={{ color: 'white' }}>BIO</SectionTitle>
           
           {/* Citation Box */}
           <Grid container justifyContent="center" sx={{ mb: 7, px: 2 }}>
@@ -1242,7 +1242,7 @@ const Home = () => {
         scrollMarginTop: '100px'
       }}>
         <Container>
-          <SectionTitle sx={{ color: '#172845' }}>CONTACT</SectionTitle>
+          <SectionTitle component="h2" sx={{ color: '#172845' }}>CONTACT</SectionTitle>
           <Grid container spacing={{ 
             xs: 2,
             sm: 3,
@@ -1269,7 +1269,7 @@ const Home = () => {
                   lg: 4
                 }
               }}>
-                <Typography variant="h4" sx={{ 
+                <Typography variant="h4" component="h3" sx={{
                   color: '#172845',
                   fontWeight: 500,
                   mb: 4
@@ -1311,7 +1311,7 @@ const Home = () => {
                   boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
                 }}
               >
-                <Typography variant="h6" sx={{ color: 'white', mb: 3 }}>Comment puis-je vous aider ?</Typography>
+                <Typography variant="h6" component="h4" sx={{ color: 'white', mb: 3 }}>Comment puis-je vous aider ?</Typography>
                 
                 <Box sx={{ 
                   display: 'flex', 
