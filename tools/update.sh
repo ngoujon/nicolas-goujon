@@ -8,7 +8,8 @@ set -e
 
 VPS_USER="${VPS_USER:-root}"
 VPS_HOST="${VPS_HOST:-VOTRE_IP_VPS}"
-VPS_DEPLOY_PATH="${VPS_DEPLOY_PATH:-/opt/nicolas-goujon}"
+VPS_DEPLOY_PATH="${VPS_DEPLOY_PATH:-/home/nicolas-goujon/nicolas-goujon}"
+VPS_GIT_SSH_KEY="${VPS_GIT_SSH_KEY:-/home/nicolas-goujon/.ssh/id_ed25519}"
 
 RED='\033[0;31m'
 GREEN='\033[0;32m'
@@ -54,6 +55,6 @@ if [[ -z "$VPS_HOST" ]]; then
 fi
 
 log_info "Connexion à ${VPS_USER}@${VPS_HOST} et exécution de deploy.sh..."
-ssh "${VPS_USER}@${VPS_HOST}" "cd ${VPS_DEPLOY_PATH} && git pull && bash tools/deploy.sh"
+ssh "${VPS_USER}@${VPS_HOST}" "cd ${VPS_DEPLOY_PATH} && GIT_SSH_COMMAND='ssh -i ${VPS_GIT_SSH_KEY} -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new' git pull && bash tools/deploy.sh"
 
 log_info "Terminé. Le site a été mis à jour sur le serveur."
