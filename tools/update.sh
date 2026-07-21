@@ -1,60 +1,133 @@
-#!/bin/bash
-set -e
+#!/usr/bin/env bash
+# Mise à jour distante : git pull sur le VPS puis exécution de tools/deploy.sh.
+# Usage (depuis votre machine locale) : ./tools/update.sh
+#
+# Prérequis locaux : sshpass (brew install sshpass) si VPS_PASSWORD est utilisé.
 
-# =============================================================================
-# Script à exécuter EN LOCAL : connexion SSH au serveur puis lancement de deploy.sh
-# Usage: ./tools/update.sh -h VPS_HOST [-u USER] [-p PATH]
-# =============================================================================
+set -euo pipefail
 
-VPS_USER="${VPS_USER:-root}"
-VPS_HOST="${VPS_HOST:-VOTRE_IP_VPS}"
-VPS_DEPLOY_PATH="${VPS_DEPLOY_PATH:-/home/nicolas-goujon/nicolas-goujon}"
-VPS_GIT_SSH_KEY="${VPS_GIT_SSH_KEY:-/home/nicolas-goujon/.ssh/id_ed25519}"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+ENV_FILE="${SCRIPT_DIR}/.env"
 
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m'
-log_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
-log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
-log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
-
-usage() {
-    echo "Usage: $0 [OPTIONS]"
-    echo ""
-    echo "Se connecte au VPS en SSH et lance le script de déploiement (deploy.sh)"
-    echo "pour mettre à jour le projet et reconstruire les conteneurs Docker."
-    echo ""
-    echo "Options:"
-    echo "  -h, --host HOST       Adresse du VPS (ou variable VPS_HOST)"
-    echo "  -u, --user USER       Utilisateur SSH (défaut: root)"
-    echo "  -p, --path PATH       Chemin du projet sur le serveur (défaut: /opt/nicolas-goujon)"
-    echo "  --help                Afficher cette aide"
-    echo ""
-    echo "Variables d'environnement: VPS_HOST, VPS_USER, VPS_DEPLOY_PATH"
-    echo ""
-    echo "Exemple:"
-    echo "  $0 -h mon-serveur.com"
-    echo "  VPS_HOST=192.168.1.10 $0 -u deploy -p /opt/nicolas-goujon"
-    exit 0
+log() {
+  printf '[update] %s\n' "$*"
 }
 
-while [[ $# -gt 0 ]]; do
-    case $1 in
-        -h|--host) VPS_HOST="$2"; shift 2 ;;
-        -u|--user) VPS_USER="$2"; shift 2 ;;
-        -p|--path) VPS_DEPLOY_PATH="$2"; shift 2 ;;
-        --help) usage ;;
-        *) log_error "Option inconnue: $1"; usage ;;
-    esac
-done
+die() {
+  printf '[update] ERREUR: %s\n' "$*" >&2
+  exit 1
+}
 
-if [[ -z "$VPS_HOST" ]]; then
-    log_error "VPS_HOST requis. Utilisez -h HOST ou export VPS_HOST=..."
-    exit 1
+load_env() {
+  [[ -f "$ENV_FILE" ]] || die "Fichier ${ENV_FILE} introuvable. Copiez tools/.env.example vers tools/.env"
+  set -a
+  # shellcheck disable=SC1090
+  source "$ENV_FILE"
+  set +a
+}
+
+require_var() {
+  local name="$1"
+  [[ -n "${!name:-}" ]] || die "Variable ${name} manquante dans tools/.env"
+}
+
+run_remote() {
+  local remote_script="$1"
+  local ssh_opts=(
+    -o StrictHostKeyChecking=accept-new
+    -o PreferredAuthentications=publickey,password,keyboard-interactive
+    -p "${VPS_PORT:-22}"
+  )
+  # Une seule chaîne distante : SSH découperait sinon "bash -s" et su recevrait -s comme option.
+  local remote_shell="bash -s"
+
+  if [[ -n "${RUN_AS_USER:-}" ]]; then
+    remote_shell=$(printf 'su - %q -c %q' "$RUN_AS_USER" "bash -s")
+  fi
+
+  if [[ -n "${VPS_PASSWORD:-}" ]]; then
+    command -v sshpass >/dev/null 2>&1 || die "sshpass requis pour VPS_PASSWORD (brew install sshpass)"
+    sshpass -p "$VPS_PASSWORD" ssh "${ssh_opts[@]}" "${VPS_USER}@${VPS_HOST}" "$remote_shell" <<< "$remote_script"
+  else
+    ssh "${ssh_opts[@]}" "${VPS_USER}@${VPS_HOST}" "$remote_shell" <<< "$remote_script"
+  fi
+}
+
+load_env
+
+require_var VPS_HOST
+require_var VPS_USER
+require_var APP_DIR
+
+GIT_BRANCH="${GIT_BRANCH:-main}"
+GITHUB_SSH_KEY_PATH="${GITHUB_SSH_KEY_PATH:-$HOME/.ssh/id_ed25519}"
+
+log "Connexion à ${VPS_USER}@${VPS_HOST}:${VPS_PORT:-22}"
+if [[ -n "${RUN_AS_USER:-}" ]]; then
+  log "Exécution distante en tant que ${RUN_AS_USER}"
 fi
+log "Répertoire distant : ${APP_DIR} (branche ${GIT_BRANCH})"
 
-log_info "Connexion à ${VPS_USER}@${VPS_HOST} et exécution de deploy.sh..."
-ssh "${VPS_USER}@${VPS_HOST}" "cd ${VPS_DEPLOY_PATH} && GIT_SSH_COMMAND='ssh -i ${VPS_GIT_SSH_KEY} -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new' git pull && bash tools/deploy.sh"
+# Variables injectées dans le script distant (échappement sûr)
+REMOTE_APP_DIR=$(printf '%q' "$APP_DIR")
+REMOTE_BRANCH=$(printf '%q' "$GIT_BRANCH")
+REMOTE_KEY_PATH=$(printf '%q' "$GITHUB_SSH_KEY_PATH")
+REMOTE_KEY_PASS=$(printf '%q' "${GITHUB_SSH_KEY_PASSPHRASE:-}")
 
-log_info "Terminé. Le site a été mis à jour sur le serveur."
+REMOTE_SCRIPT=$(cat <<EOF
+set -euo pipefail
+
+APP_DIR=${REMOTE_APP_DIR}
+GIT_BRANCH=${REMOTE_BRANCH}
+GITHUB_SSH_KEY_PATH=${REMOTE_KEY_PATH}
+GITHUB_SSH_KEY_PASSPHRASE=${REMOTE_KEY_PASS}
+
+log() { printf '[update@remote] %s\n' "\$*"; }
+die() { printf '[update@remote] ERREUR: %s\n' "\$*" >&2; exit 1; }
+
+[[ -d "\$APP_DIR" ]] || die "Répertoire absent : \$APP_DIR"
+cd "\$APP_DIR"
+
+[[ -d .git ]] || die "Pas un dépôt Git : \$APP_DIR"
+
+setup_git_ssh() {
+  if [[ ! -f "\$GITHUB_SSH_KEY_PATH" ]]; then
+    die "Clé SSH GitHub introuvable : \$GITHUB_SSH_KEY_PATH"
+  fi
+  chmod 600 "\$GITHUB_SSH_KEY_PATH" 2>/dev/null || true
+  export GIT_SSH_COMMAND="ssh -i \$GITHUB_SSH_KEY_PATH -o IdentitiesOnly=yes -o StrictHostKeyChecking=accept-new"
+
+  if [[ -n "\$GITHUB_SSH_KEY_PASSPHRASE" ]]; then
+    eval "\$(ssh-agent -s)" >/dev/null
+    export SSH_ASKPASS_REQUIRE=force
+    export DISPLAY=:0
+    ASKPASS_SCRIPT="\$(mktemp)"
+    chmod 700 "\$ASKPASS_SCRIPT"
+    {
+      printf '%s\n' '#!/bin/sh'
+      printf 'exec echo %s\n' "\$(printf '%q' "\$GITHUB_SSH_KEY_PASSPHRASE")"
+    } > "\$ASKPASS_SCRIPT"
+    export SSH_ASKPASS="\$ASKPASS_SCRIPT"
+    ssh-add "\$GITHUB_SSH_KEY_PATH" </dev/null
+    rm -f "\$ASKPASS_SCRIPT"
+  fi
+}
+
+log "git fetch origin…"
+setup_git_ssh
+git fetch origin "\$GIT_BRANCH"
+
+log "Synchronisation sur origin/\$GIT_BRANCH…"
+git checkout "\$GIT_BRANCH"
+git reset --hard "origin/\$GIT_BRANCH"
+git clean -fd
+
+[[ -f ./tools/deploy.sh ]] || die "Script ./tools/deploy.sh absent"
+log "Lancement de ./tools/deploy.sh…"
+exec bash ./tools/deploy.sh
+EOF
+)
+
+run_remote "$REMOTE_SCRIPT"
+
+log "Mise à jour distante terminée."
