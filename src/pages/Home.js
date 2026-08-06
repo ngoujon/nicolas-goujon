@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box, Grid, Button, TextField, useTheme, Checkbox, FormControlLabel, Divider } from '@mui/material';
+import React, { useState, useEffect, useRef } from 'react';
+import { Container, Typography, Box, Grid, Button, TextField, useTheme, Divider } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import SendIcon from '@mui/icons-material/Send';
 import PhoneIcon from '@mui/icons-material/Phone';
@@ -11,6 +11,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { logger } from '../utils/logger';
 
 const CONTACT_API_URL = process.env.REACT_APP_CONTACT_API_URL || '/api/contact';
+const TURNSTILE_SITE_KEY = process.env.REACT_APP_TURNSTILE_SITE_KEY;
 
 // Composants stylisés
 const SectionTitle = styled(Typography)(({ theme }) => ({
@@ -264,13 +265,61 @@ const Home = () => {
   const [formStatus, setFormStatus] = useState('idle');
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [showScrollArrow, setShowScrollArrow] = useState(true);
-  const [isHuman, setIsHuman] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
     message: ''
   });
   const theme = useTheme();
+
+  // Widget Cloudflare Turnstile (captcha invisible) : rendu une fois,
+  // déclenché manuellement à la soumission via `execution: 'execute'`.
+  const turnstileContainerRef = useRef(null);
+  const turnstileWidgetIdRef = useRef(null);
+  const turnstileResolverRef = useRef(null);
+
+  useEffect(() => {
+    if (!TURNSTILE_SITE_KEY) return;
+
+    const renderWidget = () => {
+      if (!window.turnstile || !turnstileContainerRef.current || turnstileWidgetIdRef.current) return;
+      turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
+        sitekey: TURNSTILE_SITE_KEY,
+        appearance: 'interaction-only', // reste invisible tant qu'aucun défi n'est nécessaire
+        execution: 'execute', // ne se déclenche qu'à l'appel de turnstile.execute()
+        callback: (token) => {
+          turnstileResolverRef.current?.(token);
+          turnstileResolverRef.current = null;
+        },
+        'error-callback': () => {
+          turnstileResolverRef.current?.(null);
+          turnstileResolverRef.current = null;
+        },
+      });
+    };
+
+    if (window.turnstile) {
+      renderWidget();
+      return undefined;
+    }
+
+    const interval = setInterval(() => {
+      if (window.turnstile) {
+        clearInterval(interval);
+        renderWidget();
+      }
+    }, 100);
+    return () => clearInterval(interval);
+  }, []);
+
+  const getTurnstileToken = () => new Promise((resolve) => {
+    if (!TURNSTILE_SITE_KEY || !window.turnstile || turnstileWidgetIdRef.current === null) {
+      resolve(null);
+      return;
+    }
+    turnstileResolverRef.current = resolve;
+    window.turnstile.execute(turnstileWidgetIdRef.current);
+  });
 
   useEffect(() => {
     const path = window.location.pathname.substring(1);
@@ -327,15 +376,15 @@ const Home = () => {
    */
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
-    if (!isHuman) {
-      setFormStatus('error');
-      return;
-    }
 
     setFormStatus('sending');
 
     try {
+      const turnstileToken = await getTurnstileToken();
+      if (TURNSTILE_SITE_KEY && !turnstileToken) {
+        throw new Error('Vérification anti-spam échouée. Réessayez.');
+      }
+
       const res = await fetch(CONTACT_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -344,6 +393,7 @@ const Home = () => {
           email: formData.email,
           message: formData.message,
           subjects: selectedOptions.length > 0 ? selectedOptions : undefined,
+          cf_turnstile_response: turnstileToken,
         }),
       });
 
@@ -356,18 +406,21 @@ const Home = () => {
       setFormStatus('success');
       setFormData({ name: '', email: '', message: '' });
       setSelectedOptions([]);
-      setIsHuman(false);
-      
+
       setTimeout(() => {
         setFormStatus(null);
       }, 5000);
     } catch (error) {
       logger.logError(error, 'Contact Form Submission');
       setFormStatus('error');
-      
+
       setTimeout(() => {
         setFormStatus(null);
       }, 5000);
+    } finally {
+      if (turnstileWidgetIdRef.current !== null && window.turnstile) {
+        window.turnstile.reset(turnstileWidgetIdRef.current);
+      }
     }
   };
 
@@ -1482,75 +1535,11 @@ const Home = () => {
                   }}
                 />
 
-                <Box sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  width: '100%',
-                  mb: 3
-                }}>
-                  <FormControlLabel
-                    control={
-                      <Checkbox
-                        checked={isHuman}
-                        onChange={(e) => setIsHuman(e.target.checked)}
-                        sx={{
-                          '&.MuiCheckbox-root': {
-                            padding: '9px',
-                          },
-                          '& .MuiSvgIcon-root': {
-                            width: '18px',
-                            height: '18px',
-                            border: '1.5px solid rgba(255, 255, 255, 0.6)',
-                            borderRadius: '4px',
-                            backgroundColor: 'transparent',
-                            transition: 'all 0.2s ease',
-                            color: 'transparent',
-                            padding: '0px',
-                          },
-                          '&.Mui-checked .MuiSvgIcon-root': {
-                            backgroundColor: 'white',
-                            borderColor: 'white',
-                            color: '#172845',
-                            '&:before': {
-                              content: '""',
-                              position: 'absolute',
-                              width: '10px',
-                              height: '10px',
-                              backgroundColor: '#172845',
-                              borderRadius: '2px',
-                            }
-                          },
-                          '&:hover .MuiSvgIcon-root': {
-                            borderColor: 'white',
-                          },
-                          '&:hover.Mui-checked .MuiSvgIcon-root': {
-                            backgroundColor: 'white',
-                            borderColor: 'white',
-                          }
-                        }}
-                      />
-                    }
-                    label="Je ne suis pas un robot"
-                    sx={{ 
-                      color: 'rgba(255, 255, 255, 0.9)',
-                      m: 0,
-                      alignItems: 'center',
-                      '& .MuiFormControlLabel-label': {
-                        fontSize: '0.95rem',
-                        fontWeight: 400,
-                        letterSpacing: '0.3px',
-                        userSelect: 'none',
-                        paddingTop: '1px',
-                        transition: 'color 0.2s ease',
-                      },
-                      '&:hover': {
-                        '& .MuiFormControlLabel-label': {
-                          color: 'white',
-                        }
-                      }
-                    }}
-                  />
-                </Box>
+                {/* Widget Cloudflare Turnstile : invisible sauf si un défi est requis */}
+                <Box
+                  ref={turnstileContainerRef}
+                  sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}
+                />
 
                 <Button
                   type="submit"
@@ -1562,7 +1551,7 @@ const Home = () => {
                       transition: 'transform 0.2s ease',
                     }} />
                   }
-                  disabled={formStatus === 'sending' || !isHuman}
+                  disabled={formStatus === 'sending'}
                   sx={{
                     backgroundColor: 'rgba(255, 255, 255, 0.9)',
                     color: '#172845',
@@ -1615,14 +1604,12 @@ const Home = () => {
                     borderRadius: '8px',
                     p: 1.5,
                   }}>
-                    <Typography sx={{ 
-                      color: '#f44336', 
+                    <Typography sx={{
+                      color: '#f44336',
                       fontWeight: 500,
                       fontSize: '0.9rem',
                     }}>
-                      {!isHuman
-                        ? 'Veuillez confirmer que vous n\'êtes pas un robot'
-                        : 'Une erreur s\'est produite. Réessayez plus tard.'}
+                      Une erreur s'est produite. Réessayez plus tard.
                     </Typography>
                   </Box>
                 )}

@@ -3,6 +3,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+      args:
+        REACT_APP_TURNSTILE_SITE_KEY: ${REACT_APP_TURNSTILE_SITE_KEY:-}
     container_name: nicolas-goujon
     ports:
       - "${PORT:-3001}:80"
@@ -28,6 +30,7 @@ services:
       - MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
       - MAIL_FROM_NAME=${MAIL_FROM_NAME}
       - CONTACT_EMAIL_TO=${CONTACT_EMAIL_TO}
+      - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
     restart: unless-stopped
 
   # MailHog : uniquement en dev (docker compose --profile dev up). En prod, ne pas lancer ; définir MAIL_* vers ton SMTP.

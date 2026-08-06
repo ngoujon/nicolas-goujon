@@ -6,6 +6,7 @@ use App\Mail\ContactConfirmation;
 use App\Mail\ContactToOwner;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
@@ -18,7 +19,15 @@ class ContactController extends Controller
             'message' => 'required|string|max:10000',
             'subjects' => 'sometimes|array',
             'subjects.*' => 'string|max:255',
+            'cf_turnstile_response' => 'nullable|string',
         ]);
+
+        if (! $this->verifyTurnstile($validated['cf_turnstile_response'] ?? null, $request->ip())) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Échec de la vérification anti-spam. Réessayez.',
+            ], 422);
+        }
 
         $subjects = $validated['subjects'] ?? [];
         $subjectsLine = count($subjects) > 0
@@ -76,6 +85,38 @@ class ContactController extends Controller
             }
 
             return response()->json($response, 500);
+        }
+    }
+
+    /**
+     * Vérifie le token Cloudflare Turnstile auprès de l'API siteverify.
+     */
+    private function verifyTurnstile(?string $token, ?string $ip): bool
+    {
+        $secret = config('services.turnstile.secret');
+
+        if (empty($secret)) {
+            // Pas de clé configurée : ne pas bloquer le développement local,
+            // mais refuser en production pour éviter d'ouvrir une brèche silencieuse.
+            return config('app.env') === 'local';
+        }
+
+        if (empty($token)) {
+            return false;
+        }
+
+        try {
+            $response = Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
+                'secret' => $secret,
+                'response' => $token,
+                'remoteip' => $ip,
+            ]);
+
+            return (bool) $response->json('success', false);
+        } catch (\Throwable $e) {
+            report($e);
+
+            return false;
         }
     }
 }
