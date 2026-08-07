@@ -6,11 +6,13 @@ use App\Mail\ContactConfirmation;
 use App\Mail\ContactToOwner;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
+    /** Délai minimum (ms) entre l'affichage du formulaire et sa soumission. */
+    private const MIN_ELAPSED_MS = 3000;
+
     public function store(Request $request): JsonResponse
     {
         $validated = $request->validate([
@@ -19,14 +21,14 @@ class ContactController extends Controller
             'message' => 'required|string|max:10000',
             'subjects' => 'sometimes|array',
             'subjects.*' => 'string|max:255',
-            'cf_turnstile_response' => 'nullable|string',
+            // Honeypot : champ invisible côté front, ne doit jamais être rempli par un humain.
+            'website' => 'nullable|string|max:255',
+            'elapsed_ms' => 'nullable|integer|min:0',
         ]);
 
-        if (! $this->verifyTurnstile($validated['cf_turnstile_response'] ?? null, $request->ip())) {
-            return response()->json([
-                'success' => false,
-                'error' => 'Échec de la vérification anti-spam. Réessayez.',
-            ], 422);
+        if ($this->looksLikeSpam($validated)) {
+            // On répond succès sans envoyer d'email, pour ne pas donner d'indice au bot.
+            return response()->json(['success' => true]);
         }
 
         $subjects = $validated['subjects'] ?? [];
@@ -89,34 +91,16 @@ class ContactController extends Controller
     }
 
     /**
-     * Vérifie le token Cloudflare Turnstile auprès de l'API siteverify.
+     * Détecte un bot via honeypot rempli ou soumission trop rapide après affichage du formulaire.
      */
-    private function verifyTurnstile(?string $token, ?string $ip): bool
+    private function looksLikeSpam(array $validated): bool
     {
-        $secret = config('services.turnstile.secret');
-
-        if (empty($secret)) {
-            // Pas de clé configurée : ne pas bloquer le développement local,
-            // mais refuser en production pour éviter d'ouvrir une brèche silencieuse.
-            return config('app.env') === 'local';
+        if (! empty($validated['website'])) {
+            return true;
         }
 
-        if (empty($token)) {
-            return false;
-        }
+        $elapsedMs = $validated['elapsed_ms'] ?? null;
 
-        try {
-            $response = Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
-                'secret' => $secret,
-                'response' => $token,
-                'remoteip' => $ip,
-            ]);
-
-            return (bool) $response->json('success', false);
-        } catch (\Throwable $e) {
-            report($e);
-
-            return false;
-        }
+        return $elapsedMs !== null && $elapsedMs < self::MIN_ELAPSED_MS;
     }
 }

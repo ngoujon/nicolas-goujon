@@ -35,8 +35,4 @@ return [
         ],
     ],
 
-    'turnstile' => [
-        'secret' => env('TURNSTILE_SECRET_KEY'),
-    ],
-
 ];

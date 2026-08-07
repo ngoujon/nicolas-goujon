@@ -11,7 +11,6 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import { logger } from '../utils/logger';
 
 const CONTACT_API_URL = process.env.REACT_APP_CONTACT_API_URL || '/api/contact';
-const TURNSTILE_SITE_KEY = process.env.REACT_APP_TURNSTILE_SITE_KEY;
 
 // Composants stylisés
 const SectionTitle = styled(Typography)(({ theme }) => ({
@@ -268,58 +267,13 @@ const Home = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
-    message: ''
+    message: '',
+    website: '', // honeypot : champ invisible pour les humains, souvent auto-rempli par les bots
   });
   const theme = useTheme();
 
-  // Widget Cloudflare Turnstile (captcha invisible) : rendu une fois,
-  // déclenché manuellement à la soumission via `execution: 'execute'`.
-  const turnstileContainerRef = useRef(null);
-  const turnstileWidgetIdRef = useRef(null);
-  const turnstileResolverRef = useRef(null);
-
-  useEffect(() => {
-    if (!TURNSTILE_SITE_KEY) return;
-
-    const renderWidget = () => {
-      if (!window.turnstile || !turnstileContainerRef.current || turnstileWidgetIdRef.current) return;
-      turnstileWidgetIdRef.current = window.turnstile.render(turnstileContainerRef.current, {
-        sitekey: TURNSTILE_SITE_KEY,
-        appearance: 'interaction-only', // reste invisible tant qu'aucun défi n'est nécessaire
-        execution: 'execute', // ne se déclenche qu'à l'appel de turnstile.execute()
-        callback: (token) => {
-          turnstileResolverRef.current?.(token);
-          turnstileResolverRef.current = null;
-        },
-        'error-callback': () => {
-          turnstileResolverRef.current?.(null);
-          turnstileResolverRef.current = null;
-        },
-      });
-    };
-
-    if (window.turnstile) {
-      renderWidget();
-      return undefined;
-    }
-
-    const interval = setInterval(() => {
-      if (window.turnstile) {
-        clearInterval(interval);
-        renderWidget();
-      }
-    }, 100);
-    return () => clearInterval(interval);
-  }, []);
-
-  const getTurnstileToken = () => new Promise((resolve) => {
-    if (!TURNSTILE_SITE_KEY || !window.turnstile || turnstileWidgetIdRef.current === null) {
-      resolve(null);
-      return;
-    }
-    turnstileResolverRef.current = resolve;
-    window.turnstile.execute(turnstileWidgetIdRef.current);
-  });
+  // Horodatage d'affichage du formulaire, utilisé pour détecter une soumission trop rapide (bot).
+  const formRenderedAtRef = useRef(Date.now());
 
   useEffect(() => {
     const path = window.location.pathname.substring(1);
@@ -380,11 +334,6 @@ const Home = () => {
     setFormStatus('sending');
 
     try {
-      const turnstileToken = await getTurnstileToken();
-      if (TURNSTILE_SITE_KEY && !turnstileToken) {
-        throw new Error('Vérification anti-spam échouée. Réessayez.');
-      }
-
       const res = await fetch(CONTACT_API_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -393,7 +342,8 @@ const Home = () => {
           email: formData.email,
           message: formData.message,
           subjects: selectedOptions.length > 0 ? selectedOptions : undefined,
-          cf_turnstile_response: turnstileToken,
+          website: formData.website,
+          elapsed_ms: Date.now() - formRenderedAtRef.current,
         }),
       });
 
@@ -404,8 +354,9 @@ const Home = () => {
       }
 
       setFormStatus('success');
-      setFormData({ name: '', email: '', message: '' });
+      setFormData({ name: '', email: '', message: '', website: '' });
       setSelectedOptions([]);
+      formRenderedAtRef.current = Date.now();
 
       setTimeout(() => {
         setFormStatus(null);
@@ -417,10 +368,6 @@ const Home = () => {
       setTimeout(() => {
         setFormStatus(null);
       }, 5000);
-    } finally {
-      if (turnstileWidgetIdRef.current !== null && window.turnstile) {
-        window.turnstile.reset(turnstileWidgetIdRef.current);
-      }
     }
   };
 
@@ -1535,11 +1482,27 @@ const Home = () => {
                   }}
                 />
 
-                {/* Widget Cloudflare Turnstile : invisible sauf si un défi est requis */}
+                {/* Honeypot anti-spam : champ invisible pour un humain, souvent auto-rempli par les bots.
+                    Positionné hors-écran plutôt qu'en display:none, que certains bots savent détecter. */}
                 <Box
-                  ref={turnstileContainerRef}
-                  sx={{ display: 'flex', justifyContent: 'center', width: '100%' }}
-                />
+                  sx={{
+                    position: 'absolute',
+                    left: '-9999px',
+                    width: '1px',
+                    height: '1px',
+                    overflow: 'hidden',
+                  }}
+                  aria-hidden="true"
+                >
+                  <input
+                    type="text"
+                    name="website"
+                    value={formData.website}
+                    onChange={handleChange}
+                    tabIndex="-1"
+                    autoComplete="off"
+                  />
+                </Box>
 
                 <Button
                   type="submit"

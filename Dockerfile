@@ -13,10 +13,6 @@ RUN npm ci
 COPY . .
 RUN chmod -R a+rX /app
 
-# Clé publique Turnstile (site key) : embarquée dans le bundle React au build
-ARG REACT_APP_TURNSTILE_SITE_KEY
-ENV REACT_APP_TURNSTILE_SITE_KEY=${REACT_APP_TURNSTILE_SITE_KEY}
-
 # Build de l'application React
 RUN npm run build
 
