@@ -54,3 +54,5 @@ Thumbs.db
 
 # Deployment
 deploy.ps1
+# Remap ports Docker local (multi-projet) — jamais commité
+docker-compose.override.yml
