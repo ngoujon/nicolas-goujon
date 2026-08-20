@@ -8,6 +8,7 @@ import Home from './pages/Home';
 import Maintenance from './pages/Maintenance';
 import NotFound from './pages/NotFound';
 import PrivacyPolicy from './pages/PrivacyPolicy';
+import LegalNotice from './pages/LegalNotice';
 import './App.css';
 
 const theme = createTheme({
@@ -58,6 +59,7 @@ function App() {
               <Route path="/projets" element={isMaintenance ? <Maintenance /> : <Home />} />
               <Route path="/contact" element={isMaintenance ? <Maintenance /> : <Home />} />
               <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
+              <Route path="/mentions-legales" element={<LegalNotice />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </main>

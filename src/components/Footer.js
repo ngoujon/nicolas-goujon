@@ -150,7 +150,9 @@ const Footer = () => {
         <Box sx={{
           display: 'flex',
           justifyContent: 'center',
+          gap: 3,
           mb: 2,
+          flexWrap: 'wrap',
           '& a': {
             position: 'relative',
             transition: 'all 0.3s ease',
@@ -185,6 +187,20 @@ const Footer = () => {
             }}
           >
             Politique de Confidentialité
+          </Link>
+          <Link
+            component={RouterLink}
+            to="/mentions-legales"
+            color="inherit"
+            underline="none"
+            sx={{
+              color: '#e3e8ee',
+              fontWeight: 500,
+              fontSize: '0.95rem',
+              letterSpacing: '0.5px',
+            }}
+          >
+            Mentions Légales
           </Link>
         </Box>
         <Typography
