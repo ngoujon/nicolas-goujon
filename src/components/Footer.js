@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Container, Typography, Link, Grid, Divider } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
 
@@ -146,6 +147,46 @@ const Footer = () => {
           </Grid>
         </Grid>
         <Divider sx={{ my: 3, borderColor: 'rgba(255,255,255,0.08)' }} />
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          mb: 2,
+          '& a': {
+            position: 'relative',
+            transition: 'all 0.3s ease',
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              bottom: '-2px',
+              left: 0,
+              width: '0',
+              height: '2px',
+              background: 'white',
+              transition: 'width 0.3s ease',
+            },
+            '&:hover': {
+              color: 'white',
+              '&::after': {
+                width: '100%',
+              }
+            }
+          }
+        }}>
+          <Link
+            component={RouterLink}
+            to="/politique-confidentialite"
+            color="inherit"
+            underline="none"
+            sx={{
+              color: '#e3e8ee',
+              fontWeight: 500,
+              fontSize: '0.95rem',
+              letterSpacing: '0.5px',
+            }}
+          >
+            Politique de Confidentialité
+          </Link>
+        </Box>
         <Typography
           variant="body2"
           align="center"
