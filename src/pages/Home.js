@@ -1361,7 +1361,7 @@ const Home = () => {
 
                 <TextField
                   fullWidth
-                  placeholder="Votre nom"
+                  label="Votre nom"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
@@ -1401,7 +1401,7 @@ const Home = () => {
 
                 <TextField
                   fullWidth
-                  placeholder="Votre email"
+                  label="Votre email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
@@ -1442,7 +1442,7 @@ const Home = () => {
 
                 <TextField
                   fullWidth
-                  placeholder="Votre message"
+                  label="Votre message"
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
@@ -1553,15 +1553,18 @@ const Home = () => {
                 </Button>
 
                 {formStatus === 'success' && (
-                  <Box sx={{ mt: 3, textAlign: 'center' }}>
+                  <Box role="status" aria-live="polite" sx={{ mt: 3, textAlign: 'center' }}>
                     <Typography sx={{ color: '#4caf50', fontWeight: 600 }}>
-                      Merci ! Votre message a bien été envoyé.
+                      ✓ Merci ! Votre message a bien été envoyé.
                     </Typography>
                   </Box>
                 )}
                 {formStatus === 'error' && (
-                  <Box sx={{ 
-                    mt: 2, 
+                  <Box
+                    role="alert"
+                    aria-live="assertive"
+                    sx={{
+                    mt: 2,
                     textAlign: 'center',
                     backgroundColor: 'rgba(244, 67, 54, 0.1)',
                     borderRadius: '8px',
@@ -1572,7 +1575,7 @@ const Home = () => {
                       fontWeight: 500,
                       fontSize: '0.9rem',
                     }}>
-                      Une erreur s'est produite. Réessayez plus tard.
+                      ⚠ Une erreur s'est produite. Réessayez plus tard.
                     </Typography>
                   </Box>
                 )}
