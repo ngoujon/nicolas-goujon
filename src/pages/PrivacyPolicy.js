@@ -94,13 +94,10 @@ const PrivacyPolicy = () => {
                 <strong>Données de formulaire de contact :</strong> Nom, adresse e-mail, sujet et message fournis volontairement via le formulaire de contact. Ces données sont utilisées uniquement pour vous répondre.
               </Typography>
               <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
-                <strong>Données de navigation :</strong> Adresse IP, type de navigateur, pages visitées et durée de visite, collectées via Google Analytics pour améliorer l'expérience utilisateur et comprendre le comportement des visiteurs.
-              </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
-                <strong>Cookies de suivi :</strong> Google Analytics utilise des cookies pour suivre votre navigation et analyser les statistiques du site.
+                <strong>Données techniques :</strong> Adresse IP et informations de journalisation technique, traitées par notre hébergeur pour assurer le fonctionnement et la sécurité du site.
               </Typography>
               <Typography component="li" sx={{ color: '#e3e8ee' }}>
-                <strong>Données de consentement :</strong> Votre choix concernant l'acceptation des cookies et des services d'analyse est enregistré localement dans votre navigateur.
+                <strong>Ressource externe :</strong> Les icônes du site sont chargées depuis le CDN Cloudflare (cdnjs.cloudflare.com), qui peut recevoir votre adresse IP lors du chargement de cette ressource. Le site n'utilise aucun outil d'analyse d'audience (type Google Analytics) ni cookie de suivi publicitaire.
               </Typography>
             </Box>
           </Box>
@@ -133,14 +130,8 @@ const PrivacyPolicy = () => {
               <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
                 Répondre à vos demandes via le formulaire de contact
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
-                Analyser les statistiques de visite et améliorer le contenu du site
-              </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
-                Comprendre les tendances de navigation pour optimiser l'expérience utilisateur
-              </Typography>
               <Typography component="li" sx={{ color: '#e3e8ee' }}>
-                Assurer la sécurité et la conformité légale du site
+                Assurer le fonctionnement technique, la sécurité et la conformité légale du site
               </Typography>
             </Box>
           </Box>
@@ -170,10 +161,13 @@ const PrivacyPolicy = () => {
             </Typography>
             <Box component="ul" sx={{ pl: 3 }}>
               <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
-                <strong>Google Analytics :</strong> Données de navigation anonymisées pour l'analyse statistique
+                <strong>Hébergeur du site :</strong> Traite les données techniques (adresse IP) nécessaires au fonctionnement du serveur
               </Typography>
               <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
-                <strong>Services de messagerie :</strong> Adresse e-mail utilisée pour vous répondre si vous contactez le site
+                <strong>Service d'envoi d'e-mails :</strong> Adresse e-mail utilisée pour vous répondre si vous contactez le site
+              </Typography>
+              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+                <strong>CDN Cloudflare (cdnjs.cloudflare.com) :</strong> Livraison des icônes du site, susceptible de recevoir votre adresse IP
               </Typography>
               <Typography component="li" sx={{ color: '#e3e8ee' }}>
                 <strong>Obligations légales :</strong> Si légalement requises par les autorités compétentes
@@ -284,16 +278,8 @@ const PrivacyPolicy = () => {
                 lineHeight: '1.6',
               }}
             >
-              Le site utilise des cookies pour améliorer votre expérience. Vous pouvez gérer vos préférences de cookies via les paramètres de votre navigateur. Les cookies utilisés incluent :
+              Ce site n'utilise aucun cookie d'analyse d'audience ni de suivi publicitaire (pas de Google Analytics ni d'outil similaire). Seuls des cookies strictement nécessaires au fonctionnement technique du site peuvent être déposés.
             </Typography>
-            <Box component="ul" sx={{ pl: 3 }}>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
-                <strong>Cookies d'analyse :</strong> Google Analytics pour mesurer l'engagement et l'utilisation du site
-              </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee' }}>
-                <strong>Cookies de préférence :</strong> Pour mémoriser vos choix de consentement
-              </Typography>
-            </Box>
           </Box>
 
           <Box>
