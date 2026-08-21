@@ -10,15 +10,18 @@ import NotFound from './pages/NotFound';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import LegalNotice from './pages/LegalNotice';
 import { applySeo } from './utils/seo';
+import { applyStructuredData } from './utils/structuredData';
 import './App.css';
 
-// Met à jour le title et les balises meta à chaque changement de route,
-// pour que chaque page ait un titre/description unique (SEO + pré-rendu).
+// Met à jour le title, les balises meta et les données structurées (JSON-LD)
+// à chaque changement de route, pour que chaque page ait des métadonnées
+// et un balisage sémantique uniques (SEO + pré-rendu).
 function SeoManager() {
   const location = useLocation();
 
   React.useEffect(() => {
     applySeo(location.pathname);
+    applyStructuredData(location.pathname);
   }, [location.pathname]);
 
   return null;
