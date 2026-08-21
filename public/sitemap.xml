@@ -7,33 +7,15 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://nicolas-goujon.com/bio</loc>
+    <loc>https://nicolas-goujon.com/politique-confidentialite</loc>
     <lastmod>2025-03-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://nicolas-goujon.com/stack</loc>
+    <loc>https://nicolas-goujon.com/mentions-legales</loc>
     <lastmod>2025-03-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://nicolas-goujon.com/formation</loc>
-    <lastmod>2025-03-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nicolas-goujon.com/projets</loc>
-    <lastmod>2025-03-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nicolas-goujon.com/contact</loc>
-    <lastmod>2025-03-17</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
   </url>
 </urlset>
