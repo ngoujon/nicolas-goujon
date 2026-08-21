@@ -1,0 +1,45 @@
+# LLMs.txt file for AI agents and crawlers
+# Guidelines for Language Model agents accessing this website
+
+# Policy for Claude by Anthropic
+User-agent: Claude-Web
+Allow: /
+
+# Policy for OpenAI agents
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: GPTBot
+Allow: /
+
+# Policy for Google AI agents
+User-agent: Googlebot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# Policy for Perplexity
+User-agent: PerplexityBot
+Allow: /
+
+# Policy for all other AI agents
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /private/
+
+# Content accessibility information
+# This website provides information about Nicolas Goujon's professional experience,
+# projects, and skills. The site contains:
+# - Professional profile and biography
+# - Portfolio projects and case studies
+# - Technical skills and expertise
+# - Contact information
+
+# Policy for full-text use
+Full-text: allow
+
+# Sitemap location
+Sitemap: https://nicolas-goujon.com/sitemap.xml
