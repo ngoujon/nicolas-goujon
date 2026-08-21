@@ -1164,6 +1164,7 @@ const Home = () => {
                       component="img"
                       src="/images/qwebty/logo-v2-hd-blanc.png"
                       alt="Logo Qwebty - Agence Web & Digital"
+                      loading="lazy"
                       sx={{
                         height: { xs: 40, sm: 46 },
                         width: 'auto',

@@ -56,17 +56,16 @@ ne sont pas chargées.
   attribut, y compris la seule actuellement hors écran initial (`profil.jpg`,
   logo Qwebty en bas de page).
 
-## Recommandations (non appliquées dans cet audit)
+## Corrections appliquées
 
-1. Convertir `background.jpg`, `profil.jpg` et `logo-v2-hd-blanc.png` en
-   WebP (avec fallback JPG/PNG via `<picture>` si compatibilité navigateur
-   ancienne requise).
-2. Ajouter `loading="lazy"` sur le logo Qwebty (`Home.js:1167`) et sur toute
-   future balise `<img>` hors écran initial.
-3. Remplacer les `background-image` CSS de `profil.jpg` par une vraie balise
-   `<img loading="lazy">` pour bénéficier du lazy loading natif.
-4. Supprimer ou archiver les 6 images orphelines non référencées dans le
-   code pour alléger le dépôt.
-
-Cet audit ne modifie aucun fichier applicatif ; il documente l'état actuel
-pour préparer les corrections à venir.
+1. `background.jpg`, `profil.jpg` et `logo-v2-hd-blanc.png` sont désormais
+   servies en WebP (avec fallback JPG/PNG via `image-set()` CSS ou
+   `<picture>`).
+2. `loading="lazy"` a été ajouté sur le logo Qwebty (`Home.js`), seule
+   balise `<img>` hors écran initial du site.
+3. 5 des 6 images orphelines ont été supprimées du dépôt
+   (`professionnel/engine.jpg`, `professionnel/site.jpg`,
+   `background/workspace.jpg`, `background/background_nb.jpg`,
+   `projets/logo_gabions.png`). `logo/logo_dark.png` a été conservée : elle
+   est référencée par les données structurées SEO dans `public/index.html`
+   (champ `logo` du JSON-LD Organization).
