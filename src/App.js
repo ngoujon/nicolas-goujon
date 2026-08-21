@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Header from './components/Header';
@@ -9,7 +9,20 @@ import Maintenance from './pages/Maintenance';
 import NotFound from './pages/NotFound';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import LegalNotice from './pages/LegalNotice';
+import { applySeo } from './utils/seo';
 import './App.css';
+
+// Met à jour le title et les balises meta à chaque changement de route,
+// pour que chaque page ait un titre/description unique (SEO + pré-rendu).
+function SeoManager() {
+  const location = useLocation();
+
+  React.useEffect(() => {
+    applySeo(location.pathname);
+  }, [location.pathname]);
+
+  return null;
+}
 
 const theme = createTheme({
   palette: {
@@ -49,6 +62,7 @@ function App() {
       <CssBaseline />
       <Router>
         <div className="App">
+          <SeoManager />
           <Header />
           <main>
             <Routes>
