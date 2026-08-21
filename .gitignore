@@ -52,6 +52,9 @@ Thumbs.db
 .cache/
 .temp/
 
+# Sauvegardes locales (tools/backup.sh)
+/backups
+
 # Deployment
 deploy.ps1
 # Remap ports Docker local (multi-projet) — jamais commité

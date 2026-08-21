@@ -105,6 +105,10 @@ Le script `tools/deploy.sh` déploie le site (port 3001 par défaut). Exposer le
 
 Pour exposer via un domaine, utiliser le template `tools/nginx-site.conf.example` (proxy vers le port du conteneur).
 
+## Sauvegardes
+
+Sauvegarde automatisée (cron) de la base de données et des fichiers, avec envoi vers un stockage externe et procédure de restauration : voir `tools/BACKUP_PROCEDURE.md`.
+
 ## Contact
 
 Formulaire sur le site ou contact@nicolas-goujon.fr.

@@ -15,6 +15,10 @@ services:
       context: api
       dockerfile: Dockerfile
     container_name: nicolas-goujon-api
+    volumes:
+      # Persistance de la base SQLite et des fichiers stockés (survit aux rebuilds/redéploiements)
+      - ./api/database:/app/database
+      - ./api/storage/app:/app/storage/app
     environment:
       - APP_KEY=${APP_KEY}
       - APP_ENV=${APP_ENV:-production}
