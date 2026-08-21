@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import ErrorBoundary from './components/ErrorBoundary';
 import Home from './pages/Home';
 import Maintenance from './pages/Maintenance';
 import NotFound from './pages/NotFound';
@@ -11,6 +12,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import LegalNotice from './pages/LegalNotice';
 import { applySeo } from './utils/seo';
 import { applyStructuredData } from './utils/structuredData';
+import { ThemeModeProvider, useThemeMode } from './utils/ThemeModeContext';
 import './App.css';
 
 // Met à jour le title, les balises meta et les données structurées (JSON-LD)
@@ -27,38 +29,41 @@ function SeoManager() {
   return null;
 }
 
-const theme = createTheme({
-  palette: {
-    mode: 'light',
-    primary: {
-      main: '#172845',
+const createAppTheme = (mode) =>
+  createTheme({
+    palette: {
+      mode,
+      primary: {
+        main: '#172845',
+      },
+      secondary: {
+        main: '#FFFFFF',
+      },
+      background: {
+        default: mode === 'dark' ? '#172845' : '#FFFFFF',
+        paper: mode === 'dark' ? '#172845' : '#FFFFFF',
+      },
+      text: {
+        primary: mode === 'dark' ? '#FFFFFF' : '#172845',
+        secondary: mode === 'dark' ? '#FFFFFF' : '#172845',
+      },
     },
-    secondary: {
-      main: '#FFFFFF',
-    },
-    background: {
-      default: '#172845',
-      paper: '#172845',
-    },
-    text: {
-      primary: '#FFFFFF',
-      secondary: '#FFFFFF',
-    },
-  },
-  typography: {
-    fontFamily: '"Comforta", "Roboto", "Helvetica", "Arial", sans-serif',
-    h1: {
+    typography: {
       fontFamily: '"Comforta", "Roboto", "Helvetica", "Arial", sans-serif',
-      fontWeight: 'bold',
+      h1: {
+        fontFamily: '"Comforta", "Roboto", "Helvetica", "Arial", sans-serif',
+        fontWeight: 'bold',
+      },
+      h2: {
+        fontFamily: '"Garet", "Roboto", "Helvetica", "Arial", sans-serif',
+      },
     },
-    h2: {
-      fontFamily: '"Garet", "Roboto", "Helvetica", "Arial", sans-serif',
-    },
-  },
-});
+  });
 
-function App() {
+function ThemedApp() {
   const [isMaintenance] = React.useState(false);
+  const { mode } = useThemeMode();
+  const theme = React.useMemo(() => createAppTheme(mode), [mode]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -84,6 +89,16 @@ function App() {
         </div>
       </Router>
     </ThemeProvider>
+  );
+}
+
+function App() {
+  return (
+    <ErrorBoundary>
+      <ThemeModeProvider>
+        <ThemedApp />
+      </ThemeModeProvider>
+    </ErrorBoundary>
   );
 }
 
