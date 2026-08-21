@@ -379,14 +379,6 @@ const Home = () => {
         <HeroContent>
           <HeroName component="h1">Nicolas GOUJON</HeroName>
           <HeroTitle>Développeur Web & Product Owner</HeroTitle>
-          {/*<HeroCvButton
-            variant="contained"
-            href="/docs/CV_Nicolas-GOUJON.pdf"
-            target="_blank"
-          >
-            Consulter mon CV
-          </HeroCvButton>
-          */}
         </HeroContent>
         {showScrollArrow && (
           <Box className="scroll-arrow">
