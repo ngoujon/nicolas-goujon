@@ -123,5 +123,11 @@ CONTACT_EMAIL_TO=contact@nicolas-goujon.fr
 
 ---
 
-**Dernière vérification** : 2026-08-20
+## Note Importante
+
+La configuration DKIM ne peut pas être effectuée depuis ce dépôt de code : elle nécessite un accès au panneau d'administration DNS/email chez l'hébergeur (Hostinger), qui est un service externe séparé du code du site. Une tâche de suivi a été créée pour effectuer cette action manuellement.
+
+---
+
+**Dernière vérification** : 2026-08-21
 **Vérificateur** : DNS lookup via dig
