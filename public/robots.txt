@@ -1,9 +1,33 @@
 # https://www.robotstxt.org/robotstxt.html
+
+# Default policy: allow all crawlers except restricted paths
 User-agent: *
 Allow: /
 Disallow: /private/
 Disallow: /admin/
 Disallow: /api/
+
+# AI crawlers policy - EXPLICITLY ALLOWED
+# This is a deliberate choice to allow legitimate AI crawlers to index this site
+# for training and search purposes.
+# Supported AI crawlers: OpenAI (GPTBot), Anthropic (Claude), Google (Google-Extended),
+# Common Crawl (CCBot), Perplexity (PerplexityBot), Bing, and other respectful crawlers.
+# To opt-out of specific AI crawlers, uncomment their rules below.
+
+# User-agent: GPTBot
+# Disallow: /
+
+# User-agent: ClaudeBot
+# Disallow: /
+
+# User-agent: Google-Extended
+# Disallow: /
+
+# User-agent: CCBot
+# Disallow: /
+
+# User-agent: PerplexityBot
+# Disallow: /
 
 # Sitemap
 Sitemap: https://nicolas-goujon.com/sitemap.xml
