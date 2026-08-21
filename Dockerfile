@@ -29,4 +29,8 @@ RUN chmod -R a+rX /usr/share/nginx/html
 # Exposer le port 80
 EXPOSE 80
 
+# Surveillance de l'état du conteneur par Docker (utilisé par restart: unless-stopped)
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+    CMD wget -qO- http://localhost/ || exit 1
+
 CMD ["nginx", "-g", "daemon off;"]
