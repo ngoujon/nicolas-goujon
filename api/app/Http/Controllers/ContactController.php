@@ -31,6 +31,14 @@ class ContactController extends Controller
             return response()->json(['success' => true]);
         }
 
+        // Défense en profondeur : retire toute balise HTML des champs libres avant usage,
+        // en plus de l'échappement automatique de Blade dans les templates d'email.
+        $validated['name'] = strip_tags($validated['name']);
+        $validated['message'] = strip_tags($validated['message']);
+        if (! empty($validated['subjects'])) {
+            $validated['subjects'] = array_map('strip_tags', $validated['subjects']);
+        }
+
         $subjects = $validated['subjects'] ?? [];
         $subjectsLine = count($subjects) > 0
             ? implode(', ', $subjects)
