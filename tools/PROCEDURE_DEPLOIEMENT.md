@@ -110,6 +110,65 @@ Si tu veux que le site soit accessible via `https://nicolas-goujon.com` (ou un s
 
 ---
 
+## Environnement de staging
+
+Un environnement de **staging**, distinct de la production, permet de valider une
+livraison avant de la déployer sur le site public. Il tourne dans un répertoire
+dédié sur le VPS (clone Git séparé), avec ses propres conteneurs, son propre
+port et sa propre base de données SQLite — aucune ressource n'est partagée avec
+la production.
+
+| | Production | Staging |
+|---|---|---|
+| Répertoire VPS | `~/nicolas-goujon` | `~/nicolas-goujon-staging` |
+| Branche Git | `main` | `staging` |
+| Port | 3001 | 3002 |
+| Conteneurs | `nicolas-goujon`, `nicolas-goujon-api` | `nicolas-goujon-staging`, `nicolas-goujon-staging-api` |
+| Emails | SMTP réel | MailHog (aucun email réel envoyé) |
+
+### Mise en place (une seule fois)
+
+1. **Créer la branche staging** (si elle n'existe pas) : `git checkout -b staging && git push -u origin staging`
+2. **Cloner le dépôt dans un répertoire dédié sur le VPS**
+   ```bash
+   ssh user@vps
+   git clone -b staging git@github.com:<compte>/nicolas-goujon.git ~/nicolas-goujon-staging
+   cd ~/nicolas-goujon-staging
+   cp .env.staging.example .env && nano .env               # renseigner APP_KEY, etc.
+   cp api/.env.staging.example api/.env && nano api/.env
+   ```
+   Le `.env` racine doit contenir `DEPLOY_ENV=staging` (déjà présent dans `.env.staging.example`) : c'est ce qui indique à `tools/deploy.sh` d'utiliser `docker-compose.staging.yml` (conteneurs et port dédiés) et de ne pas toucher à la config Nginx/SSL de production.
+3. **Configurer le déploiement depuis la machine locale**
+   ```bash
+   cp tools/.env.staging.example tools/.env.staging
+   # Renseigner APP_DIR=~/nicolas-goujon-staging et GIT_BRANCH=staging
+   ```
+
+### Déployer sur staging
+
+Depuis la machine locale :
+```bash
+git push origin staging
+UPDATE_ENV_FILE=.env.staging ./tools/update.sh
+```
+
+Ou directement sur le VPS, dans `~/nicolas-goujon-staging` :
+```bash
+git pull origin staging
+./tools/deploy.sh
+```
+
+### Vérifier le staging
+
+```
+http://ADRESSE_VPS:3002
+```
+
+Une fois la livraison validée sur ce port, ne fusionner/déployer sur `main` (production)
+qu'après ce contrôle.
+
+---
+
 ## En cas de problème
 
 | Problème | Solution |

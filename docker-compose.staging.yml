@@ -1,0 +1,29 @@
+# Environnement de STAGING — distinct de la production.
+# Usage : docker compose -f docker-compose.yml -f docker-compose.staging.yml up --build -d
+# (ou via tools/deploy.sh avec DEPLOY_ENV=staging dans le .env du répertoire staging)
+#
+# Le staging doit tourner depuis un répertoire/clone dédié sur le VPS
+# (ex: /home/nicolas-goujon/nicolas-goujon-staging), avec sa propre branche Git,
+# son propre port et ses propres conteneurs — aucune ressource n'est partagée
+# avec la production.
+services:
+  web:
+    container_name: nicolas-goujon-staging
+    ports:
+      - "${PORT:-3002}:80"
+
+  api:
+    container_name: nicolas-goujon-staging-api
+    environment:
+      - APP_KEY=${APP_KEY}
+      - APP_ENV=staging
+      - APP_DEBUG=${APP_DEBUG:-true}
+      - MAIL_MAILER=${MAIL_MAILER:-smtp}
+      - MAIL_HOST=${MAIL_HOST:-mailhog}
+      - MAIL_PORT=${MAIL_PORT:-1025}
+      - MAIL_USERNAME=${MAIL_USERNAME:-null}
+      - MAIL_PASSWORD=${MAIL_PASSWORD:-null}
+      - MAIL_ENCRYPTION=${MAIL_ENCRYPTION:-null}
+      - MAIL_FROM_ADDRESS=${MAIL_FROM_ADDRESS}
+      - MAIL_FROM_NAME=${MAIL_FROM_NAME}
+      - CONTACT_EMAIL_TO=${CONTACT_EMAIL_TO}

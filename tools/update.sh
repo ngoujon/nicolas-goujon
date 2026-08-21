@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 # Mise à jour distante : git pull sur le VPS puis exécution de tools/deploy.sh.
 # Usage (depuis votre machine locale) : ./tools/update.sh
+# Pour cibler le staging (répertoire/branche distincts de la prod) :
+#   UPDATE_ENV_FILE=.env.staging ./tools/update.sh
+#   (après avoir créé tools/.env.staging depuis tools/.env.staging.example)
 #
 # Prérequis locaux : sshpass (brew install sshpass) si VPS_PASSWORD est utilisé.
 
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ENV_FILE="${SCRIPT_DIR}/.env"
+ENV_FILE="${SCRIPT_DIR}/${UPDATE_ENV_FILE:-.env}"
 
 log() {
   printf '[update] %s\n' "$*"

@@ -19,23 +19,48 @@ log_info() { echo -e "${GREEN}[INFO]${NC} $1"; }
 log_warn() { echo -e "${YELLOW}[WARN]${NC} $1"; }
 log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
 
+# Détection de l'environnement (staging si DEPLOY_ENV=staging dans le .env
+# du répertoire courant). Le staging tourne dans un répertoire dédié, distinct
+# de la production (voir .env.staging.example et docker-compose.staging.yml).
+if [ -f .env ]; then
+    set -a
+    # shellcheck disable=SC1091
+    source .env
+    set +a
+fi
+
+COMPOSE_ARGS=(-f docker-compose.yml)
+CONTAINER_WEB="nicolas-goujon"
+CONTAINER_API="nicolas-goujon-api"
+if [ "${DEPLOY_ENV:-production}" = "staging" ]; then
+    COMPOSE_ARGS+=(-f docker-compose.staging.yml)
+    CONTAINER_WEB="nicolas-goujon-staging"
+    CONTAINER_API="nicolas-goujon-staging-api"
+    log_warn "Environnement STAGING détecté (DEPLOY_ENV=staging) — conteneurs et port dédiés."
+fi
+
 log_info "Mise à jour du projet..."
 
 # 1. Arrêter les conteneurs existants
 log_info "Arrêt des conteneurs..."
-docker compose down 2>/dev/null || true
-docker stop nicolas-goujon nicolas-goujon-api 2>/dev/null || true
-docker rm nicolas-goujon nicolas-goujon-api 2>/dev/null || true
+docker compose "${COMPOSE_ARGS[@]}" down 2>/dev/null || true
+docker stop "$CONTAINER_WEB" "$CONTAINER_API" 2>/dev/null || true
+docker rm "$CONTAINER_WEB" "$CONTAINER_API" 2>/dev/null || true
 
 # 2. Rebuild et relance (web + api)
 log_info "Reconstruction des images et démarrage (docker compose up --build -d)..."
-docker compose up --build -d
+docker compose "${COMPOSE_ARGS[@]}" up --build -d
 
 log_info "Mise à jour terminée."
-log_info "Site (web + API) accessible sur le port défini par PORT (défaut: 3001)."
+log_info "Site (web + API) accessible sur le port défini par PORT (défaut: 3001, 3002 en staging)."
 log_warn "Vérifiez que le fichier .env à la racine contient APP_KEY et les variables MAIL_* / CONTACT_EMAIL_TO."
 
-# 3. Activer www.nicolas-goujon.fr si pas encore configuré (idempotent)
+if [ "${DEPLOY_ENV:-production}" = "staging" ]; then
+    log_info "Staging : pas de configuration Nginx/SSL automatique (domaine de prod non concerné)."
+    exit 0
+fi
+
+# 3. Activer www.nicolas-goujon.fr si pas encore configuré (idempotent, prod uniquement)
 NGINX_CONF=""
 for candidate in /etc/nginx/sites-available/nicolas-goujon.conf /etc/nginx/conf.d/nicolas-goujon.conf; do
     [ -f "$candidate" ] && NGINX_CONF="$candidate" && break
