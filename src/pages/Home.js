@@ -67,7 +67,7 @@ const HeroSection = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
-  backgroundImage: 'url(/images/background/background.jpg)',
+  backgroundImage: 'image-set(url(/images/background/background.webp) 1x type("image/webp"), url(/images/background/background.jpg) 1x type("image/jpeg"))',
   backgroundSize: 'cover',
   backgroundPosition: 'center',
   backgroundAttachment: 'fixed',
@@ -1089,7 +1089,7 @@ const Home = () => {
             <Grid item xs={12}>
               <CitationBox>
                 <CitationImg 
-                  style={{ backgroundImage: 'url(/images/profil.jpg)' }} 
+                  style={{ backgroundImage: 'image-set(url(/images/profil.webp) 1x type("image/webp"), url(/images/profil.jpg) 1x type("image/jpeg"))' }}
                   role="img"
                   aria-label="Photo de profil de Nicolas GOUJON"
                 />
@@ -1164,16 +1164,23 @@ const Home = () => {
                   flexShrink: 0
                 }}>
                   <Box
-                    component="img"
-                    src="/images/qwebty/logo-v2-hd-blanc.png"
-                    alt="Logo Qwebty - Agence Web & Digital"
-                    sx={{
-                      height: { xs: 40, sm: 46 },
-                      width: 'auto',
-                      objectFit: 'contain',
-                      display: 'block'
-                    }}
-                  />
+                    component="picture"
+                    sx={{ display: 'block' }}
+                  >
+                    <source srcSet="/images/qwebty/logo-v2-hd-blanc.webp" type="image/webp" />
+                    <Box
+                      component="img"
+                      src="/images/qwebty/logo-v2-hd-blanc.png"
+                      alt="Logo Qwebty - Agence Web & Digital"
+                      sx={{
+                        height: { xs: 40, sm: 46 },
+                        width: 'auto',
+                        objectFit: 'contain',
+                        display: 'block'
+                      }}
+                    />
+                  </Box>
+
                   <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
                     <Typography sx={{ color: 'white', fontSize: '1.05rem', fontWeight: 600, letterSpacing: '0.02em' }}>
                       Qwebty
