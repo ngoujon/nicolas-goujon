@@ -9,6 +9,7 @@ import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import { BsAward, BsBookmarkCheck, BsMortarboard, BsPatchCheck } from "react-icons/bs";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import { logger } from '../utils/logger';
+import { getModeColors } from '../utils/colorMode';
 
 const CONTACT_API_URL = process.env.REACT_APP_CONTACT_API_URL || '/api/contact';
 
@@ -271,6 +272,7 @@ const Home = () => {
     website: '', // honeypot : champ invisible pour les humains, souvent auto-rempli par les bots
   });
   const theme = useTheme();
+  const { fg, fgAlpha, accentBg } = getModeColors(theme.palette.mode);
 
   // Horodatage d'affichage du formulaire, utilisé pour détecter une soumission trop rapide (bot).
   const formRenderedAtRef = useRef(Date.now());
@@ -594,14 +596,14 @@ const Home = () => {
       <Box id="stack" sx={{ 
         pt: { xs: 6, sm: 8, md: 8 },
         pb: { xs: 6, sm: 10, md: 12 },
-        backgroundColor: '#172845',
+        backgroundColor: accentBg,
         scrollMarginTop: '100px',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center'
       }}>
         <Container maxWidth="lg" sx={{ px: { xs: 2, sm: 3 } }}>
-          <SectionTitle component="h2" sx={{ color: 'white' }}>STACK</SectionTitle>
+          <SectionTitle component="h2" sx={{ color: fg }}>STACK</SectionTitle>
           
           <Box sx={{ 
             display: 'flex',
@@ -633,7 +635,7 @@ const Home = () => {
               py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1.5, sm: 3, md: 4 },
                 height: { xs: 44, sm: 52, md: 60 },
                 width: { xs: 44, sm: 52, md: 60 },
@@ -645,7 +647,7 @@ const Home = () => {
                 <i className="bi bi-front" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1, sm: 2 }, 
                 fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
@@ -655,9 +657,9 @@ const Home = () => {
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
               }} component="h3">Front-End</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
-              <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>React JS</Typography>
-              <Typography sx={{ color: 'white', opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Next.js</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>HTML & CSS</Typography>
+              <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>React JS</Typography>
+              <Typography sx={{ color: fg, opacity: 0.7, fontSize: '1rem', fontFamily: 'Garet' }}>Next.js</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>HTML & CSS</Typography>
               </Box>
             </Box>
 
@@ -668,7 +670,7 @@ const Home = () => {
               py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1.5, sm: 3, md: 4 },
                 height: { xs: 44, sm: 52, md: 60 },
                 width: { xs: 44, sm: 52, md: 60 },
@@ -680,7 +682,7 @@ const Home = () => {
                 <i className="bi bi-back" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1, sm: 2 }, 
                 fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
@@ -690,8 +692,8 @@ const Home = () => {
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
               }} component="h3">Back-End</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>PHP & SQL</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>API REST</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>PHP & SQL</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>API REST</Typography>
               </Box>
             </Box>
 
@@ -702,7 +704,7 @@ const Home = () => {
               py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1.5, sm: 3, md: 4 },
                 height: { xs: 44, sm: 52, md: 60 },
                 width: { xs: 44, sm: 52, md: 60 },
@@ -714,7 +716,7 @@ const Home = () => {
                 <i className="bi bi-layout-wtf" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1, sm: 2 }, 
                 fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
@@ -724,11 +726,11 @@ const Home = () => {
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
               }} component="h3">Design</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Security by Design</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Adobe XD</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>UI & UX</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Responsive</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Figma</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Security by Design</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Adobe XD</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>UI & UX</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Responsive</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Figma</Typography>
               </Box>
             </Box>
 
@@ -739,7 +741,7 @@ const Home = () => {
               py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1.5, sm: 3, md: 4 },
                 height: { xs: 44, sm: 52, md: 60 },
                 width: { xs: 44, sm: 52, md: 60 },
@@ -751,7 +753,7 @@ const Home = () => {
                 <i className="bi bi-list-ol" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1, sm: 2 }, 
                 fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
@@ -761,15 +763,15 @@ const Home = () => {
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
               }} component="h3">Référencement</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Google Analytics</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>SEO - SEA - SMO</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Google Analytics</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>SEO - SEA - SMO</Typography>
               </Box>
             </Box>
             </Box>
 
             <Divider sx={{ 
               my: { xs: 2, sm: 3, md: 6, lg: 8 },
-              borderColor: 'rgba(255, 255, 255, 0.1)',
+              borderColor: fgAlpha(0.1),
               width: '100%'
             }} />
 
@@ -797,7 +799,7 @@ const Home = () => {
               py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1.5, sm: 3, md: 4 },
                 height: { xs: 44, sm: 52, md: 60 },
                 width: { xs: 44, sm: 52, md: 60 },
@@ -809,7 +811,7 @@ const Home = () => {
                 <i className="bi bi-cpu" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1, sm: 2 }, 
                 fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
@@ -819,9 +821,9 @@ const Home = () => {
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
               }} component="h3">I.A</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Stable Diffusion</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Open AI</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Mistral</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Stable Diffusion</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Open AI</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Mistral</Typography>
               </Box>
             </Box>
 
@@ -832,7 +834,7 @@ const Home = () => {
               py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1.5, sm: 3, md: 4 },
                 height: { xs: 44, sm: 52, md: 60 },
                 width: { xs: 44, sm: 52, md: 60 },
@@ -844,7 +846,7 @@ const Home = () => {
                 <i className="bi bi-bar-chart-steps" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1, sm: 2 }, 
                 fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
@@ -854,10 +856,10 @@ const Home = () => {
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
               }} component="h3">Agile</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Jira</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Trello</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>MindView</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Gantt</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Jira</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Trello</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>MindView</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Gantt</Typography>
               </Box>
             </Box>
 
@@ -868,7 +870,7 @@ const Home = () => {
               py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1.5, sm: 3, md: 4 },
                 height: { xs: 44, sm: 52, md: 60 },
                 width: { xs: 44, sm: 52, md: 60 },
@@ -880,7 +882,7 @@ const Home = () => {
                 <i className="bi bi-terminal" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1, sm: 2 }, 
                 fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
@@ -890,12 +892,12 @@ const Home = () => {
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
               }} component="h3">DevOps</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Docker</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Git</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>GitHub</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>GitLab</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Vultr</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>OVH</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Docker</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Git</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>GitHub</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>GitLab</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Vultr</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>OVH</Typography>
               </Box>
             </Box>
 
@@ -906,7 +908,7 @@ const Home = () => {
               py: { xs: 1.5, sm: 0 }
             }}>
               <Box sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1.5, sm: 3, md: 4 },
                 height: { xs: 44, sm: 52, md: 60 },
                 width: { xs: 44, sm: 52, md: 60 },
@@ -918,7 +920,7 @@ const Home = () => {
                 <i className="bi bi-gear" style={{ fontSize: '1em' }}></i>
               </Box>
               <Typography sx={{ 
-                color: 'white', 
+                color: fg, 
                 mb: { xs: 1, sm: 2 }, 
                 fontSize: { xs: '1.15rem', sm: '1.5rem', md: '1.8rem' },
                 fontFamily: 'Stop',
@@ -928,10 +930,10 @@ const Home = () => {
                 whiteSpace: { xs: 'normal', md: 'nowrap' }
               }} component="h3">Engineering</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: { xs: 0.5, sm: 1 }, alignItems: 'center' }}>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Application Web / SaaS</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>UML Diagram</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Conception logigramme</Typography>
-                <Typography sx={{ color: 'white', opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Rédaction MU</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Application Web / SaaS</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>UML Diagram</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Conception logigramme</Typography>
+                <Typography sx={{ color: fg, opacity: 0.7, fontSize: { xs: '0.8rem', sm: '0.95rem', md: '1rem' }, fontFamily: 'Garet' }}>Rédaction MU</Typography>
               </Box>
             </Box>
             </Box>
@@ -1070,11 +1072,11 @@ const Home = () => {
       <Box id="bio" sx={{ 
         pt: { xs: 8, sm: 8, md: 8 },
         pb: { xs: 8, sm: 10, md: 12 },
-        backgroundColor: '#172845',
+        backgroundColor: accentBg,
         scrollMarginTop: '100px'
       }}>
         <Container>
-          <SectionTitle component="h2" sx={{ color: 'white' }}>BIO</SectionTitle>
+          <SectionTitle component="h2" sx={{ color: fg }}>BIO</SectionTitle>
           
           {/* Citation Box */}
           <Grid container justifyContent="center" sx={{ mb: 7, px: 2 }}>
@@ -1106,7 +1108,7 @@ const Home = () => {
           <Grid container spacing={{ xs: 2, sm: 4, md: 6 }} alignItems="center">
             <Grid item xs={12}>
               <Typography variant="body1" paragraph sx={{ 
-                color: 'white', 
+                color: fg, 
                 fontSize: '1rem',
                 mb: 2,
                 textAlign: 'justify',
@@ -1121,7 +1123,7 @@ const Home = () => {
                 Au fil des missions, j'ai accompagné des clients très variés : associations, entreprises et particuliers, avec des contextes, des équipes et des contraintes toujours différentes. Cette diversité m'a appris à m'adapter rapidement et à faire face aux imprévus avec efficacité
               </Typography>
               <Typography variant="body1" sx={{ 
-                color: 'white', 
+                color: fg, 
                 fontSize: '1rem',
                 mt: 4,
                 mb: 2,
@@ -1133,19 +1135,19 @@ const Home = () => {
               <Box sx={{
                 borderRadius: 2,
                 overflow: 'hidden',
-                backgroundColor: 'rgba(255, 255, 255, 0.06)',
-                border: '1px solid rgba(255, 255, 255, 0.1)',
+                backgroundColor: fgAlpha(0.06),
+                border: '1px solid __FGALPHA_0.1__',
                 display: 'flex',
                 flexDirection: { xs: 'column', md: 'row' },
                 transition: 'border-color 0.25s ease, box-shadow 0.25s ease',
                 '&:hover': {
-                  borderColor: 'rgba(255, 255, 255, 0.18)',
+                  borderColor: fgAlpha(0.18),
                   boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15)',
                 }
               }}>
                 {/* Zone logo : même bleu que la section (logo blanc visible) */}
                 <Box sx={{
-                  backgroundColor: '#172845',
+                  backgroundColor: accentBg,
                   py: { xs: 2.5, md: 3 },
                   px: { xs: 2.5, md: 3 },
                   display: 'flex',
@@ -1175,10 +1177,10 @@ const Home = () => {
                   </Box>
 
                   <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-                    <Typography sx={{ color: 'white', fontSize: '1.05rem', fontWeight: 600, letterSpacing: '0.02em' }}>
+                    <Typography sx={{ color: fg, fontSize: '1.05rem', fontWeight: 600, letterSpacing: '0.02em' }}>
                       Qwebty
                     </Typography>
-                    <Typography sx={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.85rem', mt: 0.25 }}>
+                    <Typography sx={{ color: fgAlpha(0.8), fontSize: '0.85rem', mt: 0.25 }}>
                       Agence Web & Digital
                     </Typography>
                   </Box>
@@ -1191,7 +1193,7 @@ const Home = () => {
                   gap: 2
                 }}>
                   <Typography sx={{
-                    color: 'rgba(255, 255, 255, 0.92)',
+                    color: fgAlpha(0.92),
                     textAlign: 'justify',
                     lineHeight: 1.75,
                     fontSize: '0.98rem'
@@ -1207,14 +1209,14 @@ const Home = () => {
                     size="small"
                     endIcon={<OpenInNewIcon sx={{ fontSize: '1rem' }} />}
                     sx={{
-                      color: 'rgba(255, 255, 255, 0.95)',
-                      borderColor: 'rgba(255, 255, 255, 0.4)',
+                      color: fgAlpha(0.95),
+                      borderColor: fgAlpha(0.4),
                       textTransform: 'none',
                       fontWeight: 500,
                       fontSize: '0.9rem',
                       '&:hover': {
-                        borderColor: 'white',
-                        backgroundColor: 'rgba(255, 255, 255, 0.08)',
+                        borderColor: fg,
+                        backgroundColor: fgAlpha(0.08),
                       }
                     }}
                   >
@@ -1305,13 +1307,13 @@ const Home = () => {
                 component="form"
                 onSubmit={handleSubmit}
                 sx={{
-                  background: '#172845',
+                  background: accentBg,
                   borderRadius: '18px',
                   p: 4,
                   boxShadow: '0 4px 24px 0 rgba(23,40,69,0.10)',
                 }}
               >
-                <Typography variant="h6" component="h4" sx={{ color: 'white', mb: 3 }}>Comment puis-je vous aider ?</Typography>
+                <Typography variant="h6" component="h4" sx={{ color: fg, mb: 3 }}>Comment puis-je vous aider ?</Typography>
                 
                 <Box sx={{ 
                   display: 'flex', 
@@ -1344,13 +1346,13 @@ const Home = () => {
                       onClick={() => handleOptionClick(option)}
                       sx={{
                         borderRadius: '20px',
-                        borderColor: 'white',
-                        color: selectedOptions.includes(option) ? '#172845' : 'white',
-                        backgroundColor: selectedOptions.includes(option) ? 'white' : '#172845',
+                        borderColor: fg,
+                        color: selectedOptions.includes(option) ? accentBg : fg,
+                        backgroundColor: selectedOptions.includes(option) ? fg : accentBg,
                         '&:hover': {
-                          borderColor: 'white',
-                          backgroundColor: 'white',
-                          color: '#172845',
+                          borderColor: fg,
+                          backgroundColor: fg,
+                          color: accentBg,
                         }
                       }}
                     >
@@ -1378,16 +1380,16 @@ const Home = () => {
                   InputProps={{
                     sx: {
                       borderRadius: 2,
-                      backgroundColor: 'white',
-                      color: '#172845',
+                      backgroundColor: fg,
+                      color: accentBg,
                       '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white',
+                        borderColor: fg,
                       },
                       '&:hover .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white',
+                        borderColor: fg,
                       },
                       '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white',
+                        borderColor: fg,
                       },
                       fontSize: {
                         xs: '0.9rem',
@@ -1419,16 +1421,16 @@ const Home = () => {
                   InputProps={{
                     sx: {
                       borderRadius: 2,
-                      backgroundColor: 'white',
-                      color: '#172845',
+                      backgroundColor: fg,
+                      color: accentBg,
                       '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white',
+                        borderColor: fg,
                       },
                       '&:hover .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white',
+                        borderColor: fg,
                       },
                       '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white',
+                        borderColor: fg,
                       },
                       fontSize: {
                         xs: '0.9rem',
@@ -1461,16 +1463,16 @@ const Home = () => {
                   InputProps={{
                     sx: {
                       borderRadius: 2,
-                      backgroundColor: 'white',
-                      color: '#172845',
+                      backgroundColor: fg,
+                      color: accentBg,
                       '& .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white',
+                        borderColor: fg,
                       },
                       '&:hover .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white',
+                        borderColor: fg,
                       },
                       '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
-                        borderColor: 'white',
+                        borderColor: fg,
                       },
                       fontSize: {
                         xs: '0.9rem',
@@ -1516,8 +1518,8 @@ const Home = () => {
                   }
                   disabled={formStatus === 'sending'}
                   sx={{
-                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                    color: '#172845',
+                    backgroundColor: fgAlpha(0.9),
+                    color: accentBg,
                     borderRadius: '30px',
                     py: 1.5,
                     px: 4,
@@ -1528,7 +1530,7 @@ const Home = () => {
                     boxShadow: 'none',
                     transition: 'all 0.2s ease',
                     '&:hover': {
-                      backgroundColor: 'white',
+                      backgroundColor: fg,
                       transform: 'translateY(-2px)',
                       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
                       '& .MuiSvgIcon-root': {
@@ -1539,8 +1541,8 @@ const Home = () => {
                       transform: 'translateY(0)',
                     },
                     '&:disabled': {
-                      backgroundColor: 'rgba(255, 255, 255, 0.5)',
-                      color: 'rgba(23, 40, 69, 0.6)',
+                      backgroundColor: fgAlpha(0.5),
+                      color: fgAlpha(0.6),
                     },
                     width: '100%',
                     maxWidth: '300px',

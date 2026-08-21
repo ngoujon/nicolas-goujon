@@ -1,10 +1,14 @@
 import React from 'react';
-import { Container, Typography, Box, Button } from '@mui/material';
+import { Container, Typography, Box, Button, useTheme } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
+import { getModeColors } from '../utils/colorMode';
 
 const NotFound = () => {
+  const theme = useTheme();
+  const { bg, fg, fgAlpha } = getModeColors(theme.palette.mode);
+
   return (
     <Box
       sx={{
@@ -12,8 +16,8 @@ const NotFound = () => {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#172845',
-        color: 'white',
+        backgroundColor: bg,
+        color: fg,
       }}
     >
       <Container maxWidth="sm">
@@ -30,7 +34,7 @@ const NotFound = () => {
           <ErrorOutlineIcon
             sx={{
               fontSize: 80,
-              color: 'rgba(255, 255, 255, 0.9)',
+              color: fgAlpha(0.9),
               mb: 2,
             }}
           />
@@ -75,13 +79,13 @@ const NotFound = () => {
             variant="contained"
             startIcon={<HomeIcon />}
             sx={{
-              backgroundColor: 'white',
-              color: '#172845',
+              backgroundColor: fg,
+              color: bg,
               fontWeight: 600,
               px: 3,
               py: 1.5,
               '&:hover': {
-                backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                backgroundColor: fgAlpha(0.9),
               },
             }}
           >

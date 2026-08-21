@@ -4,6 +4,9 @@ import { Link as RouterLink } from 'react-router-dom';
 import MenuIcon from '@mui/icons-material/Menu';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
 import GitHubIcon from '@mui/icons-material/GitHub';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
+import { useThemeMode } from '../utils/ThemeModeContext';
 
 /**
  * Header component that includes navigation and social media links
@@ -12,6 +15,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 const Header = () => {
   // State for mobile menu toggle
   const [open, setOpen] = useState(false);
+  const { mode, toggleMode } = useThemeMode();
 
   // Toggle mobile menu
   const handleToggle = useCallback(() => {
@@ -160,19 +164,34 @@ const Header = () => {
                   {link.icon}
                 </IconButton>
               ))}
+              <IconButton
+                onClick={toggleMode}
+                aria-label={mode === 'dark' ? 'Activer le mode clair' : 'Activer le mode sombre'}
+                sx={{ color: 'white' }}
+              >
+                {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+              </IconButton>
             </Box>
           </Box>
 
           {/* Mobile Menu Button */}
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            onClick={handleToggle}
-            sx={{ display: { xs: 'flex', md: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
+          <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}>
+            <IconButton
+              onClick={toggleMode}
+              aria-label={mode === 'dark' ? 'Activer le mode clair' : 'Activer le mode sombre'}
+              color="inherit"
+            >
+              {mode === 'dark' ? <LightModeIcon /> : <DarkModeIcon />}
+            </IconButton>
+            <IconButton
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              onClick={handleToggle}
+            >
+              <MenuIcon />
+            </IconButton>
+          </Box>
         </Toolbar>
 
         {/* Mobile Menu */}

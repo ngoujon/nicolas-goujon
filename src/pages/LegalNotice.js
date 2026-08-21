@@ -1,12 +1,16 @@
 import React from 'react';
-import { Box, Container, Typography, Divider, Link } from '@mui/material';
+import { Box, Container, Typography, Divider, Link, useTheme } from '@mui/material';
+import { getModeColors } from '../utils/colorMode';
 
 const LegalNotice = () => {
+  const theme = useTheme();
+  const { bg, fg, fgSecondary, fgAlpha, fgSecondaryAlpha } = getModeColors(theme.palette.mode);
+
   return (
     <Box
       sx={{
-        background: '#172845',
-        color: '#e3e8ee',
+        background: bg,
+        color: fgSecondary,
         minHeight: '100vh',
         py: 5,
         px: 2,
@@ -16,7 +20,7 @@ const LegalNotice = () => {
         <Typography
           variant="h1"
           sx={{
-            color: '#ffffff',
+            color: fg,
             mb: 4,
             fontSize: '2.5rem',
             fontWeight: 'bold',
@@ -29,7 +33,7 @@ const LegalNotice = () => {
         <Typography
           variant="body2"
           sx={{
-            color: 'rgba(227, 232, 238, 0.7)',
+            color: fgSecondaryAlpha(0.7),
             mb: 4,
             fontSize: '0.95rem',
           }}
@@ -37,14 +41,14 @@ const LegalNotice = () => {
           Dernière mise à jour : {new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
         </Typography>
 
-        <Divider sx={{ my: 4, borderColor: 'rgba(255,255,255,0.1)' }} />
+        <Divider sx={{ my: 4, borderColor: fgAlpha(0.1) }} />
 
         <Box sx={{ '& > * + *': { mt: 4 } }}>
           <Box>
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -53,7 +57,7 @@ const LegalNotice = () => {
             >
               Éditeur du site
             </Typography>
-            <Typography sx={{ color: '#e3e8ee', lineHeight: 1.8 }}>
+            <Typography sx={{ color: fgSecondary, lineHeight: 1.8 }}>
               <strong>Nom :</strong> Nicolas GOUJON<br />
               <strong>Statut :</strong> Développeur indépendant<br />
               <strong>Adresse :</strong> France<br />
@@ -61,9 +65,9 @@ const LegalNotice = () => {
               <Link
                 href="mailto:contact@nicolas-goujon.fr"
                 sx={{
-                  color: 'rgba(227, 232, 238, 0.92)',
+                  color: fgSecondaryAlpha(0.92),
                   textDecoration: 'underline',
-                  '&:hover': { color: '#e3e8ee' },
+                  '&:hover': { color: fgSecondary },
                 }}
               >
                 contact@nicolas-goujon.fr
@@ -75,7 +79,7 @@ const LegalNotice = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -84,7 +88,7 @@ const LegalNotice = () => {
             >
               Hébergeur
             </Typography>
-            <Typography sx={{ color: '#e3e8ee', lineHeight: 1.8 }}>
+            <Typography sx={{ color: fgSecondary, lineHeight: 1.8 }}>
               Le site est hébergé sur une infrastructure moderne utilisant Docker et Nginx.
               L'infrastructure technique est basée sur :<br />
               <strong>Frontend :</strong> React (Create React App)<br />
@@ -98,7 +102,7 @@ const LegalNotice = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -107,7 +111,7 @@ const LegalNotice = () => {
             >
               Responsable de publication
             </Typography>
-            <Typography sx={{ color: '#e3e8ee', lineHeight: 1.8 }}>
+            <Typography sx={{ color: fgSecondary, lineHeight: 1.8 }}>
               <strong>Nom :</strong> Nicolas GOUJON<br />
               Le responsable de publication est le même que l'éditeur du site. Pour toute question ou réclamation, veuillez nous contacter à l'adresse email ci-dessus.
             </Typography>
@@ -117,7 +121,7 @@ const LegalNotice = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -126,21 +130,21 @@ const LegalNotice = () => {
             >
               Contact
             </Typography>
-            <Typography sx={{ color: '#e3e8ee', lineHeight: 1.8 }}>
+            <Typography sx={{ color: fgSecondary, lineHeight: 1.8 }}>
               Pour toute demande d'information, correction, ou réclamation, vous pouvez nous contacter via :<br />
               <strong>Email :</strong>{' '}
               <Link
                 href="mailto:contact@nicolas-goujon.fr"
                 sx={{
-                  color: 'rgba(227, 232, 238, 0.92)',
+                  color: fgSecondaryAlpha(0.92),
                   textDecoration: 'underline',
-                  '&:hover': { color: '#e3e8ee' },
+                  '&:hover': { color: fgSecondary },
                 }}
               >
                 contact@nicolas-goujon.fr
               </Link>
               <br />
-              <strong>Formulaire de contact :</strong> Disponible via la section <Link href="/#contact" sx={{ color: 'rgba(227, 232, 238, 0.92)', textDecoration: 'underline', '&:hover': { color: '#e3e8ee' } }}>Contact</Link> du site
+              <strong>Formulaire de contact :</strong> Disponible via la section <Link href="/#contact" sx={{ color: fgSecondaryAlpha(0.92), textDecoration: 'underline', '&:hover': { color: fgSecondary } }}>Contact</Link> du site
             </Typography>
           </Box>
 
@@ -148,7 +152,7 @@ const LegalNotice = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -157,7 +161,7 @@ const LegalNotice = () => {
             >
               Propriété intellectuelle
             </Typography>
-            <Typography sx={{ color: '#e3e8ee', lineHeight: 1.8 }}>
+            <Typography sx={{ color: fgSecondary, lineHeight: 1.8 }}>
               L'ensemble des contenus présents sur ce site (textes, images, logos, etc.) sont la propriété de Nicolas GOUJON ou de tiers ayant autorisé leur utilisation.<br />
               <br />
               La reproduction, modification, distribution, transmission ou utilisation de ces contenus, en totalité ou en partie, sans autorisation préalable est interdite.
@@ -168,7 +172,7 @@ const LegalNotice = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -177,7 +181,7 @@ const LegalNotice = () => {
             >
               Liens externes
             </Typography>
-            <Typography sx={{ color: '#e3e8ee', lineHeight: 1.8 }}>
+            <Typography sx={{ color: fgSecondary, lineHeight: 1.8 }}>
               Ce site peut contenir des liens vers d'autres sites externes. Nicolas GOUJON n'est pas responsable du contenu de ces sites externes et décline toute responsabilité quant à leur disponibilité et leur contenu.
             </Typography>
           </Box>
@@ -186,7 +190,7 @@ const LegalNotice = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -195,7 +199,7 @@ const LegalNotice = () => {
             >
               Limitation de responsabilité
             </Typography>
-            <Typography sx={{ color: '#e3e8ee', lineHeight: 1.8 }}>
+            <Typography sx={{ color: fgSecondary, lineHeight: 1.8 }}>
               Ce site est fourni "tel quel" sans garantie d'aucune sorte. Nicolas GOUJON décline toute responsabilité en cas de dysfonctionnement, d'indisponibilité du site ou de dommages résultant de son utilisation.
             </Typography>
           </Box>
@@ -204,7 +208,7 @@ const LegalNotice = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -213,8 +217,8 @@ const LegalNotice = () => {
             >
               Données personnelles
             </Typography>
-            <Typography sx={{ color: '#e3e8ee', lineHeight: 1.8 }}>
-              Pour toute information concernant le traitement de vos données personnelles, veuillez consulter notre <Link href="/politique-confidentialite" sx={{ color: 'rgba(227, 232, 238, 0.92)', textDecoration: 'underline', '&:hover': { color: '#e3e8ee' } }}>Politique de Confidentialité</Link>.
+            <Typography sx={{ color: fgSecondary, lineHeight: 1.8 }}>
+              Pour toute information concernant le traitement de vos données personnelles, veuillez consulter notre <Link href="/politique-confidentialite" sx={{ color: fgSecondaryAlpha(0.92), textDecoration: 'underline', '&:hover': { color: fgSecondary } }}>Politique de Confidentialité</Link>.
             </Typography>
           </Box>
 
@@ -222,7 +226,7 @@ const LegalNotice = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -231,7 +235,7 @@ const LegalNotice = () => {
             >
               Réseaux sociaux
             </Typography>
-            <Typography sx={{ color: '#e3e8ee', lineHeight: 1.8 }}>
+            <Typography sx={{ color: fgSecondary, lineHeight: 1.8 }}>
               Ce site dispose de liens vers les profils LinkedIn et GitHub de Nicolas GOUJON. Ces plateformes externes sont régies par leurs propres conditions d'utilisation.
             </Typography>
           </Box>

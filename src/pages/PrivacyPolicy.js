@@ -1,12 +1,16 @@
 import React from 'react';
-import { Box, Container, Typography, Divider } from '@mui/material';
+import { Box, Container, Typography, Divider, useTheme } from '@mui/material';
+import { getModeColors } from '../utils/colorMode';
 
 const PrivacyPolicy = () => {
+  const theme = useTheme();
+  const { bg, fg, fgSecondary, fgAlpha, fgSecondaryAlpha } = getModeColors(theme.palette.mode);
+
   return (
     <Box
       sx={{
-        background: '#172845',
-        color: '#e3e8ee',
+        background: bg,
+        color: fgSecondary,
         minHeight: '100vh',
         py: 5,
         px: 2,
@@ -16,7 +20,7 @@ const PrivacyPolicy = () => {
         <Typography
           variant="h1"
           sx={{
-            color: '#ffffff',
+            color: fg,
             mb: 4,
             fontSize: '2.5rem',
             fontWeight: 'bold',
@@ -29,7 +33,7 @@ const PrivacyPolicy = () => {
         <Typography
           variant="body2"
           sx={{
-            color: 'rgba(227, 232, 238, 0.7)',
+            color: fgSecondaryAlpha(0.7),
             mb: 4,
             fontSize: '0.95rem',
           }}
@@ -37,14 +41,14 @@ const PrivacyPolicy = () => {
           Dernière mise à jour : {new Date().toLocaleDateString('fr-FR', { year: 'numeric', month: 'long', day: 'numeric' })}
         </Typography>
 
-        <Divider sx={{ my: 4, borderColor: 'rgba(255,255,255,0.1)' }} />
+        <Divider sx={{ my: 4, borderColor: fgAlpha(0.1) }} />
 
         <Box sx={{ '& > * + *': { mt: 4 } }}>
           <Box>
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -56,7 +60,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="body1"
               sx={{
-                color: '#e3e8ee',
+                color: fgSecondary,
                 fontSize: '1rem',
                 lineHeight: '1.6',
               }}
@@ -69,7 +73,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -81,7 +85,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="body1"
               sx={{
-                color: '#e3e8ee',
+                color: fgSecondary,
                 fontSize: '1rem',
                 lineHeight: '1.6',
                 mb: 2,
@@ -90,13 +94,13 @@ const PrivacyPolicy = () => {
               Nous collectons les types de données suivants :
             </Typography>
             <Box component="ul" sx={{ pl: 3 }}>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 <strong>Données de formulaire de contact :</strong> Nom, adresse e-mail, sujet et message fournis volontairement via le formulaire de contact. Ces données sont utilisées uniquement pour vous répondre.
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 <strong>Données techniques :</strong> Adresse IP et informations de journalisation technique, traitées par notre hébergeur pour assurer le fonctionnement et la sécurité du site.
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee' }}>
+              <Typography component="li" sx={{ color: fgSecondary }}>
                 <strong>Ressource externe :</strong> Les icônes du site sont chargées depuis le CDN Cloudflare (cdnjs.cloudflare.com), qui peut recevoir votre adresse IP lors du chargement de cette ressource. Le site n'utilise aucun outil d'analyse d'audience (type Google Analytics) ni cookie de suivi publicitaire.
               </Typography>
             </Box>
@@ -106,7 +110,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -118,7 +122,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="body1"
               sx={{
-                color: '#e3e8ee',
+                color: fgSecondary,
                 fontSize: '1rem',
                 lineHeight: '1.6',
                 mb: 2,
@@ -127,10 +131,10 @@ const PrivacyPolicy = () => {
               Les données collectées sont utilisées pour :
             </Typography>
             <Box component="ul" sx={{ pl: 3 }}>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 Répondre à vos demandes via le formulaire de contact
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee' }}>
+              <Typography component="li" sx={{ color: fgSecondary }}>
                 Assurer le fonctionnement technique, la sécurité et la conformité légale du site
               </Typography>
             </Box>
@@ -140,7 +144,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -152,7 +156,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="body1"
               sx={{
-                color: '#e3e8ee',
+                color: fgSecondary,
                 fontSize: '1rem',
                 lineHeight: '1.6',
               }}
@@ -160,16 +164,16 @@ const PrivacyPolicy = () => {
               Nous ne partageons pas vos données personnelles avec des tiers, sauf :
             </Typography>
             <Box component="ul" sx={{ pl: 3 }}>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 <strong>Hébergeur du site :</strong> Traite les données techniques (adresse IP) nécessaires au fonctionnement du serveur
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 <strong>Service d'envoi d'e-mails :</strong> Adresse e-mail utilisée pour vous répondre si vous contactez le site
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 <strong>CDN Cloudflare (cdnjs.cloudflare.com) :</strong> Livraison des icônes du site, susceptible de recevoir votre adresse IP
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee' }}>
+              <Typography component="li" sx={{ color: fgSecondary }}>
                 <strong>Obligations légales :</strong> Si légalement requises par les autorités compétentes
               </Typography>
             </Box>
@@ -179,7 +183,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -191,7 +195,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="body1"
               sx={{
-                color: '#e3e8ee',
+                color: fgSecondary,
                 fontSize: '1rem',
                 lineHeight: '1.6',
               }}
@@ -204,7 +208,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -216,7 +220,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="body1"
               sx={{
-                color: '#e3e8ee',
+                color: fgSecondary,
                 fontSize: '1rem',
                 lineHeight: '1.6',
                 mb: 2,
@@ -225,29 +229,29 @@ const PrivacyPolicy = () => {
               Conformément au Règlement Général sur la Protection des Données (RGPD), vous disposez des droits suivants :
             </Typography>
             <Box component="ul" sx={{ pl: 3 }}>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 <strong>Droit d'accès :</strong> Demander l'accès aux données personnelles que nous détenons à votre sujet
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 <strong>Droit de rectification :</strong> Corriger les données inexactes ou incomplètes
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 <strong>Droit à l'oubli :</strong> Demander la suppression de vos données personnelles
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 <strong>Droit à la limitation du traitement :</strong> Limiter le traitement de vos données
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee', mb: 1 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 <strong>Droit à la portabilité :</strong> Recevoir vos données dans un format structuré et transférable
               </Typography>
-              <Typography component="li" sx={{ color: '#e3e8ee' }}>
+              <Typography component="li" sx={{ color: fgSecondary }}>
                 <strong>Droit d'opposition :</strong> Vous opposer au traitement de vos données
               </Typography>
             </Box>
             <Typography
               variant="body1"
               sx={{
-                color: '#e3e8ee',
+                color: fgSecondary,
                 fontSize: '1rem',
                 lineHeight: '1.6',
                 mt: 2,
@@ -261,7 +265,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -273,7 +277,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="body1"
               sx={{
-                color: '#e3e8ee',
+                color: fgSecondary,
                 fontSize: '1rem',
                 lineHeight: '1.6',
               }}
@@ -286,7 +290,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -298,7 +302,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="body1"
               sx={{
-                color: '#e3e8ee',
+                color: fgSecondary,
                 fontSize: '1rem',
                 lineHeight: '1.6',
               }}
@@ -311,7 +315,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -323,7 +327,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="body1"
               sx={{
-                color: '#e3e8ee',
+                color: fgSecondary,
                 fontSize: '1rem',
                 lineHeight: '1.6',
               }}
@@ -336,7 +340,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="h2"
               sx={{
-                color: '#ffffff',
+                color: fg,
                 fontSize: '1.8rem',
                 fontWeight: 'bold',
                 mb: 2,
@@ -348,7 +352,7 @@ const PrivacyPolicy = () => {
             <Typography
               variant="body1"
               sx={{
-                color: '#e3e8ee',
+                color: fgSecondary,
                 fontSize: '1rem',
                 lineHeight: '1.6',
               }}
@@ -358,12 +362,12 @@ const PrivacyPolicy = () => {
           </Box>
         </Box>
 
-        <Divider sx={{ my: 4, borderColor: 'rgba(255,255,255,0.1)' }} />
+        <Divider sx={{ my: 4, borderColor: fgAlpha(0.1) }} />
 
         <Typography
           variant="body2"
           sx={{
-            color: 'rgba(227, 232, 238, 0.7)',
+            color: fgSecondaryAlpha(0.7),
             textAlign: 'center',
             mt: 4,
           }}
