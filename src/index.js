@@ -4,6 +4,9 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
+// Le HTML servi au premier chargement est pré-rendu au build (voir
+// tools/prerender.js) afin que le contenu soit visible sans JavaScript.
+// React reprend ensuite la main normalement une fois le bundle chargé.
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
