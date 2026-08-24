@@ -282,7 +282,7 @@ const PrivacyPolicy = () => {
                 lineHeight: '1.6',
               }}
             >
-              Ce site n'utilise aucun cookie d'analyse d'audience ni de suivi publicitaire (pas de Google Analytics ni d'outil similaire). Seuls des cookies strictement nécessaires au fonctionnement technique du site peuvent être déposés.
+              Ce site n'utilise aucun cookie d'analyse d'audience ni de suivi publicitaire (pas de Google Analytics ni d'outil similaire). Seuls des cookies strictement nécessaires au fonctionnement technique du site peuvent être déposés. Si un tel outil venait à être ajouté, un bandeau vous permettrait de l'accepter ou de le refuser avant tout dépôt de cookie.
             </Typography>
           </Box>
 

@@ -5,6 +5,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import ErrorBoundary from './components/ErrorBoundary';
+import CookieConsent from './components/CookieConsent';
 import Home from './pages/Home';
 import Maintenance from './pages/Maintenance';
 import NotFound from './pages/NotFound';
@@ -86,6 +87,7 @@ function ThemedApp() {
             </Routes>
           </main>
           <Footer />
+          <CookieConsent />
         </div>
       </Router>
     </ThemeProvider>
