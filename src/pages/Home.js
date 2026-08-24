@@ -198,18 +198,14 @@ const CitationBox = styled(Box)(({ theme }) => ({
   },
 }));
 
-const CitationImg = styled('div')(() => ({
+const CitationImgWrapper = styled('div')(() => ({
   width: '80px',
   height: '80px',
   borderRadius: '50%',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  border: '3px solid white',
-  boxShadow: '0 4px 24px rgba(23,40,69,0.15)',
-  marginRight: '24px',
   flexShrink: 0,
   position: 'relative',
   top: '-20px',
+  marginRight: '24px',
   '&::after': {
     content: '""',
     position: 'absolute',
@@ -221,6 +217,16 @@ const CitationImg = styled('div')(() => ({
     border: '3px solid white',
     borderRadius: '50%',
   }
+}));
+
+const CitationImg = styled('img')(() => ({
+  width: '80px',
+  height: '80px',
+  borderRadius: '50%',
+  objectFit: 'cover',
+  display: 'block',
+  border: '3px solid white',
+  boxShadow: '0 4px 24px rgba(23,40,69,0.15)',
 }));
 
 const CitationContent = styled(Box)(({ theme }) => ({
@@ -1082,11 +1088,16 @@ const Home = () => {
           <Grid container justifyContent="center" sx={{ mb: 7, px: 2 }}>
             <Grid item xs={12}>
               <CitationBox>
-                <CitationImg 
-                  style={{ backgroundImage: 'image-set(url(/images/profil.webp) 1x type("image/webp"), url(/images/profil.jpg) 1x type("image/jpeg"))' }}
-                  role="img"
-                  aria-label="Photo de profil de Nicolas GOUJON"
-                />
+                <CitationImgWrapper>
+                  <picture>
+                    <source srcSet="/images/profil.webp" type="image/webp" />
+                    <CitationImg
+                      src="/images/profil.jpg"
+                      alt="Photo de profil de Nicolas GOUJON"
+                      loading="lazy"
+                    />
+                  </picture>
+                </CitationImgWrapper>
                 <CitationContent>
                   <CitationHeader>
                     <CitationName>Nicolas GOUJON</CitationName>
