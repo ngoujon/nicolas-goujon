@@ -5,13 +5,13 @@
 
 const SITE_URL = 'https://nicolas-goujon.com';
 
+// /bio, /stack, /formation, /projets et /contact sont des ancres de la page
+// d'accueil (voir seo.js) : ce ne sont pas des pages distinctes pour Google,
+// elles n'ont donc pas leur propre entrée de fil d'Ariane.
+const HOME_ANCHOR_PATHS = ['/bio', '/stack', '/formation', '/projets', '/contact'];
+
 const BREADCRUMB_LABELS = {
   '/': 'Accueil',
-  '/bio': 'Bio',
-  '/stack': 'Stack',
-  '/formation': 'Formation',
-  '/projets': 'Projets',
-  '/contact': 'Contact',
   '/politique-confidentialite': 'Politique de confidentialité',
   '/mentions-legales': 'Mentions légales',
 };
@@ -45,7 +45,7 @@ function buildBreadcrumbList(pathname) {
     { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${SITE_URL}/` },
   ];
 
-  if (pathname !== '/') {
+  if (pathname !== '/' && !HOME_ANCHOR_PATHS.includes(pathname)) {
     itemListElement.push({
       '@type': 'ListItem',
       position: 2,
@@ -64,14 +64,11 @@ function buildBreadcrumbList(pathname) {
 function buildSchemasForPath(pathname) {
   const schemas = [buildBreadcrumbList(pathname)];
 
-  if (pathname === '/projets') {
-    schemas.push(
-      ...SERVICES.map((service) => ({ '@context': 'https://schema.org', ...service }))
-    );
-  }
+  const isHomePage = pathname === '/' || HOME_ANCHOR_PATHS.includes(pathname);
 
-  if (pathname === '/formation') {
+  if (isHomePage) {
     schemas.push(
+      ...SERVICES.map((service) => ({ '@context': 'https://schema.org', ...service })),
       ...CREDENTIALS.map((credential) => ({
         '@context': 'https://schema.org',
         '@type': 'EducationalOccupationalCredential',

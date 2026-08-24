@@ -4,6 +4,13 @@
 
 const SITE_URL = 'https://nicolas-goujon.com';
 
+// /bio, /stack, /formation, /projets et /contact ne sont pas des pages
+// distinctes : ce sont des ancres de la page d'accueil (App.js les fait
+// toutes pointer vers <Home />, Header.js se contente d'un scroll + pushState).
+// Leur contenu HTML est donc identique à celui de "/", elles doivent donc
+// se canonicaliser vers "/" pour éviter tout signal de contenu dupliqué.
+const HOME_ANCHOR_PATHS = ['/bio', '/stack', '/formation', '/projets', '/contact'];
+
 export const SEO_DATA = {
   '/': {
     title: 'Nicolas GOUJON - Développeur Web & Product Owner',
@@ -45,7 +52,9 @@ export function getSeoForPath(pathname) {
 
 export function applySeo(pathname) {
   const { title, description } = getSeoForPath(pathname);
-  const canonicalUrl = `${SITE_URL}${pathname === '/' ? '/' : pathname}`;
+  const canonicalUrl = HOME_ANCHOR_PATHS.includes(pathname)
+    ? `${SITE_URL}/`
+    : `${SITE_URL}${pathname === '/' ? '/' : pathname}`;
 
   document.title = title;
 
