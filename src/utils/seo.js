@@ -46,12 +46,21 @@ export const SEO_DATA = {
   },
 };
 
+// Toute URL hors de SEO_DATA est une page inexistante : nginx la sert avec un
+// vrai statut 404 (voir nginx.conf), et on évite de la faire indexer sous les
+// métadonnées de l'accueil.
+const NOT_FOUND_SEO = {
+  title: 'Page introuvable - Nicolas GOUJON',
+  description: "La page demandée n'existe pas ou a été déplacée.",
+  noindex: true,
+};
+
 export function getSeoForPath(pathname) {
-  return SEO_DATA[pathname] || SEO_DATA['/'];
+  return SEO_DATA[pathname] || NOT_FOUND_SEO;
 }
 
 export function applySeo(pathname) {
-  const { title, description } = getSeoForPath(pathname);
+  const { title, description, noindex } = getSeoForPath(pathname);
   const canonicalUrl = HOME_ANCHOR_PATHS.includes(pathname)
     ? `${SITE_URL}/`
     : `${SITE_URL}${pathname === '/' ? '/' : pathname}`;
@@ -64,6 +73,7 @@ export function applySeo(pathname) {
   };
 
   setMeta('meta[name="description"]', 'content', description);
+  setMeta('meta[name="robots"]', 'content', noindex ? 'noindex, follow' : 'index, follow');
   setMeta('link[rel="canonical"]', 'href', canonicalUrl);
   setMeta('meta[property="og:url"]', 'content', canonicalUrl);
   setMeta('meta[property="og:title"]', 'content', title);

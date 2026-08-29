@@ -67,7 +67,7 @@ const ROUTES = [
   '/mentions-legales',
 ];
 
-async function prerenderRoute(browser, routePath) {
+async function prerenderRoute(browser, routePath, outFile) {
   const page = await browser.newPage();
   await page.goto(`${BASE_URL}${routePath}`, { waitUntil: 'networkidle0' });
   // Laisse le temps aux composants MUI/animations d'appliquer leur rendu initial.
@@ -75,24 +75,36 @@ async function prerenderRoute(browser, routePath) {
   const html = await page.content();
   await page.close();
 
-  const outDir = routePath === '/'
-    ? BUILD_DIR
-    : path.join(BUILD_DIR, routePath.replace(/^\//, ''));
-  await fs.mkdir(outDir, { recursive: true });
-  await fs.writeFile(path.join(outDir, 'index.html'), html, 'utf8');
-  console.log(`  Pré-rendu : ${routePath} -> ${path.relative(BUILD_DIR, outDir) || '.'}/index.html`);
+  const outPath = outFile
+    ? path.join(BUILD_DIR, outFile)
+    : path.join(
+        routePath === '/' ? BUILD_DIR : path.join(BUILD_DIR, routePath.replace(/^\//, '')),
+        'index.html',
+      );
+  await fs.mkdir(path.dirname(outPath), { recursive: true });
+  await fs.writeFile(outPath, html, 'utf8');
+  console.log(`  Pré-rendu : ${routePath} -> ${path.relative(BUILD_DIR, outPath)}`);
 }
 
 async function main() {
   const server = createStaticServer(BUILD_DIR);
   await new Promise((resolve) => server.listen(PORT, resolve));
 
-  const browser = await puppeteer.launch({ headless: 'new' });
+  // --no-sandbox : requis pour Chromium exécuté en root dans le conteneur de build.
+  // PUPPETEER_EXECUTABLE_PATH : Chromium système (Alpine), cf. Dockerfile.
+  const browser = await puppeteer.launch({
+    headless: 'new',
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage'],
+  });
   try {
     console.log('Pré-rendu des pages statiques...');
     for (const routePath of ROUTES) {
       await prerenderRoute(browser, routePath);
     }
+    // Page d'erreur servie par nginx (error_page 404) pour toute URL inconnue :
+    // sans elle, le repli SPA renverrait la page d'accueil en HTTP 200.
+    await prerenderRoute(browser, '/page-introuvable', '404.html');
   } finally {
     await browser.close();
     server.close();

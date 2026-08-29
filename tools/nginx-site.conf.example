@@ -11,6 +11,18 @@ server {
     listen 80;
     server_name nicolas-goujon.fr www.nicolas-goujon.fr;
 
+    # Ne pas divulguer la version de nginx dans l'en-tête `Server`
+    # (le défaut Ubuntu est `server_tokens build`, qui l'expose).
+    # Directive volontairement placée dans ce bloc : elle ne modifie pas les
+    # autres sites hébergés sur la même machine.
+    server_tokens off;
+
+    # Les en-têtes de sécurité (CSP, HSTS, X-Frame-Options, nosniff...) sont
+    # posés par le nginx du conteneur (voir nginx.conf + nginx-security-headers.conf
+    # à la racine du dépôt) et traversent ce proxy tels quels. Ne pas les
+    # redéclarer ici : des en-têtes en double sont ignorés par certains
+    # navigateurs, qui n'appliquent alors plus aucune protection.
+
     location / {
         proxy_pass http://127.0.0.1:3001;
         proxy_http_version 1.1;

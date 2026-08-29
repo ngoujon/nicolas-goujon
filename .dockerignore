@@ -12,4 +12,6 @@ coverage
 ._*
 **/._*
 tools
+# ...sauf le script de pre-rendu, appele par `npm run build` (postbuild)
+!tools/prerender.js
 api
