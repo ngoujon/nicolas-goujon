@@ -25,23 +25,25 @@ const Header = () => {
   /**
    * Scrolls to a specific section and updates URL
    * @param {string} sectionId - The ID of the section to scroll to
+   * @param {string} path - The URL path matching this section's route
    */
-  const scrollToSection = useCallback((sectionId) => {
+  const scrollToSection = useCallback((sectionId, path) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
-      window.history.pushState({}, '', `/${sectionId}`);
+      window.history.pushState({}, '', `/${path}`);
     }
     setOpen(false);
   }, []);
 
   // Navigation items configuration
+  // path correspond aux routes réelles déclarées dans App.js / seo.js
   const navItems = [
-    { id: 'experience', label: 'Expérience' },
-    { id: 'stack', label: 'Stack' },
-    { id: 'formation', label: 'formation' },
-    { id: 'bio', label: 'bio' },
-    { id: 'contact', label: 'contact' },
+    { id: 'experience', path: 'projets', label: 'Expérience' },
+    { id: 'stack', path: 'stack', label: 'Stack' },
+    { id: 'formation', path: 'formation', label: 'formation' },
+    { id: 'bio', path: 'bio', label: 'bio' },
+    { id: 'contact', path: 'contact', label: 'contact' },
   ];
 
   // Social media links configuration
@@ -67,7 +69,7 @@ const Header = () => {
     <Button
       key={item.id}
       color="inherit"
-      onClick={() => scrollToSection(item.id)}
+      onClick={() => scrollToSection(item.id, item.path)}
       sx={{
         color: 'white',
         fontFamily: 'comforta',
@@ -208,8 +210,8 @@ const Header = () => {
               <Button
                 key={item.id}
                 color="inherit"
-                onClick={() => scrollToSection(item.id)}
-                sx={{ 
+                onClick={() => scrollToSection(item.id, item.path)}
+                sx={{
                   color: 'white', 
                   my: 1,
                   width: '100%',
