@@ -1,7 +1,13 @@
 import React from 'react';
 import './SocialShare.css';
 
-const SocialShare = ({ url, title, description }) => {
+interface SocialShareProps {
+  url?: string;
+  title?: string;
+  description?: string;
+}
+
+const SocialShare = ({ url, title, description }: SocialShareProps) => {
   const shareUrl = encodeURIComponent(url || window.location.href);
   const shareTitle = encodeURIComponent(title || document.title);
   const shareDescription = encodeURIComponent(description || '');

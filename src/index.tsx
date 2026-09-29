@@ -18,7 +18,7 @@ window.addEventListener('unhandledrejection', (event) => {
 // Le HTML servi au premier chargement est pré-rendu au build (voir
 // tools/prerender.js) afin que le contenu soit visible sans JavaScript.
 // React reprend ensuite la main normalement une fois le bundle chargé.
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <App />

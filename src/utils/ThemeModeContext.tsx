@@ -1,13 +1,20 @@
 import React, { createContext, useContext, useEffect, useMemo, useState, useCallback } from 'react';
 
-const STORAGE_KEY = 'theme-mode';
-const ThemeModeContext = createContext(null);
+export type ThemeMode = 'light' | 'dark';
 
-const getSystemPreference = () =>
+interface ThemeModeContextValue {
+  mode: ThemeMode;
+  toggleMode: () => void;
+}
+
+const STORAGE_KEY = 'theme-mode';
+const ThemeModeContext = createContext<ThemeModeContextValue | null>(null);
+
+const getSystemPreference = (): ThemeMode =>
   window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
 
-export function ThemeModeProvider({ children }) {
-  const [mode, setMode] = useState(() => {
+export function ThemeModeProvider({ children }: { children: React.ReactNode }) {
+  const [mode, setMode] = useState<ThemeMode>(() => {
     const stored = window.localStorage.getItem(STORAGE_KEY);
     return stored === 'light' || stored === 'dark' ? stored : getSystemPreference();
   });
@@ -17,7 +24,7 @@ export function ThemeModeProvider({ children }) {
   useEffect(() => {
     if (hasManualPreference || !window.matchMedia) return undefined;
     const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const handleChange = (e) => setMode(e.matches ? 'dark' : 'light');
+    const handleChange = (e: MediaQueryListEvent) => setMode(e.matches ? 'dark' : 'light');
     media.addEventListener('change', handleChange);
     return () => media.removeEventListener('change', handleChange);
   }, [hasManualPreference]);

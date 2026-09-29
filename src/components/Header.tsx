@@ -12,6 +12,13 @@ import { useThemeMode } from '../utils/ThemeModeContext';
  * Header component that includes navigation and social media links
  * @returns {JSX.Element} The header component
  */
+
+interface NavItem {
+  id: string;
+  path: string;
+  label: string;
+}
+
 const Header = () => {
   // State for mobile menu toggle
   const [open, setOpen] = useState(false);
@@ -27,7 +34,7 @@ const Header = () => {
    * @param {string} sectionId - The ID of the section to scroll to
    * @param {string} path - The URL path matching this section's route
    */
-  const scrollToSection = useCallback((sectionId, path) => {
+  const scrollToSection = useCallback((sectionId: string, path: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
@@ -37,8 +44,8 @@ const Header = () => {
   }, []);
 
   // Navigation items configuration
-  // path correspond aux routes réelles déclarées dans App.js / seo.js
-  const navItems = [
+  // path correspond aux routes réelles déclarées dans App.tsx / seo.ts
+  const navItems: NavItem[] = [
     { id: 'experience', path: 'projets', label: 'Expérience' },
     { id: 'stack', path: 'stack', label: 'Stack' },
     { id: 'formation', path: 'formation', label: 'formation' },
@@ -65,7 +72,7 @@ const Header = () => {
    * @param {Object} item - Navigation item configuration
    * @returns {JSX.Element} Navigation button
    */
-  const renderNavButton = useCallback((item) => (
+  const renderNavButton = useCallback((item: NavItem) => (
     <Button
       key={item.id}
       color="inherit"

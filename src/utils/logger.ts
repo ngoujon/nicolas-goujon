@@ -7,7 +7,7 @@ class Logger {
    * @param {Error} error - L'erreur à logger
    * @param {string} context - Contexte de l'erreur
    */
-  logError(error, context) {
+  logError(error: Error, context: string) {
     const timestamp = new Date().toISOString();
     const logMessage = `[${timestamp}] [${context}] ${error.message}`;
     
@@ -27,7 +27,7 @@ class Logger {
    * @param {string} message - Le message à logger
    * @param {string} context - Contexte du message
    */
-  logInfo(message, context) {
+  logInfo(message: string, context: string) {
     const timestamp = new Date().toISOString();
     const logMessage = `[${timestamp}] [${context}] ${message}`;
     console.info(logMessage);
@@ -38,7 +38,7 @@ class Logger {
    * @param {string} message - Le message à logger
    * @param {string} context - Contexte du message
    */
-  logWarning(message, context) {
+  logWarning(message: string, context: string) {
     const timestamp = new Date().toISOString();
     const logMessage = `[${timestamp}] [${context}] ${message}`;
     console.warn(logMessage);

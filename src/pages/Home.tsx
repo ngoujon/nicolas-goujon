@@ -33,7 +33,7 @@ const SectionTitle = styled(Typography)(({ theme }) => ({
     fontSize: '3.5rem',
     marginBottom: theme.spacing(10),
   }
-}));
+})) as typeof Typography;
 
 const ProjectCard = styled(Box)(({ theme }) => ({
   textAlign: 'center',
@@ -132,7 +132,7 @@ const HeroName = styled(Typography)(({ theme }) => ({
   [theme.breakpoints.up('lg')]: {
     fontSize: '3.2rem',
   }
-}));
+})) as typeof Typography;
 
 const HeroTitle = styled(Typography)(({ theme }) => ({
   fontSize: '1.3rem',
@@ -267,9 +267,11 @@ const CitationText = styled(Typography)(({ theme }) => ({
  * Composant principal de la page d'accueil
  * Gère l'affichage des différentes sections et le formulaire de contact
  */
+type FormStatus = 'idle' | 'sending' | 'success' | 'error' | null;
+
 const Home = () => {
-  const [formStatus, setFormStatus] = useState('idle');
-  const [selectedOptions, setSelectedOptions] = useState([]);
+  const [formStatus, setFormStatus] = useState<FormStatus>('idle');
+  const [selectedOptions, setSelectedOptions] = useState<string[]>([]);
   const [showScrollArrow, setShowScrollArrow] = useState(true);
   const [formData, setFormData] = useState({
     name: '',
@@ -315,14 +317,14 @@ const Home = () => {
    * Gère les changements dans les champs du formulaire
    * @param {Event} e - Événement de changement
    */
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     });
   };
 
-  const handleOptionClick = (option) => {
+  const handleOptionClick = (option: string) => {
     setSelectedOptions(prevOptions => {
       if (prevOptions.includes(option)) {
         return prevOptions.filter(opt => opt !== option);
@@ -336,7 +338,7 @@ const Home = () => {
    * Gère la soumission du formulaire de contact
    * @param {Event} e - Événement de soumission du formulaire
    */
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setFormStatus('sending');
@@ -370,7 +372,7 @@ const Home = () => {
         setFormStatus(null);
       }, 5000);
     } catch (error) {
-      logger.logError(error, 'Contact Form Submission');
+      logger.logError(error instanceof Error ? error : new Error(String(error)), 'Contact Form Submission');
       setFormStatus('error');
 
       setTimeout(() => {
@@ -1512,7 +1514,7 @@ const Home = () => {
                     name="website"
                     value={formData.website}
                     onChange={handleChange}
-                    tabIndex="-1"
+                    tabIndex={-1}
                     autoComplete="off"
                   />
                 </Box>

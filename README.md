@@ -10,7 +10,7 @@ Site professionnel (React) avec formulaire de contact géré par une API Laravel
 
 ## Stack
 
-- **Frontend** : React (Create React App), Material UI
+- **Frontend** : React + TypeScript (Create React App), Material UI
 - **API contact** : Laravel (PHP), envoi d’emails via SMTP
 - **Docker** : front (nginx + build React) + API Laravel ; nginx proxy `/api` vers Laravel
 
@@ -77,7 +77,7 @@ nicolas-goujon/
 │   ├── routes/api.php
 │   └── .env.example
 ├── public/
-├── src/                    # React
+├── src/                    # React (TypeScript)
 ├── Dockerfile              # Build React + nginx (proxy /api vers api)
 ├── docker-compose.yml      # services: web, api
 ├── nginx.conf

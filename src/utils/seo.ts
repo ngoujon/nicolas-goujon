@@ -5,13 +5,19 @@
 const SITE_URL = 'https://nicolas-goujon.com';
 
 // /bio, /stack, /formation, /projets et /contact ne sont pas des pages
-// distinctes : ce sont des ancres de la page d'accueil (App.js les fait
-// toutes pointer vers <Home />, Header.js se contente d'un scroll + pushState).
+// distinctes : ce sont des ancres de la page d'accueil (App.tsx les fait
+// toutes pointer vers <Home />, Header.tsx se contente d'un scroll + pushState).
 // Leur contenu HTML est donc identique à celui de "/", elles doivent donc
 // se canonicaliser vers "/" pour éviter tout signal de contenu dupliqué.
 const HOME_ANCHOR_PATHS = ['/bio', '/stack', '/formation', '/projets', '/contact'];
 
-export const SEO_DATA = {
+interface SeoEntry {
+  title: string;
+  description: string;
+  noindex?: boolean;
+}
+
+export const SEO_DATA: Record<string, SeoEntry> = {
   '/': {
     title: 'Nicolas GOUJON - Développeur Web & Product Owner',
     description: "Nicolas GOUJON, développeur web et Product Owner : création de sites internet, applications web sur-mesure et solutions IA. Expertise front-end, back-end et référencement.",
@@ -49,17 +55,17 @@ export const SEO_DATA = {
 // Toute URL hors de SEO_DATA est une page inexistante : nginx la sert avec un
 // vrai statut 404 (voir nginx.conf), et on évite de la faire indexer sous les
 // métadonnées de l'accueil.
-const NOT_FOUND_SEO = {
+const NOT_FOUND_SEO: SeoEntry = {
   title: 'Page introuvable - Nicolas GOUJON',
   description: "La page demandée n'existe pas ou a été déplacée.",
   noindex: true,
 };
 
-export function getSeoForPath(pathname) {
+export function getSeoForPath(pathname: string): SeoEntry {
   return SEO_DATA[pathname] || NOT_FOUND_SEO;
 }
 
-export function applySeo(pathname) {
+export function applySeo(pathname: string) {
   const { title, description, noindex } = getSeoForPath(pathname);
   const canonicalUrl = HOME_ANCHOR_PATHS.includes(pathname)
     ? `${SITE_URL}/`
@@ -67,7 +73,7 @@ export function applySeo(pathname) {
 
   document.title = title;
 
-  const setMeta = (selector, attribute, value) => {
+  const setMeta = (selector: string, attribute: string, value: string) => {
     const el = document.querySelector(selector);
     if (el) el.setAttribute(attribute, value);
   };

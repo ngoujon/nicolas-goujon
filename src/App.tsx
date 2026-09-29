@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material';
+import { ThemeProvider, createTheme, PaletteMode } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -30,7 +30,7 @@ function SeoManager() {
   return null;
 }
 
-const createAppTheme = (mode) =>
+const createAppTheme = (mode: PaletteMode) =>
   createTheme({
     palette: {
       mode,

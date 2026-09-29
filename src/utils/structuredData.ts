@@ -6,11 +6,13 @@
 const SITE_URL = 'https://nicolas-goujon.com';
 
 // /bio, /stack, /formation, /projets et /contact sont des ancres de la page
-// d'accueil (voir seo.js) : ce ne sont pas des pages distinctes pour Google,
+// d'accueil (voir seo.ts) : ce ne sont pas des pages distinctes pour Google,
 // elles n'ont donc pas leur propre entrée de fil d'Ariane.
 const HOME_ANCHOR_PATHS = ['/bio', '/stack', '/formation', '/projets', '/contact'];
 
-const BREADCRUMB_LABELS = {
+type JsonLd = Record<string, unknown>;
+
+const BREADCRUMB_LABELS: Record<string, string> = {
   '/': 'Accueil',
   '/politique-confidentialite': 'Politique de confidentialité',
   '/mentions-legales': 'Mentions légales',
@@ -33,14 +35,14 @@ const SERVICES = [
   },
 ];
 
-const CREDENTIALS = [
+const CREDENTIALS: { name: string; issuingOrganization?: string }[] = [
   { name: 'Certification PSPO 1', issuingOrganization: 'Scrum.org' },
   { name: 'Titre Professionnel Développeur web et web mobile' },
   { name: 'Brevet de Technicien Supérieur - Système Numérique Électronique & Communication' },
   { name: 'Baccalauréat STI2D - SIN' },
 ];
 
-function buildBreadcrumbList(pathname) {
+function buildBreadcrumbList(pathname: string): JsonLd {
   const itemListElement = [
     { '@type': 'ListItem', position: 1, name: 'Accueil', item: `${SITE_URL}/` },
   ];
@@ -61,8 +63,8 @@ function buildBreadcrumbList(pathname) {
   };
 }
 
-function buildSchemasForPath(pathname) {
-  const schemas = [buildBreadcrumbList(pathname)];
+function buildSchemasForPath(pathname: string): JsonLd[] {
+  const schemas: JsonLd[] = [buildBreadcrumbList(pathname)];
 
   const isHomePage = pathname === '/' || HOME_ANCHOR_PATHS.includes(pathname);
 
@@ -84,10 +86,10 @@ function buildSchemasForPath(pathname) {
   return schemas;
 }
 
-export function applyStructuredData(pathname) {
+export function applyStructuredData(pathname: string) {
   const schemas = buildSchemasForPath(pathname);
 
-  let script = document.getElementById('dynamic-jsonld');
+  let script = document.getElementById('dynamic-jsonld') as HTMLScriptElement | null;
   if (!script) {
     script = document.createElement('script');
     script.type = 'application/ld+json';

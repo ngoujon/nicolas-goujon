@@ -3,7 +3,7 @@ import { Box, Typography, Button, Stack, Paper } from '@mui/material';
 import { TRACKERS, getConsent, setConsent, applyConsentIfAccepted } from '../utils/cookieConsent';
 
 // Bandeau de consentement RGPD (opt-in) : ne s'affiche que si au moins un
-// tracker non essentiel est configuré dans src/utils/cookieConsent.js, et
+// tracker non essentiel est configuré dans src/utils/cookieConsent.ts, et
 // ne charge ce tracker qu'après acceptation explicite de l'utilisateur.
 function CookieConsent() {
   const [visible, setVisible] = React.useState(false);
@@ -21,7 +21,7 @@ function CookieConsent() {
 
   if (!visible) return null;
 
-  const handleChoice = (accepted) => {
+  const handleChoice = (accepted: boolean) => {
     setConsent(accepted);
     if (accepted) applyConsentIfAccepted();
     setVisible(false);
