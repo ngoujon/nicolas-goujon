@@ -2,6 +2,16 @@
 
 Site professionnel (React) avec formulaire de contact géré par une API Laravel (envoi d’emails SMTP : réception du message + confirmation à l’expéditeur).
 
+## Aperçu
+
+*Captures du site en local ; le formulaire de contact est rempli avec des données fictives.*
+
+![Accueil](docs/screenshots/home.jpg)
+
+| Compétences | Formulaire de contact |
+| --- | --- |
+| ![Stack](docs/screenshots/stack.jpg) | ![Formulaire de contact](docs/screenshots/contact-form.jpg) |
+
 ## Fonctionnalités
 
 - Présentation personnelle, projets, compétences, expérience
