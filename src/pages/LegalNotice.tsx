@@ -218,7 +218,7 @@ const LegalNotice = () => {
               Données personnelles
             </Typography>
             <Typography sx={{ color: fgSecondary, lineHeight: 1.8 }}>
-              Pour toute information concernant le traitement de vos données personnelles, veuillez consulter notre <Link href="/politique-confidentialite" sx={{ color: fgSecondaryAlpha(0.92), textDecoration: 'underline', '&:hover': { color: fgSecondary } }}>Politique de Confidentialité</Link>.
+              Pour toute information concernant le traitement de vos données personnelles, veuillez consulter notre <Link href="/politique-confidentialite" sx={{ color: fgSecondaryAlpha(0.92), textDecoration: 'underline', '&:hover': { color: fgSecondary } }}>Politique de Confidentialité</Link>. La mesure d'audience du site (SEO Monitor) y est décrite dans la section « Mesure d'audience », qui vous permet également de vous y opposer.
             </Typography>
           </Box>
 

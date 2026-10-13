@@ -1,10 +1,18 @@
 import React from 'react';
-import { Box, Container, Typography, Divider, useTheme } from '@mui/material';
+import { Box, Container, Typography, Divider, Link, useTheme } from '@mui/material';
 import { getModeColors } from '../utils/colorMode';
 
 const PrivacyPolicy = () => {
   const theme = useTheme();
   const { bg, fg, fgSecondary, fgAlpha, fgSecondaryAlpha } = getModeColors(theme.palette.mode);
+  const [optedOut, setOptedOut] = React.useState(false);
+
+  // Opposition à la mesure d'audience. Pas de `onclick` inline : la CSP
+  // (`script-src` sans 'unsafe-inline') le bloquerait.
+  const handleOptOut = () => {
+    window.seoMonitor && window.seoMonitor.optOut();
+    setOptedOut(true);
+  };
 
   return (
     <Box
@@ -100,8 +108,11 @@ const PrivacyPolicy = () => {
               <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 <strong>Données techniques :</strong> Adresse IP et informations de journalisation technique, traitées par notre hébergeur pour assurer le fonctionnement et la sécurité du site.
               </Typography>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
+                <strong>Ressource externe :</strong> Les icônes du site sont chargées depuis le CDN Cloudflare (cdnjs.cloudflare.com), qui peut recevoir votre adresse IP lors du chargement de cette ressource. Le site n'utilise aucun outil d'analyse d'audience tiers (type Google Analytics) ni cookie de suivi publicitaire.
+              </Typography>
               <Typography component="li" sx={{ color: fgSecondary }}>
-                <strong>Ressource externe :</strong> Les icônes du site sont chargées depuis le CDN Cloudflare (cdnjs.cloudflare.com), qui peut recevoir votre adresse IP lors du chargement de cette ressource. Le site n'utilise aucun outil d'analyse d'audience (type Google Analytics) ni cookie de suivi publicitaire.
+                <strong>Données de mesure d'audience :</strong> Statistiques de fréquentation anonymes collectées par l'outil auto-hébergé SEO Monitor (voir la section « Mesure d'audience » ci-dessous).
               </Typography>
             </Box>
           </Box>
@@ -133,6 +144,9 @@ const PrivacyPolicy = () => {
             <Box component="ul" sx={{ pl: 3 }}>
               <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
                 Répondre à vos demandes via le formulaire de contact
+              </Typography>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
+                Établir des statistiques de fréquentation anonymes (mesure d'audience)
               </Typography>
               <Typography component="li" sx={{ color: fgSecondary }}>
                 Assurer le fonctionnement technique, la sécurité et la conformité légale du site
@@ -282,7 +296,96 @@ const PrivacyPolicy = () => {
                 lineHeight: '1.6',
               }}
             >
-              Ce site n'utilise aucun cookie d'analyse d'audience ni de suivi publicitaire (pas de Google Analytics ni d'outil similaire). Seuls des cookies strictement nécessaires au fonctionnement technique du site peuvent être déposés. Si un tel outil venait à être ajouté, un bandeau vous permettrait de l'accepter ou de le refuser avant tout dépôt de cookie.
+              Ce site n'utilise aucun cookie de suivi publicitaire ni outil d'analyse tiers (pas de Google Analytics ni d'outil similaire). Seuls des traceurs exemptés de consentement peuvent être déposés : ceux strictement nécessaires au fonctionnement technique du site (par exemple la mémorisation du thème clair / sombre), et l'identifiant <strong>sm_vid</strong> (stockage local du navigateur, first-party ; finalité : mesure d'audience SEO Monitor ; durée : 13 mois maximum ; exempté de consentement, voir la section « Mesure d'audience »). Si un outil soumis à consentement venait à être ajouté, un bandeau vous permettrait de l'accepter ou de le refuser avant tout dépôt.
+            </Typography>
+          </Box>
+
+          <Box id="mesure-audience">
+            <Typography
+              variant="h2"
+              sx={{
+                color: fg,
+                fontSize: '1.8rem',
+                fontWeight: 'bold',
+                mb: 2,
+                fontFamily: '"Garet", "Roboto", "Helvetica", "Arial", sans-serif',
+              }}
+            >
+              8. Mesure d'audience
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: fgSecondary,
+                fontSize: '1rem',
+                lineHeight: '1.6',
+                mb: 2,
+              }}
+            >
+              Ce site utilise SEO Monitor, un outil de mesure d'audience auto-hébergé, afin d'établir des statistiques de fréquentation anonymes (pages consultées, provenance des visites, durée de consultation, type d'appareil). Ces données servent uniquement au bon fonctionnement et à l'amélioration du site.
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                color: fgSecondary,
+                fontSize: '1rem',
+                lineHeight: '1.6',
+                mb: 2,
+              }}
+            >
+              Un identifiant aléatoire est conservé dans votre navigateur pendant 13 mois au maximum. Votre adresse IP n'est jamais enregistrée : elle sert uniquement, de manière éphémère, à déduire un pays et une ville approximatifs. Les données ne sont ni recoupées avec d'autres traitements, ni transmises à des tiers, et sont conservées 25 mois au maximum.
+            </Typography>
+            <Box component="ul" sx={{ pl: 3, mb: 2 }}>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
+                <strong>Responsable du traitement :</strong> Nicolas GOUJON, éditeur du site (contact@nicolas-goujon.fr).
+              </Typography>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
+                <strong>Finalité :</strong> mesure d'audience du site.
+              </Typography>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
+                <strong>Base légale :</strong> intérêt légitime de l'éditeur ; traitement exempté de consentement au titre de l'article 82 de la loi Informatique et Libertés et des lignes directrices de la CNIL relatives aux traceurs.
+              </Typography>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
+                <strong>Données collectées :</strong> pages vues, provenance des visites, durée de consultation, profondeur de défilement, type d'appareil, navigateur, langue, pays et ville approximatifs. L'adresse IP n'est pas conservée.
+              </Typography>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
+                <strong>Durée de conservation :</strong> 25 mois maximum pour les statistiques ; 13 mois maximum pour l'identifiant navigateur (sm_vid).
+              </Typography>
+              <Typography component="li" sx={{ color: fgSecondary, mb: 1 }}>
+                <strong>Destinataires :</strong> aucun tiers. Les données sont hébergées sur un serveur OVH situé en France.
+              </Typography>
+              <Typography component="li" sx={{ color: fgSecondary }}>
+                <strong>Vos droits :</strong> accès, rectification, effacement, opposition et limitation, à exercer à l'adresse contact@nicolas-goujon.fr. Vous pouvez également introduire une réclamation auprès de la CNIL (<Link href="https://www.cnil.fr" target="_blank" rel="noopener noreferrer" sx={{ color: fgSecondaryAlpha(0.92), textDecoration: 'underline' }}>www.cnil.fr</Link>).
+              </Typography>
+            </Box>
+            <Typography
+              variant="body1"
+              sx={{
+                color: fgSecondary,
+                fontSize: '1rem',
+                lineHeight: '1.6',
+              }}
+            >
+              Conformément aux lignes directrices de la CNIL, ce traitement est exempté de consentement. Vous pouvez néanmoins vous y opposer à tout moment :{' '}
+              {optedOut ? (
+                <strong role="status">Vos visites ne sont plus mesurées.</strong>
+              ) : (
+                <Link
+                  component="button"
+                  type="button"
+                  onClick={handleOptOut}
+                  sx={{
+                    color: fgSecondaryAlpha(0.92),
+                    textDecoration: 'underline',
+                    fontSize: 'inherit',
+                    verticalAlign: 'baseline',
+                    '&:hover': { color: fgSecondary },
+                  }}
+                >
+                  ne plus être mesuré
+                </Link>
+              )}
+              .
             </Typography>
           </Box>
 
@@ -297,7 +400,7 @@ const PrivacyPolicy = () => {
                 fontFamily: '"Garet", "Roboto", "Helvetica", "Arial", sans-serif',
               }}
             >
-              8. Liens Externes
+              9. Liens Externes
             </Typography>
             <Typography
               variant="body1"
@@ -322,7 +425,7 @@ const PrivacyPolicy = () => {
                 fontFamily: '"Garet", "Roboto", "Helvetica", "Arial", sans-serif',
               }}
             >
-              9. Modifications de cette Politique
+              10. Modifications de cette Politique
             </Typography>
             <Typography
               variant="body1"
@@ -347,7 +450,7 @@ const PrivacyPolicy = () => {
                 fontFamily: '"Garet", "Roboto", "Helvetica", "Arial", sans-serif',
               }}
             >
-              10. Contact
+              11. Contact
             </Typography>
             <Typography
               variant="body1"

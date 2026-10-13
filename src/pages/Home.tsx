@@ -364,6 +364,8 @@ const Home = () => {
       }
 
       setFormStatus('success');
+      // Conversion de mesure d'audience : aucune donnée personnelle transmise.
+      window.seoMonitor && window.seoMonitor.track('Contact envoyé', { sujets: selectedOptions.length });
       setFormData({ name: '', email: '', message: '', website: '' });
       setSelectedOptions([]);
       formRenderedAtRef.current = Date.now();

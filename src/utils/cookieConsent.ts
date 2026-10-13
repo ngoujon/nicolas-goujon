@@ -1,6 +1,10 @@
 // Configuration centrale du consentement aux cookies non essentiels (RGPD, opt-in).
 //
-// Le site n'utilise actuellement aucun outil de suivi (voir PrivacyPolicy.tsx).
+// Le site n'utilise actuellement aucun outil de suivi soumis à consentement
+// (voir PrivacyPolicy.tsx). La mesure d'audience SEO Monitor (public/index.html,
+// identifiant first-party `sm_vid`) est exemptée de consentement au titre de
+// l'article 82 de la loi Informatique et Libertés : elle ne doit PAS être
+// ajoutée à TRACKERS ni bloquée en attendant le consentement.
 // Ce module prépare le mécanisme de consentement pour le jour où un outil de
 // suivi (Google Analytics, publicité, pixel...) sera réellement intégré.
 //
