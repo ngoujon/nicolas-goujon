@@ -4,7 +4,7 @@ set -euo pipefail
 # =============================================================================
 # Sauvegarde de la base de données SQLite et des fichiers de stockage Laravel.
 # À exécuter SUR LE SERVEUR (VPS), dans le répertoire racine du projet.
-# Automatisation : voir tools/install-backup-cron.sh et tools/BACKUP_PROCEDURE.md
+# Automatisation : voir tools/install-backup-cron.sh et docs/BACKUP_PROCEDURE.md
 # =============================================================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -79,7 +79,7 @@ if [ -n "$BACKUP_S3_BUCKET" ]; then
             log_error "Échec de l'envoi vers S3 — l'archive reste disponible localement dans $BACKUP_DIR."
         fi
     else
-        log_warn "AWS CLI introuvable — sauvegarde conservée uniquement en local. Installer awscli pour activer le stockage externe (voir tools/BACKUP_PROCEDURE.md)."
+        log_warn "AWS CLI introuvable — sauvegarde conservée uniquement en local. Installer awscli pour activer le stockage externe (voir docs/BACKUP_PROCEDURE.md)."
     fi
 else
     log_warn "Aucun BACKUP_S3_BUCKET / AWS_BUCKET configuré — sauvegarde conservée uniquement en local (pas de stockage externe)."

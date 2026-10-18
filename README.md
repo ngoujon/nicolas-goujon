@@ -35,7 +35,7 @@ Site professionnel (React) avec formulaire de contact géré par une API Laravel
 
 ```bash
 npm install
-cp .env.example .env   # ou env.example → adapter les variables
+cp .env.example .env   # adapter les variables
 npm start
 ```
 
@@ -56,7 +56,7 @@ L’API écoute sur [http://localhost:8000](http://localhost:8000). Le front doi
 
 ### 3. Avec Docker (front + API sur un seul port)
 
-À la racine, créer un `.env` (ou copier depuis `env.example`) avec au minimum :
+À la racine, créer un `.env` (copie de `.env.example`) avec au minimum :
 
 - `APP_KEY` : clé Laravel (générer avec `cd api && php artisan key:generate --show`)
 - `MAIL_HOST`, `MAIL_PORT`, `MAIL_USERNAME`, `MAIL_PASSWORD`, `MAIL_FROM_ADDRESS`, `MAIL_FROM_NAME`, `CONTACT_EMAIL_TO`
@@ -80,24 +80,30 @@ docker compose down
 
 ```
 nicolas-goujon/
-├── api/                    # API Laravel (formulaire de contact)
-│   ├── app/Http/Controllers/
-│   ├── app/Mail/
-│   ├── config/
-│   ├── routes/api.php
-│   └── .env.example
-├── public/
-├── src/                    # React (TypeScript)
-├── Dockerfile              # Build React + nginx (proxy /api vers api)
-├── docker-compose.yml      # services: web, api
-├── nginx.conf
-├── env.example             # Récap des variables (front + api + Docker)
-└── README.md
+├── api/                      # API Laravel (formulaire de contact uniquement)
+│   ├── app/Http/Controllers/ # ContactController (validation, anti-spam, envoi)
+│   ├── app/Mail/             # Emails : message au propriétaire + accusé de réception
+│   ├── resources/views/emails/
+│   ├── routes/api.php        # POST /api/contact (5 req/min par IP)
+│   └── tests/Feature/        # Tests du formulaire de contact
+├── src/                      # Frontend React (TypeScript)
+│   ├── components/           # Composants partagés (Header, Footer, Section, LegalLayout…)
+│   ├── data/content.ts       # Contenu éditorial (textes, compétences, liens, navigation)
+│   ├── pages/                # Une page par route (Home, mentions légales, 404…)
+│   ├── sections/             # Sections de la page d'accueil (Hero, Stack, Contact…)
+│   └── utils/                # Thème, SEO/JSON-LD, consentement, logger
+├── public/                   # Fichiers statiques (images, polices, robots.txt, sitemap)
+├── tools/                    # Scripts d'exploitation (déploiement, sauvegarde, pré-rendu)
+├── docs/                     # Procédures (déploiement, sauvegarde) et audits/
+├── Dockerfile                # Build React + pré-rendu + nginx (proxy /api vers api)
+├── docker-compose.yml        # services : web, api (+ mailhog en profil dev)
+├── nginx.conf                # + nginx-security-headers.conf (CSP, HSTS…)
+└── .env.example              # Variables front + Docker
 ```
 
 ## Configuration (env)
 
-Voir **env.example** pour la liste des variables.
+Voir **.env.example** (racine) et **api/.env.example** pour la liste des variables.
 
 - **Frontend** (`.env` à la racine) : `PORT`, `REACT_APP_CONTACT_API_URL` (optionnel en Docker).
 - **API Laravel** (`api/.env`) : `APP_KEY`, `MAIL_*`, `CONTACT_EMAIL_TO`.
@@ -113,11 +119,11 @@ Voir **env.example** pour la liste des variables.
 
 Le script `tools/deploy.sh` déploie le site (port 3001 par défaut). Exposer les variables d’environnement nécessaires à Laravel (SMTP, `CONTACT_EMAIL_TO`, `APP_KEY`) sur le serveur (fichier `.env` ou config du conteneur).
 
-Pour exposer via un domaine, utiliser le template `tools/nginx-site.conf.example` (proxy vers le port du conteneur).
+Pour exposer via un domaine, utiliser le template `tools/nginx-site.conf.example` (proxy vers le port du conteneur). Procédure détaillée : `docs/PROCEDURE_DEPLOIEMENT.md`.
 
 ## Sauvegardes
 
-Sauvegarde automatisée (cron) de la base de données et des fichiers, avec envoi vers un stockage externe et procédure de restauration : voir `tools/BACKUP_PROCEDURE.md`.
+Sauvegarde automatisée (cron) de la base de données et des fichiers, avec envoi vers un stockage externe et procédure de restauration : voir `docs/BACKUP_PROCEDURE.md`.
 
 ## Contact
 
