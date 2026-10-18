@@ -7,7 +7,13 @@ use App\Mail\ContactToOwner;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Throwable;
 
+/**
+ * Formulaire de contact du site (POST /api/contact, limité à 5 requêtes/minute par IP).
+ *
+ * Envoie le message au propriétaire du site, puis un accusé de réception à l'expéditeur.
+ */
 class ContactController extends Controller
 {
     /** Délai minimum (ms) entre l'affichage du formulaire et sa soumission. */
@@ -33,56 +39,37 @@ class ContactController extends Controller
 
         // Défense en profondeur : retire toute balise HTML des champs libres avant usage,
         // en plus de l'échappement automatique de Blade dans les templates d'email.
-        $validated['name'] = strip_tags($validated['name']);
-        $validated['message'] = strip_tags($validated['message']);
-        if (! empty($validated['subjects'])) {
-            $validated['subjects'] = array_map('strip_tags', $validated['subjects']);
-        }
+        $name = strip_tags($validated['name']);
+        $message = strip_tags($validated['message']);
+        $subjects = array_map('strip_tags', $validated['subjects'] ?? []);
+        $subjectsLine = $subjects ? implode(', ', $subjects) : 'Contact depuis le site web';
 
-        $subjects = $validated['subjects'] ?? [];
-        $subjectsLine = count($subjects) > 0
-            ? implode(', ', $subjects)
-            : 'Contact depuis le site web';
-
-        $contactEmailTo = config('mail.contact_to');
-        if (empty($contactEmailTo)) {
-            // En local / dev, accepter une adresse factice pour MailHog
-            if (config('app.env') === 'local') {
-                $contactEmailTo = config('mail.from.address', 'dev@localhost');
-            } else {
-                return response()->json([
-                    'success' => false,
-                    'error' => 'Service email non configuré.',
-                ], 503);
-            }
+        $recipient = $this->resolveRecipient();
+        if ($recipient === null) {
+            return response()->json([
+                'success' => false,
+                'error' => 'Service email non configuré.',
+            ], 503);
         }
 
         try {
-            Mail::to($contactEmailTo)
-                ->send(new ContactToOwner(
-                    name: $validated['name'],
-                    email: $validated['email'],
-                    message: $validated['message'],
-                    subjectsLine: $subjectsLine,
-                ));
+            Mail::to($recipient)->send(new ContactToOwner(
+                name: $name,
+                email: $validated['email'],
+                message: $message,
+                subjectsLine: $subjectsLine,
+            ));
 
-            Mail::to($validated['email'])
-                ->send(new ContactConfirmation(
-                    name: $validated['name'],
-                    message: $validated['message'],
-                    subjectsLine: $subjectsLine,
-                ));
+            Mail::to($validated['email'])->send(new ContactConfirmation(
+                name: $name,
+                message: $message,
+                subjectsLine: $subjectsLine,
+            ));
 
             return response()->json(['success' => true]);
-        } catch (\Throwable $e) {
+        } catch (Throwable $e) {
             report($e);
-
-            // Enregistrer l'erreur réelle pour diagnostic (fix-500.sh lit ce fichier)
-            $logPath = storage_path('logs/mail-error.log');
-            $message = '[' . now()->toIso8601String() . '] ' . $e->getMessage() . "\n"
-                . $e->getFile() . ':' . $e->getLine() . "\n"
-                . $e->getTraceAsString() . "\n---\n";
-            @file_put_contents($logPath, $message, FILE_APPEND | LOCK_EX);
+            $this->logMailError($e);
 
             $response = [
                 'success' => false,
@@ -91,7 +78,7 @@ class ContactController extends Controller
             // Détails d’erreur uniquement en local (jamais en prod, même si APP_DEBUG=true)
             if (config('app.env') === 'local' && config('app.debug')) {
                 $response['debug'] = $e->getMessage();
-                $response['debug_file'] = $e->getFile() . ':' . $e->getLine();
+                $response['debug_file'] = $e->getFile().':'.$e->getLine();
             }
 
             return response()->json($response, 500);
@@ -110,5 +97,30 @@ class ContactController extends Controller
         $elapsedMs = $validated['elapsed_ms'] ?? null;
 
         return $elapsedMs !== null && $elapsedMs < self::MIN_ELAPSED_MS;
+    }
+
+    /**
+     * Adresse destinataire des messages (CONTACT_EMAIL_TO). En local, repli sur l'adresse
+     * d'expédition pour permettre les tests avec MailHog ; ailleurs, null si non configurée.
+     */
+    private function resolveRecipient(): ?string
+    {
+        $recipient = config('mail.contact_to');
+        if (! empty($recipient)) {
+            return $recipient;
+        }
+
+        return config('app.env') === 'local' ? config('mail.from.address', 'dev@localhost') : null;
+    }
+
+    /**
+     * Trace l'erreur d'envoi dans storage/logs/mail-error.log (lu par tools/fix-500.sh).
+     */
+    private function logMailError(Throwable $e): void
+    {
+        $entry = '['.now()->toIso8601String().'] '.$e->getMessage()."\n"
+            .$e->getFile().':'.$e->getLine()."\n"
+            .$e->getTraceAsString()."\n---\n";
+        @file_put_contents(storage_path('logs/mail-error.log'), $entry, FILE_APPEND | LOCK_EX);
     }
 }

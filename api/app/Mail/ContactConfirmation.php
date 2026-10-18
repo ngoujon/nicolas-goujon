@@ -8,6 +8,9 @@ use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Accusé de réception envoyé à l'expéditeur, avec un rappel de son message.
+ */
 class ContactConfirmation extends Mailable
 {
     use Queueable, SerializesModels;
@@ -29,6 +32,7 @@ class ContactConfirmation extends Mailable
     {
         return new Content(
             view: 'emails.contact-confirmation',
+            // `$message` est réservé dans les vues d'email Laravel : le texte y est exposé sous `body`.
             with: [
                 'body' => $this->message,
             ],
