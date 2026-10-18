@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
-import { ThemeProvider, createTheme, PaletteMode } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
 import CssBaseline from '@mui/material/CssBaseline';
 import Header from './components/Header';
 import Footer from './components/Footer';
@@ -11,60 +11,31 @@ import Maintenance from './pages/Maintenance';
 import NotFound from './pages/NotFound';
 import PrivacyPolicy from './pages/PrivacyPolicy';
 import LegalNotice from './pages/LegalNotice';
-import { applySeo } from './utils/seo';
-import { applyStructuredData } from './utils/structuredData';
+import { applySeo, applyStructuredData, HOME_ANCHOR_PATHS } from './utils/seo';
+import { createAppTheme } from './utils/theme';
 import { ThemeModeProvider, useThemeMode } from './utils/ThemeModeContext';
-import './App.css';
+
+/** Passer à `true` pour remplacer la page d'accueil par la page de maintenance. */
+const MAINTENANCE_MODE = false;
 
 // Met à jour le title, les balises meta et les données structurées (JSON-LD)
 // à chaque changement de route, pour que chaque page ait des métadonnées
 // et un balisage sémantique uniques (SEO + pré-rendu).
 function SeoManager() {
-  const location = useLocation();
+  const { pathname } = useLocation();
 
-  React.useEffect(() => {
-    applySeo(location.pathname);
-    applyStructuredData(location.pathname);
-  }, [location.pathname]);
+  useEffect(() => {
+    applySeo(pathname);
+    applyStructuredData(pathname);
+  }, [pathname]);
 
   return null;
 }
 
-const createAppTheme = (mode: PaletteMode) =>
-  createTheme({
-    palette: {
-      mode,
-      primary: {
-        main: '#172845',
-      },
-      secondary: {
-        main: '#FFFFFF',
-      },
-      background: {
-        default: mode === 'dark' ? '#172845' : '#FFFFFF',
-        paper: mode === 'dark' ? '#172845' : '#FFFFFF',
-      },
-      text: {
-        primary: mode === 'dark' ? '#FFFFFF' : '#172845',
-        secondary: mode === 'dark' ? '#FFFFFF' : '#172845',
-      },
-    },
-    typography: {
-      fontFamily: '"Comforta", "Roboto", "Helvetica", "Arial", sans-serif',
-      h1: {
-        fontFamily: '"Comforta", "Roboto", "Helvetica", "Arial", sans-serif',
-        fontWeight: 'bold',
-      },
-      h2: {
-        fontFamily: '"Garet", "Roboto", "Helvetica", "Arial", sans-serif',
-      },
-    },
-  });
-
 function ThemedApp() {
-  const [isMaintenance] = React.useState(false);
   const { mode } = useThemeMode();
-  const theme = React.useMemo(() => createAppTheme(mode), [mode]);
+  const theme = useMemo(() => createAppTheme(mode), [mode]);
+  const homeElement = MAINTENANCE_MODE ? <Maintenance /> : <Home />;
 
   return (
     <ThemeProvider theme={theme}>
@@ -75,12 +46,10 @@ function ThemedApp() {
           <Header />
           <main>
             <Routes>
-              <Route path="/" element={isMaintenance ? <Maintenance /> : <Home />} />
-              <Route path="/bio" element={isMaintenance ? <Maintenance /> : <Home />} />
-              <Route path="/stack" element={isMaintenance ? <Maintenance /> : <Home />} />
-              <Route path="/formation" element={isMaintenance ? <Maintenance /> : <Home />} />
-              <Route path="/projets" element={isMaintenance ? <Maintenance /> : <Home />} />
-              <Route path="/contact" element={isMaintenance ? <Maintenance /> : <Home />} />
+              {/* L'accueil et ses routes de section (/projets, /stack...) affichent la même page */}
+              {['/', ...HOME_ANCHOR_PATHS].map((path) => (
+                <Route key={path} path={path} element={homeElement} />
+              ))}
               <Route path="/politique-confidentialite" element={<PrivacyPolicy />} />
               <Route path="/mentions-legales" element={<LegalNotice />} />
               <Route path="*" element={<NotFound />} />

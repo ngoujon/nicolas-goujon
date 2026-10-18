@@ -1,15 +1,66 @@
+/* Styles globaux. Le reste du style est porté par les composants (MUI `sx` / `styled`). */
+
+/* --- Polices du site --- */
+@font-face {
+  font-family: 'Garet';
+  src: url('../public/fonts/garet.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Stop';
+  src: url('../public/fonts/stop.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Comforta';
+  src: url('../public/fonts/comforta.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* --- Couleurs : mode sombre par défaut (design historique), mode clair inversé ---
+   L'attribut data-theme est posé avant le premier rendu par public/theme-init.js. */
+:root,
+[data-theme='dark'] {
+  --bg-color: #172845;
+  --fg-color: #ffffff;
+}
+
+[data-theme='light'] {
+  --bg-color: #ffffff;
+  --fg-color: #172845;
+}
+
+/* --- Mise en page générale : footer collé en bas de l'écran --- */
+html,
 body {
   margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-color) !important;
+  color: var(--fg-color) !important;
   font-family: 'Comforta';
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  background-color: var(--bg-color, #172845);
 }
 
-#root {
+#root,
+.App {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -20,17 +71,17 @@ main {
   padding: 0;
 }
 
-.App {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+a {
+  text-decoration: none !important;
+  font-family: 'Garet';
 }
 
-code {
-  font-family: 'Stop';
+input {
+  outline: none;
+  font-family: 'Comforta';
 }
 
-/* Nouveau style de scrollbar */
+/* --- Barre de défilement discrète --- */
 :root {
   --scrollbar-width: 12px;
   --scrollbar-track-color: rgba(255, 255, 255, 0.05);
@@ -71,17 +122,7 @@ code {
   background-color: transparent;
 }
 
-/* Pour le coin entre les scrollbars */
-::-webkit-scrollbar-corner {
-  background-color: transparent;
-}
-
-/* Pour les éléments qui peuvent avoir un scroll */
-.scrollable {
-  scrollbar-gutter: stable;
-}
-
-/* Animation de la flèche de scroll */
+/* --- Flèche animée « défiler vers le bas » de la bannière d'accueil (sections/Hero.tsx) --- */
 .scroll-arrow {
   position: absolute;
   bottom: 40px;
@@ -102,14 +143,12 @@ code {
 }
 
 @keyframes pulse {
-  0% {
+  0%,
+  100% {
     transform: scale(1);
   }
   50% {
     transform: scale(1.1);
-  }
-  100% {
-    transform: scale(1);
   }
 }
 

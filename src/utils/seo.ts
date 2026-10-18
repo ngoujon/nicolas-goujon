@@ -1,20 +1,24 @@
-// Métadonnées SEO (title + description) uniques par route.
-// Utilisées par useSeo pour mettre à jour <title>, la meta description,
-// le lien canonical et les balises Open Graph / Twitter à chaque navigation.
+// SEO par route : balises <title>/meta (description, canonical, Open Graph, Twitter)
+// et données structurées JSON-LD. Appliqué à chaque navigation par <SeoManager /> (App.tsx),
+// puis figé dans le HTML au build par le pré-rendu (tools/prerender.js).
+import { FORMATIONS, NAV_ITEMS, OWNER } from '../data/content';
 
 const SITE_URL = 'https://nicolas-goujon.com';
 
-// /bio, /stack, /formation, /projets et /contact ne sont pas des pages
-// distinctes : ce sont des ancres de la page d'accueil (App.tsx les fait
-// toutes pointer vers <Home />, Header.tsx se contente d'un scroll + pushState).
-// Leur contenu HTML est donc identique à celui de "/", elles doivent donc
-// se canonicaliser vers "/" pour éviter tout signal de contenu dupliqué.
-const HOME_ANCHOR_PATHS = ['/bio', '/stack', '/formation', '/projets', '/contact'];
+// /projets, /stack, /formation, /bio et /contact ne sont pas des pages distinctes : ce sont
+// des ancres de la page d'accueil (App.tsx les fait toutes pointer vers <Home />). Leur HTML
+// étant identique à celui de "/", elles se canonicalisent vers "/" (pas de contenu dupliqué)
+// et n'ont pas d'entrée propre dans le fil d'Ariane.
+export const HOME_ANCHOR_PATHS = NAV_ITEMS.map((item) => `/${item.path}`);
+
+const isHomePath = (pathname: string) => pathname === '/' || HOME_ANCHOR_PATHS.includes(pathname);
 
 interface SeoEntry {
   title: string;
   description: string;
   noindex?: boolean;
+  /** Libellé du fil d'Ariane (pages autonomes uniquement). */
+  breadcrumb?: string;
 }
 
 export const SEO_DATA: Record<string, SeoEntry> = {
@@ -45,46 +49,109 @@ export const SEO_DATA: Record<string, SeoEntry> = {
   '/politique-confidentialite': {
     title: 'Politique de confidentialité - Nicolas GOUJON',
     description: "Politique de confidentialité du site de Nicolas GOUJON : données collectées, finalités du traitement et droits des utilisateurs.",
+    breadcrumb: 'Politique de confidentialité',
   },
   '/mentions-legales': {
     title: 'Mentions légales - Nicolas GOUJON',
     description: "Mentions légales du site de Nicolas GOUJON, développeur web et Product Owner : éditeur, hébergeur et informations légales.",
+    breadcrumb: 'Mentions légales',
   },
 };
 
-// Toute URL hors de SEO_DATA est une page inexistante : nginx la sert avec un
-// vrai statut 404 (voir nginx.conf), et on évite de la faire indexer sous les
-// métadonnées de l'accueil.
+// Toute URL hors de SEO_DATA est une page inexistante : nginx la sert avec un vrai statut 404
+// (voir nginx.conf), et on évite de la faire indexer sous les métadonnées de l'accueil.
 const NOT_FOUND_SEO: SeoEntry = {
   title: 'Page introuvable - Nicolas GOUJON',
   description: "La page demandée n'existe pas ou a été déplacée.",
   noindex: true,
 };
 
-export function getSeoForPath(pathname: string): SeoEntry {
-  return SEO_DATA[pathname] || NOT_FOUND_SEO;
-}
-
+/** Met à jour le titre et les balises meta du document pour la route donnée. */
 export function applySeo(pathname: string) {
-  const { title, description, noindex } = getSeoForPath(pathname);
-  const canonicalUrl = HOME_ANCHOR_PATHS.includes(pathname)
-    ? `${SITE_URL}/`
-    : `${SITE_URL}${pathname === '/' ? '/' : pathname}`;
+  const { title, description, noindex } = SEO_DATA[pathname] || NOT_FOUND_SEO;
+  const canonicalUrl = `${SITE_URL}${isHomePath(pathname) ? '/' : pathname}`;
 
   document.title = title;
 
   const setMeta = (selector: string, attribute: string, value: string) => {
-    const el = document.querySelector(selector);
-    if (el) el.setAttribute(attribute, value);
+    document.querySelector(selector)?.setAttribute(attribute, value);
   };
 
   setMeta('meta[name="description"]', 'content', description);
   setMeta('meta[name="robots"]', 'content', noindex ? 'noindex, follow' : 'index, follow');
   setMeta('link[rel="canonical"]', 'href', canonicalUrl);
-  setMeta('meta[property="og:url"]', 'content', canonicalUrl);
-  setMeta('meta[property="og:title"]', 'content', title);
-  setMeta('meta[property="og:description"]', 'content', description);
-  setMeta('meta[property="twitter:url"]', 'content', canonicalUrl);
-  setMeta('meta[property="twitter:title"]', 'content', title);
-  setMeta('meta[property="twitter:description"]', 'content', description);
+  for (const prefix of ['og', 'twitter']) {
+    setMeta(`meta[property="${prefix}:url"]`, 'content', canonicalUrl);
+    setMeta(`meta[property="${prefix}:title"]`, 'content', title);
+    setMeta(`meta[property="${prefix}:description"]`, 'content', description);
+  }
+}
+
+// --- Données structurées (JSON-LD) ---------------------------------------------------------
+// Complètent les schémas statiques Person/Organization de public/index.html.
+
+type JsonLd = Record<string, unknown>;
+
+const CONTEXT = 'https://schema.org';
+const PERSON = { '@type': 'Person', name: OWNER.name };
+
+const SERVICES = [
+  {
+    name: 'Applications web sur-mesure',
+    description: "Sites vitrines, applications web complexes, e-commerce et sites institutionnels développés avec React, Next.js et API REST.",
+  },
+  {
+    name: 'Solutions IA',
+    description: "Intégration d'API OpenAI, chatbots intelligents, génération d'images (DALL-E, Stable Diffusion) et déploiement local de modèles IA.",
+  },
+];
+
+function buildSchemasForPath(pathname: string): JsonLd[] {
+  const itemListElement = [{ '@type': 'ListItem', position: 1, name: 'Accueil', item: `${SITE_URL}/` }];
+  if (!isHomePath(pathname)) {
+    itemListElement.push({
+      '@type': 'ListItem',
+      position: 2,
+      name: SEO_DATA[pathname]?.breadcrumb || pathname,
+      item: `${SITE_URL}${pathname}`,
+    });
+  }
+  const schemas: JsonLd[] = [{ '@context': CONTEXT, '@type': 'BreadcrumbList', itemListElement }];
+
+  // Services proposés et diplômes : uniquement sur la page d'accueil, où ils sont affichés.
+  if (isHomePath(pathname)) {
+    schemas.push(
+      ...SERVICES.map((service) => ({
+        '@context': CONTEXT,
+        '@type': 'Service',
+        ...service,
+        provider: PERSON,
+        areaServed: 'FR',
+      })),
+      ...FORMATIONS.map(({ credential, issuer }) => ({
+        '@context': CONTEXT,
+        '@type': 'EducationalOccupationalCredential',
+        name: credential,
+        about: PERSON,
+        ...(issuer ? { recognizedBy: { '@type': 'Organization', name: issuer } } : {}),
+      })),
+    );
+  }
+
+  return schemas;
+}
+
+/** Injecte (ou met à jour) l'unique <script type="application/ld+json"> dynamique. */
+export function applyStructuredData(pathname: string) {
+  const schemas = buildSchemasForPath(pathname);
+
+  let script = document.getElementById('dynamic-jsonld') as HTMLScriptElement | null;
+  if (!script) {
+    script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'dynamic-jsonld';
+    document.head.appendChild(script);
+  }
+
+  script.textContent = JSON.stringify(schemas.length === 1 ? schemas[0] : schemas);
 }

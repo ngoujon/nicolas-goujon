@@ -3,7 +3,7 @@ import { Container, Typography, Box, Button, useTheme } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import HomeIcon from '@mui/icons-material/Home';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
-import { getModeColors } from '../utils/colorMode';
+import { getModeColors } from '../utils/theme';
 
 const NotFound = () => {
   const theme = useTheme();
