@@ -1,4 +1,5 @@
-FROM php:8.4-cli-alpine AS builder
+# Version épinglée : 8.4.27 corrige php2shell (CVE-2026-109618 / CVE-2026-109619).
+FROM php:8.4.27-cli-alpine AS builder
 
 RUN apk add --no-cache $PHPIZE_DEPS git unzip libzip-dev libpng-dev oniguruma-dev icu-dev \
     && docker-php-ext-install zip pcntl exif intl opcache \
@@ -13,9 +14,12 @@ COPY . .
 RUN chmod -R a+rX /app
 RUN composer dump-autoload --optimize
 
-FROM php:8.4-cli-alpine
+FROM php:8.4.27-cli-alpine
 
 RUN apk add --no-cache libzip icu-libs
+
+# Mitigation php2shell : la progression d'upload en session est le vecteur connu.
+RUN echo "session.upload_progress.enabled=Off" > /usr/local/etc/php/conf.d/zz-php2shell.ini
 
 WORKDIR /app
 
